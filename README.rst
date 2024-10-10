@@ -1,4 +1,4 @@
-Dynamsoft Capture Vision Bundle
+Dynamsoft Capture Vision Bundle for Python
 ====================================================
 |version| |python| |pypi| 
 
@@ -8,7 +8,7 @@ Dynamsoft Capture Vision Bundle
 
 
 What You Should Know About Dynamsoft Capture Vision Bundle
----------------------------------------------------
+----------------------------------------------------------
 |trial|
 
 .. |trial| image:: https://img.shields.io/badge/Get-30--day%20FREE%20Trial-blue
