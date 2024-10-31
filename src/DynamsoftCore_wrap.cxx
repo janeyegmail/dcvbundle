@@ -4969,42 +4969,71 @@ extern "C"
     PyObject *argv[2] = {
         0};
 
-    if (!(argc = SWIG_Python_UnpackTuple(args, "new_CContour", 0, 1, argv)))
+    if (!(argc = SWIG_Python_UnpackTuple(args, "new_CContour", 0, 0, argv)))
       SWIG_fail;
     --argc;
-    if (argc == 0)
-    {
+    // if (argc == 0)
+    // {
       return _wrap_new_CContour__SWIG_0(self, argc, argv);
-    }
-    if (argc == 1)
-    {
-      int _v = 0;
-      int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_dynamsoft__basic_structures__CContour, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        return _wrap_new_CContour__SWIG_1(self, argc, argv);
-      }
-    }
-    if (argc == 1)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__basic_structures__CContour, SWIG_POINTER_NO_NULL);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        return _wrap_new_CContour__SWIG_2(self, argc, argv);
-      }
-    }
+    // }
+    // if (argc == 1)
+    // {
+    //   int _v = 0;
+    //   int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_dynamsoft__basic_structures__CContour, SWIG_POINTER_NO_NULL | 0);
+    //   _v = SWIG_CheckState(res);
+    //   if (_v)
+    //   {
+    //     return _wrap_new_CContour__SWIG_1(self, argc, argv);
+    //   }
+    // }
+    // if (argc == 1)
+    // {
+    //   int _v = 0;
+    //   void *vptr = 0;
+    //   int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__basic_structures__CContour, SWIG_POINTER_NO_NULL);
+    //   _v = SWIG_CheckState(res);
+    //   if (_v)
+    //   {
+    //     return _wrap_new_CContour__SWIG_2(self, argc, argv);
+    //   }
+    // }
 
   fail:
     SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_CContour'.\n"
                                        "  Possible C/C++ prototypes are:\n"
-                                       "    dynamsoft::basic_structures::CContour::CContour()\n"
-                                       "    dynamsoft::basic_structures::CContour::CContour(dynamsoft::basic_structures::CContour const &)\n"
-                                       "    dynamsoft::basic_structures::CContour::CContour(dynamsoft::basic_structures::CContour &&)\n");
+                                       "    dynamsoft::basic_structures::CContour::CContour()\n");
     return 0;
+  }
+
+  static bool getCpointArraryFromPyList(PyObject *list, dynamsoft::basic_structures::CPoint **array, int *length)
+  {
+    (*length) = 0;
+    Py_ssize_t list_size;
+    if (!PyList_Check(list))
+    {
+      return false;
+    }
+    list_size = PyList_Size(list);
+    (*array) = new dynamsoft::basic_structures::CPoint[list_size];
+    for (Py_ssize_t i = 0; i < list_size; ++i)
+    {
+      PyObject *item = PyList_GetItem(list, i);
+      if (item == NULL)
+      {
+        delete[] (*array);
+        return false;
+      }
+      dynamsoft::basic_structures::CPoint *p = 0;
+      int res3 = SWIG_ConvertPtr(item, (void **)&p, SWIGTYPE_p_dynamsoft__basic_structures__DMPoint_T_int_t, 0 | 0);
+      if (!SWIG_IsOK(res3))
+      {
+        delete[] (*array);
+        return false;
+      }
+      (*array)[i].Set((*p)[0], (*p)[1]);
+    }
+    (*length) = (int)list_size;
+    return true;
   }
 
   SWIGINTERN PyObject *_wrap_CContour_SetPoints(PyObject *self, PyObject *args)
@@ -6477,6 +6506,7 @@ extern "C"
     PyObject *resultobj = 0;
     dynamsoft::basic_structures::CQuadrilateral *arg1 = (dynamsoft::basic_structures::CQuadrilateral *)0;
     dynamsoft::basic_structures::CPoint *arg2;
+    int pointsCount = 0;
     void *argp1 = 0;
     int res1 = 0;
     void *argp2 = 0;
@@ -6497,21 +6527,20 @@ extern "C"
                                                "'");
     }
     arg1 = reinterpret_cast<dynamsoft::basic_structures::CQuadrilateral *>(argp1);
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_dynamsoft__basic_structures__DMPoint_T_int_t, 0 | 0);
-    if (!SWIG_IsOK(res2))
+    // res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_dynamsoft__basic_structures__DMPoint_T_int_t, 0 | 0);
+    // if (!SWIG_IsOK(res2))
+    // {
+    //   SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
+    //                                            "CQuadrilateral_points_set"
+    //                                            "', argument "
+    //                                            "2"
+    //                                            " of type '"
+    //                                            "dynamsoft::basic_structures::CPoint [4]"
+    //                                            "'");
+    // }
+    // arg2 = reinterpret_cast<dynamsoft::basic_structures::CPoint *>(argp2);
+    if (getCpointArraryFromPyList(swig_obj[1], &arg2, &pointsCount))
     {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
-                                               "CQuadrilateral_points_set"
-                                               "', argument "
-                                               "2"
-                                               " of type '"
-                                               "dynamsoft::basic_structures::CPoint [4]"
-                                               "'");
-    }
-    arg2 = reinterpret_cast<dynamsoft::basic_structures::CPoint *>(argp2);
-    {
-      if (arg2)
-      {
         size_t ii = 0;
         for (; ii < (size_t)4; ++ii)
           *(dynamsoft::basic_structures::CPoint *)&arg1->points[ii] = *((dynamsoft::basic_structures::CPoint *)arg2 + ii);
@@ -6525,7 +6554,6 @@ extern "C"
                                              "dynamsoft::basic_structures::CPoint [4]"
                                              "'");
       }
-    }
     resultobj = SWIG_Py_Void();
     return resultobj;
   fail:
@@ -11442,7 +11470,37 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
   fail:
     return NULL;
   }
+  PyObject* PyObject_GetAttrString_withNoException(PyObject* obj, const char* attr)
+  {
+    PyObject* attr_value = PyObject_GetAttrString(obj, attr);
+    if (!attr_value)
+    {
+      if (PyErr_Occurred())
+      {
+        PyErr_Clear();
+      }
+    }
+    return attr_value;
+  }
 
+  static void UpdateCQuadrilateralPointsFromPythonObject(dynamsoft::basic_structures::CQuadrilateral *quad, PyObject *obj)
+  {
+    if (quad == NULL || obj == NULL) 
+        return;
+
+    PyObject* attr_value = PyObject_GetAttrString_withNoException(obj, "_point_list");
+    if (!attr_value)
+        return;
+    dynamsoft::basic_structures::CPoint* array = nullptr;
+    int length = 0;
+    if(getCpointArraryFromPyList(attr_value, &array, &length) && length==4)
+    {
+      for(int i = 0; i < 4; i++)
+        quad->points[i] = array[i];
+      delete[] array, array = nullptr;
+    }
+    Py_DECREF(attr_value);
+  }
   SWIGINTERN PyObject *_wrap_CRegionObjectElement_SetLocation(PyObject *self, PyObject *args)
   {
     PyObject *resultobj = 0;
@@ -11492,6 +11550,7 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
                                            "'");
     }
     arg2 = reinterpret_cast<dynamsoft::basic_structures::CQuadrilateral *>(argp2);
+    UpdateCQuadrilateralPointsFromPythonObject(arg2, swig_obj[1]);
     result = (int)(arg1)->SetLocation((dynamsoft::basic_structures::CQuadrilateral const &)*arg2);
     resultobj = SWIG_From_int(static_cast<int>(result));
     return resultobj;
@@ -13697,6 +13756,7 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
                                            "'");
     }
     arg1 = reinterpret_cast<dynamsoft::basic_structures::CQuadrilateral *>(argp1);
+    UpdateCQuadrilateralPointsFromPythonObject(arg1, swig_obj[0]);
     result = (dynamsoft::intermediate_results::CTextZone *)new dynamsoft::intermediate_results::CTextZone((dynamsoft::basic_structures::CQuadrilateral const &)*arg1);
     resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__intermediate_results__CTextZone, SWIG_POINTER_NEW | 0);
     return resultobj;
@@ -13743,6 +13803,7 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
                                            "'");
     }
     arg1 = reinterpret_cast<dynamsoft::basic_structures::CQuadrilateral *>(argp1);
+    UpdateCQuadrilateralPointsFromPythonObject(arg1, swig_obj[0]);
     res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_int, 0 | 0);
     if (!SWIG_IsOK(res2))
     {
@@ -13909,6 +13970,7 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
                                            "'");
     }
     arg2 = reinterpret_cast<dynamsoft::basic_structures::CQuadrilateral *>(argp2);
+    UpdateCQuadrilateralPointsFromPythonObject(arg2, swig_obj[1]);
     (arg1)->SetLocation((dynamsoft::basic_structures::CQuadrilateral const &)*arg2);
     resultobj = SWIG_Py_Void();
     return resultobj;

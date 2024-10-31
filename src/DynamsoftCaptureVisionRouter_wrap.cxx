@@ -4458,6 +4458,232 @@ extern "C"
     return NULL;
   }
 
+  static bool getCpointArraryFromPyList(PyObject *list, dynamsoft::basic_structures::CPoint **array, int *length)
+  {
+    (*length) = 0;
+    Py_ssize_t list_size;
+    if (!PyList_Check(list))
+    {
+      return false;
+    }
+    list_size = PyList_Size(list);
+    (*array) = new dynamsoft::basic_structures::CPoint[list_size];
+    for (Py_ssize_t i = 0; i < list_size; ++i)
+    {
+      PyObject *item = PyList_GetItem(list, i);
+      if (item == NULL)
+      {
+        delete[] (*array);
+        return false;
+      }
+      dynamsoft::basic_structures::CPoint *p = 0;
+      int res3 = SWIG_ConvertPtr(item, (void **)&p, SWIGTYPE_p_dynamsoft__basic_structures__DMPoint_T_int_t, 0 | 0);
+      if (!SWIG_IsOK(res3))
+      {
+        delete[] (*array);
+        return false;
+      }
+      (*array)[i].Set((*p)[0], (*p)[1]);
+    }
+    (*length) = (int)list_size;
+    return true;
+  }
+
+  int *convertPythonListToCpp(PyObject *obj, int& expectedSize)
+  {
+
+    if (PyList_Check(obj))
+    {
+      // Iterate over the Python list and append elements to the C++ vector
+      Py_ssize_t size = PyList_Size(obj);
+      if(expectedSize == 0)
+        expectedSize = static_cast<int>(size);
+      if (size != expectedSize)
+        return nullptr;
+      int *ret = new int[expectedSize]{0};
+      for (Py_ssize_t i = 0; i < size; ++i)
+      {
+        PyObject *item = PyList_GetItem(obj, i);
+        if (PyLong_Check(item))
+        {
+          ret[i] = PyLong_AsLong(item);
+        }
+        else
+        {
+          delete[] ret;
+          return nullptr; // or throw an exception
+        }
+      }
+      return ret;
+    }
+    else
+    {
+      return nullptr;
+    }
+    return nullptr;
+  }
+  PyObject* PyObject_GetAttrString_withNoException(PyObject* obj, const char* attr)
+  {
+    PyObject* attr_value = PyObject_GetAttrString(obj, attr);
+    if (!attr_value)
+    {
+      if (PyErr_Occurred())
+      {
+        PyErr_Clear();
+      }
+    }
+    return attr_value;
+  }
+  static void UpdateSimplifiedDocumentNormalizerSettingsFromPythonObject(SimplifiedDocumentNormalizerSettings *settings, PyObject *obj)
+  {
+    if (settings == nullptr || obj == nullptr)
+      return;
+    int length{8};
+    int *array{nullptr};
+    PyObject *attr_value = PyObject_GetAttrString_withNoException(obj, "_grayscale_transformation_modes");
+    if (attr_value)
+    {
+      length = 8;
+      array = convertPythonListToCpp(attr_value, length);
+      if (array)
+      {
+        for (int i = 0; i < 8; i++)
+          settings->grayscaleTransformationModes[i] = static_cast<GrayscaleTransformationMode>(array[i]);
+        delete[] array, array = nullptr;
+      }
+      Py_DECREF(attr_value);
+      attr_value = nullptr;
+    }
+    attr_value = PyObject_GetAttrString_withNoException(obj, "_grayscale_enhancement_modes");
+    if (attr_value)
+    {
+      array = convertPythonListToCpp(attr_value, length);
+      if (array)
+      {
+        for (int i = 0; i < 8; i++)
+          settings->grayscaleEnhancementModes[i] = static_cast<GrayscaleEnhancementMode>(array[i]);
+        delete[] array, array = nullptr;
+      }
+      Py_DECREF(attr_value);
+    }
+  }
+
+  static void UpdateSimplifiedLabelRecognizerSettingsFromPythonObject(SimplifiedLabelRecognizerSettings *settings, PyObject *obj)
+  {
+    if (settings == nullptr || obj == nullptr)
+      return;
+    int length{8};
+    int *array{nullptr};
+    PyObject *attr_value = PyObject_GetAttrString_withNoException(obj, "_grayscale_transformation_modes");
+    if (attr_value)
+    {
+      length = 8;
+      array = convertPythonListToCpp(attr_value, length);
+      if (array)
+      {
+        for (int i = 0; i < 8; i++)
+          settings->grayscaleTransformationModes[i] = static_cast<GrayscaleTransformationMode>(array[i]);
+        delete[] array, array = nullptr;
+      }
+      Py_DECREF(attr_value);
+      attr_value = nullptr;
+    }
+    attr_value = PyObject_GetAttrString_withNoException(obj, "_grayscale_enhancement_modes");
+    if (attr_value)
+    {
+      array = convertPythonListToCpp(attr_value, length);
+      if (array)
+      {
+        for (int i = 0; i < 8; i++)
+          settings->grayscaleEnhancementModes[i] = static_cast<GrayscaleEnhancementMode>(array[i]);
+        delete[] array, array = nullptr;
+      }
+      Py_DECREF(attr_value);
+    }
+  }
+
+  static void UpdateSimplifiedBarcodeReaderSettingsFromPythonObject(SimplifiedBarcodeReaderSettings *settings, PyObject *obj)
+  {
+    if (settings == nullptr || obj == nullptr)
+      return;
+    int length{8};
+    int *array{nullptr};
+    PyObject *attr_value = PyObject_GetAttrString_withNoException(obj, "_grayscale_transformation_modes");
+    if (attr_value)
+    {
+      length = 8;
+      array = convertPythonListToCpp(attr_value, length);
+      if (array)
+      {
+        for (int i = 0; i < 8; i++)
+          settings->grayscaleTransformationModes[i] = static_cast<GrayscaleTransformationMode>(array[i]);
+        delete[] array, array = nullptr;
+      }
+      Py_DECREF(attr_value);
+      attr_value = nullptr;
+    }
+    attr_value = PyObject_GetAttrString_withNoException(obj, "_grayscale_enhancement_modes");
+    if (attr_value)
+    {
+      array = convertPythonListToCpp(attr_value, length);
+      if (array)
+      {
+        for (int i = 0; i < 8; i++)
+          settings->grayscaleEnhancementModes[i] = static_cast<GrayscaleEnhancementMode>(array[i]);
+        delete[] array, array = nullptr;
+      }
+      Py_DECREF(attr_value);
+      attr_value = nullptr;
+    }
+    attr_value = PyObject_GetAttrString_withNoException(obj, "_localization_modes");
+    if (attr_value)
+    {
+      array = convertPythonListToCpp(attr_value, length);
+      if (array)
+      {
+        for (int i = 0; i < 8; i++)
+          settings->localizationModes[i] = static_cast<LocalizationMode>(array[i]);
+        delete[] array, array = nullptr;
+      }
+      Py_DECREF(attr_value);
+      attr_value = nullptr;
+    }
+    length = 10;
+    attr_value = PyObject_GetAttrString_withNoException(obj, "_deblur_modes");
+    if (attr_value)
+    {
+      array = convertPythonListToCpp(attr_value, length);
+      if (array)
+      {
+        for (int i = 0; i < 10; i++)
+          settings->deblurModes[i] = static_cast<DeblurMode>(array[i]);
+        delete[] array, array = nullptr;
+      }
+      Py_DECREF(attr_value);
+      attr_value = nullptr;
+    }
+  }
+
+  static void UpdateCQuadrilateralPointsFromPythonObject(dynamsoft::basic_structures::CQuadrilateral *quad, PyObject *obj)
+  {
+    if (quad == NULL || obj == NULL)
+        return;
+
+    PyObject* attr_value = PyObject_GetAttrString_withNoException(obj, "_point_list");
+    if (!attr_value)
+        return;
+
+    dynamsoft::basic_structures::CPoint* array = nullptr;
+    int length = 0;
+    if(getCpointArraryFromPyList(attr_value, &array, &length) && length==4)
+    {
+      for(int i = 0; i < 4; i++)
+        quad->points[i] = array[i];
+      delete[] array, array = nullptr;
+    }
+    Py_DECREF(attr_value);
+  }
+
   SWIGINTERN PyObject *_wrap_SimplifiedCaptureVisionSettings_roi_set(PyObject *self, PyObject *args)
   {
     PyObject *resultobj = 0;
@@ -4495,6 +4721,7 @@ extern "C"
                                                "'");
     }
     arg2 = reinterpret_cast<dynamsoft::basic_structures::CQuadrilateral *>(argp2);
+    UpdateCQuadrilateralPointsFromPythonObject(arg2, swig_obj[1]);
     if (arg1)
       (arg1)->roi = *arg2;
     resultobj = SWIG_Py_Void();
@@ -4529,6 +4756,7 @@ extern "C"
     arg1 = reinterpret_cast<tagSimplifiedCaptureVisionSettings *>(argp1);
     result = (dynamsoft::basic_structures::CQuadrilateral *)&((arg1)->roi);
     resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__basic_structures__CQuadrilateral, 0 | 0);
+    // PyObject_SetAttrString(resultobj, "_point_list", SWIG_Py_Void());
     return resultobj;
   fail:
     return NULL;
@@ -10601,188 +10829,188 @@ extern "C"
     return NULL;
   }
 
-  SWIGINTERN PyObject *_wrap_CCaptureVisionRouter_UpdateSettings__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
-  {
-    PyObject *resultobj = 0;
-    dynamsoft::cvr::CCaptureVisionRouter *arg1 = (dynamsoft::cvr::CCaptureVisionRouter *)0;
-    char *arg2 = (char *)0;
-    SimplifiedCaptureVisionSettings *arg3 = (SimplifiedCaptureVisionSettings *)0;
-    char *arg4;
-    int arg5;
-    void *argp1 = 0;
-    int res1 = 0;
-    int res2;
-    char *buf2 = 0;
-    int alloc2 = 0;
-    void *argp3 = 0;
-    int res3 = 0;
-    int res4;
-    char *buf4 = 0;
-    int alloc4 = 0;
-    int val5;
-    int ecode5 = 0;
-    int result;
+  // SWIGINTERN PyObject *_wrap_CCaptureVisionRouter_UpdateSettings__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
+  // {
+  //   PyObject *resultobj = 0;
+  //   dynamsoft::cvr::CCaptureVisionRouter *arg1 = (dynamsoft::cvr::CCaptureVisionRouter *)0;
+  //   char *arg2 = (char *)0;
+  //   SimplifiedCaptureVisionSettings *arg3 = (SimplifiedCaptureVisionSettings *)0;
+  //   char *arg4;
+  //   int arg5;
+  //   void *argp1 = 0;
+  //   int res1 = 0;
+  //   int res2;
+  //   char *buf2 = 0;
+  //   int alloc2 = 0;
+  //   void *argp3 = 0;
+  //   int res3 = 0;
+  //   int res4;
+  //   char *buf4 = 0;
+  //   int alloc4 = 0;
+  //   int val5;
+  //   int ecode5 = 0;
+  //   int result;
 
-    if ((nobjs < 5) || (nobjs > 5))
-      SWIG_fail;
-    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__cvr__CCaptureVisionRouter, 0 | 0);
-    if (!SWIG_IsOK(res1))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
-                                               "CCaptureVisionRouter_UpdateSettings"
-                                               "', argument "
-                                               "1"
-                                               " of type '"
-                                               "dynamsoft::cvr::CCaptureVisionRouter *"
-                                               "'");
-    }
-    arg1 = reinterpret_cast<dynamsoft::cvr::CCaptureVisionRouter *>(argp1);
-    res2 = SWIG_AsCharPtrAndSize(swig_obj[1], &buf2, NULL, &alloc2);
-    if (!SWIG_IsOK(res2))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
-                                               "CCaptureVisionRouter_UpdateSettings"
-                                               "', argument "
-                                               "2"
-                                               " of type '"
-                                               "char const *"
-                                               "'");
-    }
-    arg2 = reinterpret_cast<char *>(buf2);
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_tagSimplifiedCaptureVisionSettings, 0 | 0);
-    if (!SWIG_IsOK(res3))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
-                                               "CCaptureVisionRouter_UpdateSettings"
-                                               "', argument "
-                                               "3"
-                                               " of type '"
-                                               "SimplifiedCaptureVisionSettings const *"
-                                               "'");
-    }
-    arg3 = reinterpret_cast<SimplifiedCaptureVisionSettings *>(argp3);
-    res4 = SWIG_AsCharPtrAndSize(swig_obj[3], &buf4, NULL, &alloc4);
-    if (!SWIG_IsOK(res4))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res4), "in method '"
-                                               "CCaptureVisionRouter_UpdateSettings"
-                                               "', argument "
-                                               "4"
-                                               " of type '"
-                                               "char []"
-                                               "'");
-    }
-    arg4 = reinterpret_cast<char *>(buf4);
-    ecode5 = SWIG_AsVal_int(swig_obj[4], &val5);
-    if (!SWIG_IsOK(ecode5))
-    {
-      SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '"
-                                                 "CCaptureVisionRouter_UpdateSettings"
-                                                 "', argument "
-                                                 "5"
-                                                 " of type '"
-                                                 "int"
-                                                 "'");
-    }
-    arg5 = static_cast<int>(val5);
-    result = (int)(arg1)->UpdateSettings((char const *)arg2, (SimplifiedCaptureVisionSettings const *)arg3, arg4, arg5);
-    resultobj = SWIG_From_int(static_cast<int>(result));
-    if (alloc2 == SWIG_NEWOBJ)
-      delete[] buf2;
-    if (alloc4 == SWIG_NEWOBJ)
-      delete[] buf4;
-    return resultobj;
-  fail:
-    if (alloc2 == SWIG_NEWOBJ)
-      delete[] buf2;
-    if (alloc4 == SWIG_NEWOBJ)
-      delete[] buf4;
-    return NULL;
-  }
+  //   if ((nobjs < 5) || (nobjs > 5))
+  //     SWIG_fail;
+  //   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__cvr__CCaptureVisionRouter, 0 | 0);
+  //   if (!SWIG_IsOK(res1))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+  //                                              "CCaptureVisionRouter_UpdateSettings"
+  //                                              "', argument "
+  //                                              "1"
+  //                                              " of type '"
+  //                                              "dynamsoft::cvr::CCaptureVisionRouter *"
+  //                                              "'");
+  //   }
+  //   arg1 = reinterpret_cast<dynamsoft::cvr::CCaptureVisionRouter *>(argp1);
+  //   res2 = SWIG_AsCharPtrAndSize(swig_obj[1], &buf2, NULL, &alloc2);
+  //   if (!SWIG_IsOK(res2))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
+  //                                              "CCaptureVisionRouter_UpdateSettings"
+  //                                              "', argument "
+  //                                              "2"
+  //                                              " of type '"
+  //                                              "char const *"
+  //                                              "'");
+  //   }
+  //   arg2 = reinterpret_cast<char *>(buf2);
+  //   res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_tagSimplifiedCaptureVisionSettings, 0 | 0);
+  //   if (!SWIG_IsOK(res3))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
+  //                                              "CCaptureVisionRouter_UpdateSettings"
+  //                                              "', argument "
+  //                                              "3"
+  //                                              " of type '"
+  //                                              "SimplifiedCaptureVisionSettings const *"
+  //                                              "'");
+  //   }
+  //   arg3 = reinterpret_cast<SimplifiedCaptureVisionSettings *>(argp3);
+  //   res4 = SWIG_AsCharPtrAndSize(swig_obj[3], &buf4, NULL, &alloc4);
+  //   if (!SWIG_IsOK(res4))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res4), "in method '"
+  //                                              "CCaptureVisionRouter_UpdateSettings"
+  //                                              "', argument "
+  //                                              "4"
+  //                                              " of type '"
+  //                                              "char []"
+  //                                              "'");
+  //   }
+  //   arg4 = reinterpret_cast<char *>(buf4);
+  //   ecode5 = SWIG_AsVal_int(swig_obj[4], &val5);
+  //   if (!SWIG_IsOK(ecode5))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '"
+  //                                                "CCaptureVisionRouter_UpdateSettings"
+  //                                                "', argument "
+  //                                                "5"
+  //                                                " of type '"
+  //                                                "int"
+  //                                                "'");
+  //   }
+  //   arg5 = static_cast<int>(val5);
+  //   result = (int)(arg1)->UpdateSettings((char const *)arg2, (SimplifiedCaptureVisionSettings const *)arg3, arg4, arg5);
+  //   resultobj = SWIG_From_int(static_cast<int>(result));
+  //   if (alloc2 == SWIG_NEWOBJ)
+  //     delete[] buf2;
+  //   if (alloc4 == SWIG_NEWOBJ)
+  //     delete[] buf4;
+  //   return resultobj;
+  // fail:
+  //   if (alloc2 == SWIG_NEWOBJ)
+  //     delete[] buf2;
+  //   if (alloc4 == SWIG_NEWOBJ)
+  //     delete[] buf4;
+  //   return NULL;
+  // }
 
-  SWIGINTERN PyObject *_wrap_CCaptureVisionRouter_UpdateSettings__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
-  {
-    PyObject *resultobj = 0;
-    dynamsoft::cvr::CCaptureVisionRouter *arg1 = (dynamsoft::cvr::CCaptureVisionRouter *)0;
-    char *arg2 = (char *)0;
-    SimplifiedCaptureVisionSettings *arg3 = (SimplifiedCaptureVisionSettings *)0;
-    char *arg4;
-    void *argp1 = 0;
-    int res1 = 0;
-    int res2;
-    char *buf2 = 0;
-    int alloc2 = 0;
-    void *argp3 = 0;
-    int res3 = 0;
-    int res4;
-    char *buf4 = 0;
-    int alloc4 = 0;
-    int result;
+  // SWIGINTERN PyObject *_wrap_CCaptureVisionRouter_UpdateSettings__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
+  // {
+  //   PyObject *resultobj = 0;
+  //   dynamsoft::cvr::CCaptureVisionRouter *arg1 = (dynamsoft::cvr::CCaptureVisionRouter *)0;
+  //   char *arg2 = (char *)0;
+  //   SimplifiedCaptureVisionSettings *arg3 = (SimplifiedCaptureVisionSettings *)0;
+  //   char *arg4;
+  //   void *argp1 = 0;
+  //   int res1 = 0;
+  //   int res2;
+  //   char *buf2 = 0;
+  //   int alloc2 = 0;
+  //   void *argp3 = 0;
+  //   int res3 = 0;
+  //   int res4;
+  //   char *buf4 = 0;
+  //   int alloc4 = 0;
+  //   int result;
 
-    if ((nobjs < 4) || (nobjs > 4))
-      SWIG_fail;
-    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__cvr__CCaptureVisionRouter, 0 | 0);
-    if (!SWIG_IsOK(res1))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
-                                               "CCaptureVisionRouter_UpdateSettings"
-                                               "', argument "
-                                               "1"
-                                               " of type '"
-                                               "dynamsoft::cvr::CCaptureVisionRouter *"
-                                               "'");
-    }
-    arg1 = reinterpret_cast<dynamsoft::cvr::CCaptureVisionRouter *>(argp1);
-    res2 = SWIG_AsCharPtrAndSize(swig_obj[1], &buf2, NULL, &alloc2);
-    if (!SWIG_IsOK(res2))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
-                                               "CCaptureVisionRouter_UpdateSettings"
-                                               "', argument "
-                                               "2"
-                                               " of type '"
-                                               "char const *"
-                                               "'");
-    }
-    arg2 = reinterpret_cast<char *>(buf2);
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_tagSimplifiedCaptureVisionSettings, 0 | 0);
-    if (!SWIG_IsOK(res3))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
-                                               "CCaptureVisionRouter_UpdateSettings"
-                                               "', argument "
-                                               "3"
-                                               " of type '"
-                                               "SimplifiedCaptureVisionSettings const *"
-                                               "'");
-    }
-    arg3 = reinterpret_cast<SimplifiedCaptureVisionSettings *>(argp3);
-    res4 = SWIG_AsCharPtrAndSize(swig_obj[3], &buf4, NULL, &alloc4);
-    if (!SWIG_IsOK(res4))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res4), "in method '"
-                                               "CCaptureVisionRouter_UpdateSettings"
-                                               "', argument "
-                                               "4"
-                                               " of type '"
-                                               "char []"
-                                               "'");
-    }
-    arg4 = reinterpret_cast<char *>(buf4);
-    result = (int)(arg1)->UpdateSettings((char const *)arg2, (SimplifiedCaptureVisionSettings const *)arg3, arg4);
-    resultobj = SWIG_From_int(static_cast<int>(result));
-    if (alloc2 == SWIG_NEWOBJ)
-      delete[] buf2;
-    if (alloc4 == SWIG_NEWOBJ)
-      delete[] buf4;
-    return resultobj;
-  fail:
-    if (alloc2 == SWIG_NEWOBJ)
-      delete[] buf2;
-    if (alloc4 == SWIG_NEWOBJ)
-      delete[] buf4;
-    return NULL;
-  }
+  //   if ((nobjs < 4) || (nobjs > 4))
+  //     SWIG_fail;
+  //   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__cvr__CCaptureVisionRouter, 0 | 0);
+  //   if (!SWIG_IsOK(res1))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+  //                                              "CCaptureVisionRouter_UpdateSettings"
+  //                                              "', argument "
+  //                                              "1"
+  //                                              " of type '"
+  //                                              "dynamsoft::cvr::CCaptureVisionRouter *"
+  //                                              "'");
+  //   }
+  //   arg1 = reinterpret_cast<dynamsoft::cvr::CCaptureVisionRouter *>(argp1);
+  //   res2 = SWIG_AsCharPtrAndSize(swig_obj[1], &buf2, NULL, &alloc2);
+  //   if (!SWIG_IsOK(res2))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
+  //                                              "CCaptureVisionRouter_UpdateSettings"
+  //                                              "', argument "
+  //                                              "2"
+  //                                              " of type '"
+  //                                              "char const *"
+  //                                              "'");
+  //   }
+  //   arg2 = reinterpret_cast<char *>(buf2);
+  //   res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_tagSimplifiedCaptureVisionSettings, 0 | 0);
+  //   if (!SWIG_IsOK(res3))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
+  //                                              "CCaptureVisionRouter_UpdateSettings"
+  //                                              "', argument "
+  //                                              "3"
+  //                                              " of type '"
+  //                                              "SimplifiedCaptureVisionSettings const *"
+  //                                              "'");
+  //   }
+  //   arg3 = reinterpret_cast<SimplifiedCaptureVisionSettings *>(argp3);
+  //   res4 = SWIG_AsCharPtrAndSize(swig_obj[3], &buf4, NULL, &alloc4);
+  //   if (!SWIG_IsOK(res4))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res4), "in method '"
+  //                                              "CCaptureVisionRouter_UpdateSettings"
+  //                                              "', argument "
+  //                                              "4"
+  //                                              " of type '"
+  //                                              "char []"
+  //                                              "'");
+  //   }
+  //   arg4 = reinterpret_cast<char *>(buf4);
+  //   result = (int)(arg1)->UpdateSettings((char const *)arg2, (SimplifiedCaptureVisionSettings const *)arg3, arg4);
+  //   resultobj = SWIG_From_int(static_cast<int>(result));
+  //   if (alloc2 == SWIG_NEWOBJ)
+  //     delete[] buf2;
+  //   if (alloc4 == SWIG_NEWOBJ)
+  //     delete[] buf4;
+  //   return resultobj;
+  // fail:
+  //   if (alloc2 == SWIG_NEWOBJ)
+  //     delete[] buf2;
+  //   if (alloc4 == SWIG_NEWOBJ)
+  //     delete[] buf4;
+  //   return NULL;
+  // }
 
   SWIGINTERN PyObject *_wrap_CCaptureVisionRouter_UpdateSettings__SWIG_2(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
   {
@@ -10839,6 +11067,57 @@ extern "C"
                                                "'");
     }
     arg3 = reinterpret_cast<SimplifiedCaptureVisionSettings *>(argp3);
+    {
+      PyObject* roi = PyObject_GetAttrString_withNoException(swig_obj[2], "_roi");
+      if(roi)
+      {
+        dynamsoft::basic_structures::CQuadrilateral *quad{nullptr};
+        int ret = SWIG_ConvertPtr(roi, (void**)&quad, SWIGTYPE_p_dynamsoft__basic_structures__CQuadrilateral, 0 | 0);
+        if(SWIG_IsOK(res3))
+        {
+          UpdateCQuadrilateralPointsFromPythonObject(quad, roi);
+          arg3->roi = *quad;
+        }
+        Py_DECREF(roi);
+      }
+      PyObject* barcodeSetting = PyObject_GetAttrString_withNoException(swig_obj[2], "_barcode_settings");
+      if(barcodeSetting)
+      {
+        SimplifiedBarcodeReaderSettings *brs = nullptr;
+        int ret = SWIG_ConvertPtr(barcodeSetting, (void**)&brs, SWIGTYPE_p_tagSimplifiedBarcodeReaderSettings, 0 | 0);
+        if (SWIG_IsOK(ret))
+        {
+          UpdateSimplifiedBarcodeReaderSettingsFromPythonObject(brs, barcodeSetting);
+          
+          (arg3)->barcodeSettings = *brs;
+        }
+        Py_DECREF(barcodeSetting);
+      }
+      PyObject* labelSetting = PyObject_GetAttrString_withNoException(swig_obj[2], "_label_settings");
+      if(labelSetting)
+      {
+        SimplifiedLabelRecognizerSettings *lrs = nullptr;
+        int ret = SWIG_ConvertPtr(labelSetting, (void**)&lrs, SWIGTYPE_p_tagSimplifiedLabelRecognizerSettings, 0 | 0);
+        if (SWIG_IsOK(ret))
+        {
+          UpdateSimplifiedLabelRecognizerSettingsFromPythonObject(lrs, labelSetting);
+          (arg3)->labelSettings = *lrs;
+        }
+        Py_DECREF(labelSetting);
+      }
+      PyObject* documentSetting = PyObject_GetAttrString_withNoException(swig_obj[2], "_document_settings");
+      if(documentSetting)
+      {
+        SimplifiedDocumentNormalizerSettings *dns = nullptr;
+        int ret = SWIG_ConvertPtr(documentSetting, (void**)&dns, SWIGTYPE_p_SimplifiedDocumentNormalizerSettings, 0 | 0);
+        if (SWIG_IsOK(ret))
+        {
+          UpdateSimplifiedDocumentNormalizerSettingsFromPythonObject(dns, documentSetting);
+          (arg3)->documentSettings = *dns;
+        }
+        Py_DECREF(documentSetting);
+      }
+    }
     result = (int)(arg1)->UpdateSettings((char const *)arg2, (SimplifiedCaptureVisionSettings const *)arg3, errMsg, 1023);
     resultobj = SWIG_From_int(static_cast<int>(result));
     obj2 = PyUnicode_FromString(errMsg);

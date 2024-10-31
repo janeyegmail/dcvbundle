@@ -1,4 +1,4 @@
-__version__ = "2.4.20"
+__version__ = "2.4.21.4961"
 
 if __package__ or "." in __name__:
     from .core import *
@@ -15,7 +15,7 @@ from enum import Enum, IntEnum
 from typing import Tuple, List
 
 
-class EnumPresetTemplate(Enum):
+class EnumPresetTemplate(str, Enum):
     PT_DEFAULT = _DynamsoftCaptureVisionRouter.getPT_DEFAULT()
     PT_READ_BARCODES = _DynamsoftCaptureVisionRouter.getPT_READ_BARCODES()
     PT_RECOGNIZE_TEXT_LINES = _DynamsoftCaptureVisionRouter.getPT_RECOGNIZE_TEXT_LINES()
@@ -82,11 +82,22 @@ class SimplifiedCaptureVisionSettings(object):
         _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_capturedResultItemTypes_set,
         doc="Specifies the type(s) of captured result item(s) that will be captured. It is a bitwise OR combination of one or more values from the EnumCapturedResultItemType enumeration."
     )
-    roi: Quadrilateral = property(
-        _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_roi_get,
-        _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_roi_set,
-        doc="Specifies the region of interest (ROI) where the image capture and recognition will take place."
-    )
+    # roi: Quadrilateral = property(
+    #     _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_roi_get,
+    #     _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_roi_set,
+    #     doc="Specifies the region of interest (ROI) where the image capture and recognition will take place."
+    # )
+    @property
+    def roi(self) -> Quadrilateral:
+        if not hasattr(self, '_roi') or self._roi is None:
+            self._roi = _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_roi_get(self)
+        return self._roi
+    @roi.setter
+    def roi(self, value: Quadrilateral):
+        if not hasattr(self, '_roi') or self._roi is None:
+            self._roi = _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_roi_get(self)
+        _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_roi_set(self, value)
+        self._roi = value
     roi_measured_in_percentage: int = property(
         _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_roiMeasuredInPercentage_get,
         _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_roiMeasuredInPercentage_set,
@@ -102,16 +113,38 @@ class SimplifiedCaptureVisionSettings(object):
         _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_timeout_set,
         doc="Specifies the maximum time (in milliseconds) allowed for image capture and recognition."
     )
-    barcode_settings: "SimplifiedBarcodeReaderSettings" = property(
-        _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_barcodeSettings_get,
-        _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_barcodeSettings_set,
-        doc="Specifies the settings for barcode recognition."
-    )
-    label_settings: "SimplifiedLabelRecognizerSettings" = property(
-        _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_labelSettings_get,
-        _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_labelSettings_set,
-        doc="Specifies the settings for label recognition."
-    )
+    @property
+    def barcode_settings(self) -> "SimplifiedBarcodeReaderSettings":
+        if not hasattr(self, '_barcode_settings') or self._barcode_settings is None:
+            self._barcode_settings = _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_barcodeSettings_get(self)
+        return self._barcode_settings
+    @barcode_settings.setter
+    def barcode_settings(self, value: "SimplifiedBarcodeReaderSettings"):
+        if not hasattr(self, '_barcode_settings') or self._barcode_settings is None:
+            self._barcode_settings = _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_barcodeSettings_get(self)
+        _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_barcodeSettings_set(self, value)
+        self._barcode_settings = value
+    @property
+    def label_settings(self) -> "SimplifiedLabelRecognizerSettings":
+        if not hasattr(self, '_label_settings') or self._label_settings is None:
+            self._label_settings = _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_labelSettings_get(self)
+        return self._label_settings
+    @label_settings.setter
+    def label_settings(self, value: "SimplifiedLabelRecognizerSettings"):
+        if not hasattr(self, '_label_settings') or self._label_settings is None:
+            self._label_settings = _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_labelSettings_get(self)
+        _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_labelSettings_set(self, value)
+        self._label_settings = value
+    # barcode_settings: "SimplifiedBarcodeReaderSettings" = property(
+    #     _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_barcodeSettings_get,
+    #     _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_barcodeSettings_set,
+    #     doc="Specifies the settings for barcode recognition."
+    # )
+    # label_settings: "SimplifiedLabelRecognizerSettings" = property(
+    #     _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_labelSettings_get,
+    #     _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_labelSettings_set,
+    #     doc="Specifies the settings for label recognition."
+    # )
     min_image_capture_interval: int = property(
         _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_minImageCaptureInterval_get,
         _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_minImageCaptureInterval_set,
@@ -123,11 +156,22 @@ class SimplifiedCaptureVisionSettings(object):
             Please note that the actual time interval between captures may be longer than the specified minimum interval due to various factors, such as image processing time and hardware limitations.
             """
     )
-    document_settings: "SimplifiedDocumentNormalizerSettings" = property(
-        _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_documentSettings_get,
-        _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_documentSettings_set,
-        doc="Specifies the settings for document normalization."
-    )
+    @property
+    def document_settings(self) -> "SimplifiedDocumentNormalizerSettings":
+        if not hasattr(self, '_document_settings') or self._document_settings is None:
+            self._document_settings = _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_documentSettings_get(self)
+        return self._document_settings
+    @document_settings.setter
+    def document_settings(self, value: "SimplifiedDocumentNormalizerSettings"):
+        if not hasattr(self, '_document_settings') or self._document_settings is None: 
+            self._document_settings = _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_documentSettings_get(self)
+        _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_documentSettings_set(self, value)
+        self._document_settings = value
+    # document_settings: "SimplifiedDocumentNormalizerSettings" = property(
+    #     _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_documentSettings_get,
+    #     _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_documentSettings_set,
+    #     doc="Specifies the settings for document normalization."
+    # )
 
     def __init__(self):
         _DynamsoftCaptureVisionRouter.SimplifiedCaptureVisionSettings_init(

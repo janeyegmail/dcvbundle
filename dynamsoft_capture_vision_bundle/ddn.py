@@ -1,4 +1,4 @@
-__version__ = "2.4.20"
+__version__ = "2.4.21.4961"
 
 if __package__ or "." in __name__:
     from .core import *
@@ -40,22 +40,46 @@ class SimplifiedDocumentNormalizerSettings(object):
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
     )
 
-    grayscale_transformation_modes: List[int] = property(
-        _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_grayscaleTransformationModes_get,
-        _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_grayscaleTransformationModes_set,
-        doc="""
-            Specifies how grayscale transformations should be applied, including whether to process inverted grayscale images and the specific transformation mode to use.
-            It is a list of 8 integers, where each integer represents a mode specified by the EnumGrayscaleTransformationMode enumeration.
-            """
-    )
-    grayscale_enhancement_modes: List[int] = property(
-        _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_grayscaleEnhancementModes_get,
-        _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_grayscaleEnhancementModes_set,
-        doc="""
-            Specifies how to enhance the quality of the grayscale image.
-            It is a list of 8 integers, where each integer represents a mode specified by the EnumGrayscaleEnhancementMode enumeration.
-            """
-    )
+    # grayscale_transformation_modes: List[int] = property(
+    #     _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_grayscaleTransformationModes_get,
+    #     _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_grayscaleTransformationModes_set,
+    #     doc="""
+    #         Specifies how grayscale transformations should be applied, including whether to process inverted grayscale images and the specific transformation mode to use.
+    #         It is a list of 8 integers, where each integer represents a mode specified by the EnumGrayscaleTransformationMode enumeration.
+    #         """
+    # )
+    # grayscale_enhancement_modes: List[int] = property(
+    #     _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_grayscaleEnhancementModes_get,
+    #     _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_grayscaleEnhancementModes_set,
+    #     doc="""
+    #         Specifies how to enhance the quality of the grayscale image.
+    #         It is a list of 8 integers, where each integer represents a mode specified by the EnumGrayscaleEnhancementMode enumeration.
+    #         """
+    # )
+    @property
+    def grayscale_transformation_modes(self) -> List[int]:
+        if not hasattr(self, '_grayscale_transformation_modes') or self._grayscale_transformation_modes is None:
+            self._grayscale_transformation_modes = _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_grayscaleTransformationModes_get(self)
+        return self._grayscale_transformation_modes
+
+    @grayscale_transformation_modes.setter
+    def grayscale_transformation_modes(self, value: List[int]):
+        if not hasattr(self, '_grayscale_transformation_modes') or self._grayscale_transformation_modes is None:
+            self._grayscale_transformation_modes = _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_grayscaleTransformationModes_get(self)
+        _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_grayscaleTransformationModes_set(self, value)
+        self._grayscale_transformation_modes = value
+    @property
+    def grayscale_enhancement_modes(self) -> List[int]:
+        if not hasattr(self, '_grayscale_enhancement_modes') or self._grayscale_enhancement_modes is None:
+            self._grayscale_enhancement_modes = _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_grayscaleEnhancementModes_get(self)
+        return self._grayscale_enhancement_modes
+
+    @grayscale_enhancement_modes.setter
+    def grayscale_enhancement_modes(self, value: List[int]):
+        if not hasattr(self, '_grayscale_enhancement_modes') or self._grayscale_enhancement_modes is None:
+            self._grayscale_enhancement_modes = _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_grayscaleEnhancementModes_get(self)
+        _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_grayscaleEnhancementModes_set(self, value)
+        self._grayscale_enhancement_modes = value
     colour_mode: int = property(
         _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_colourMode_get,
         _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_colourMode_set,
@@ -64,11 +88,23 @@ class SimplifiedDocumentNormalizerSettings(object):
             It is a list of 8 integers, where each integer represents a mode specified by the EnumColourMode enumeration.
             """
     )
-    page_size:List[int] = property(
-        _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_pageSize_get,
-        _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_pageSize_set,
-        doc="Specifies the page size (width by height in pixels) of the normalized image."
-    )
+    @property
+    def page_size(self) -> List[int]:
+        if not hasattr(self, '_page_size') or self._page_size is None:
+            self._page_size = _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_pageSize_get(self)
+        return self._page_size
+
+    @page_size.setter
+    def page_size(self, value: List[int]):
+        if not hasattr(self, '_page_size') or self._page_size is None:
+            self._page_size = _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_pageSize_get(self)
+        _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_pageSize_set(self, value)
+        self._page_size = value
+    # page_size:List[int] = property(
+    #     _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_pageSize_get,
+    #     _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_pageSize_set,
+    #     doc="Specifies the page size (width by height in pixels) of the normalized image."
+    # )
     brightness: int = property(
         _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_brightness_get,
         _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_brightness_set,

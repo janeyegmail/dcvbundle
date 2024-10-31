@@ -1,4 +1,4 @@
-__version__ = "10.4.20"
+__version__ = "10.4.21.4961"
 
 if __package__ or "." in __name__:
     from .core import *
@@ -11,11 +11,11 @@ else:
     import _DynamsoftBarcodeReader
 
 
-from enum import Enum, IntEnum
+from enum import IntEnum
 from typing import List
 
 
-class EnumBarcodeFormat(Enum):
+class EnumBarcodeFormat(IntEnum):
     BF_NULL = _DynamsoftBarcodeReader.BF_NULL
     BF_ALL = _DynamsoftBarcodeReader.BF_ALL
     BF_DEFAULT = _DynamsoftBarcodeReader.BF_DEFAULT
@@ -155,38 +155,102 @@ class SimplifiedBarcodeReaderSettings(object):
             Set expected_barcodes_count to the highest expected value if there exists multiple barcode but the exact count is not confirmed.            
             """,
     )
-    grayscale_transformation_modes: List[int] = property(
-        _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_grayscaleTransformationModes_get,
-        _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_grayscaleTransformationModes_set,
-        doc="""
-            Specifies how grayscale transformations should be applied, including whether to process inverted grayscale images and the specific transformation mode to use.
-            It is a list of 8 integers, where each integer represents a mode specified by the EnumGrayscaleTransformationMode enumeration.
-            """,
-    )
-    grayscale_enhancement_modes: List[int] = property(
-        _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_grayscaleEnhancementModes_get,
-        _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_grayscaleEnhancementModes_set,
-        doc="""
-            Specifies how to enhance the quality of the grayscale image.
-            It is a list of 8 integers, where each integer represents a mode specified by the EnumGrayscaleEnhancementMode enumeration.
-            """,
-    )
-    localization_modes: List[int] = property(
-        _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_localizationModes_get,
-        _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_localizationModes_set,
-        doc="""
-            Specifies how to localize barcodes.
-            It is a list of 8 integers, where each integer represents a mode specified by the EnumLocalizationMode enumeration.
-            """,
-    )
-    deblur_modes: List[int] = property(
-        _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_deblurModes_get,
-        _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_deblurModes_set,
-        doc="""
-            Specifies the mode and priority for deblurring.
-            It is a list of 8 integers, where each integer represents a mode specified by the EnumDeblurMode enumeration.
-            """,
-    )
+
+    @property
+    def grayscale_transformation_modes(self) -> List[int]:
+        """
+        Specifies how grayscale transformations should be applied, including whether to process inverted grayscale images and the specific transformation mode to use.
+        It is a list of 8 integers, where each integer represents a mode specified by the EnumGrayscaleTransformationMode enumeration.
+        """
+        if not hasattr(self, "_grayscale_transformation_modes") or self._grayscale_transformation_modes is None:
+            self._grayscale_transformation_modes = _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_grayscaleTransformationModes_get(self)
+        return self._grayscale_transformation_modes
+    @grayscale_transformation_modes.setter
+    def grayscale_transformation_modes(self, value: List[int]):
+        if not hasattr(self, "_grayscale_transformation_modes") or self._grayscale_transformation_modes is None:
+            self._grayscale_transformation_modes = _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_grayscaleTransformationModes_get(self)
+        _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_grayscaleTransformationModes_set(self, value)
+        self._grayscale_transformation_modes = value
+
+    @property
+    def grayscale_enhancement_modes(self) -> List[int]:
+        """
+        Specifies how to enhance the quality of the grayscale image.
+        It is a list of 8 integers, where each integer represents a mode specified by the EnumGrayscaleEnhancementMode enumeration.
+        """
+        if not hasattr(self, "_grayscale_enhancement_modes") or self._grayscale_enhancement_modes is None:
+            self._grayscale_enhancement_modes = _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_grayscaleEnhancementModes_get(self)
+        return self._grayscale_enhancement_modes
+    @grayscale_enhancement_modes.setter
+    def grayscale_enhancement_modes(self, value: List[int]):
+        if not hasattr(self, "_grayscale_enhancement_modes") or self._grayscale_enhancement_modes is None:
+            self._grayscale_enhancement_modes = _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_grayscaleEnhancementModes_get(self)
+        _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_grayscaleEnhancementModes_set(self, value)
+        self._grayscale_enhancement_modes = value
+    
+    @property
+    def localization_modes(self) -> List[int]:
+        """
+        Specifies how to localize barcodes.
+        It is a list of 8 integers, where each integer represents a mode specified by the EnumLocalizationMode enumeration.
+        """
+        if not hasattr(self, "_localization_modes") or self._localization_modes is None:
+            self._localization_modes = _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_localizationModes_get(self)
+        return self._localization_modes
+    @localization_modes.setter
+    def localization_modes(self, value: List[int]):
+        if not hasattr(self, "_localization_modes") or self._localization_modes is None:
+            self._localization_modes = _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_localizationModes_get(self)
+        _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_localizationModes_set(self, value)
+        self._localization_modes = value
+    
+    @property
+    def deblur_modes(self) -> List[int]:
+        """
+        Specifies the mode and priority for deblurring.
+        It is a list of 8 integers, where each integer represents a mode specified by the EnumDeblurMode enumeration.
+        """
+        if not hasattr(self, "_deblur_modes") or self._deblur_modes is None:
+            self._deblur_modes = _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_deblurModes_get(self)
+        return self._deblur_modes
+    @deblur_modes.setter
+    def deblur_modes(self, value: List[int]):
+        if not hasattr(self, "_deblur_modes") or self._deblur_modes is None:
+            self._deblur_modes = _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_deblurModes_get(self)
+        _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_deblurModes_set(self, value)
+        self._deblur_modes = value
+    # grayscale_transformation_modes: List[int] = property(
+    #     _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_grayscaleTransformationModes_get,
+    #     _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_grayscaleTransformationModes_set,
+    #     doc="""
+    #         Specifies how grayscale transformations should be applied, including whether to process inverted grayscale images and the specific transformation mode to use.
+    #         It is a list of 8 integers, where each integer represents a mode specified by the EnumGrayscaleTransformationMode enumeration.
+    #         """,
+    # )
+    # grayscale_enhancement_modes: List[int] = property(
+    #     _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_grayscaleEnhancementModes_get,
+    #     _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_grayscaleEnhancementModes_set,
+    #     doc="""
+    #         Specifies how to enhance the quality of the grayscale image.
+    #         It is a list of 8 integers, where each integer represents a mode specified by the EnumGrayscaleEnhancementMode enumeration.
+    #         """,
+    # )
+    # localization_modes: List[int] = property(
+    #     _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_localizationModes_get,
+    #     _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_localizationModes_set,
+    #     doc="""
+    #         Specifies how to localize barcodes.
+    #         It is a list of 8 integers, where each integer represents a mode specified by the EnumLocalizationMode enumeration.
+    #         """,
+    # )
+    # deblur_modes: List[int] = property(
+    #     _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_deblurModes_get,
+    #     _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_deblurModes_set,
+    #     doc="""
+    #         Specifies the mode and priority for deblurring.
+    #         It is a list of 8 integers, where each integer represents a mode specified by the EnumDeblurMode enumeration.
+    #         """,
+    # )
     min_result_confidence: int = property(
         _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_minResultConfidence_get,
         _DynamsoftBarcodeReader.SimplifiedBarcodeReaderSettings_minResultConfidence_set,

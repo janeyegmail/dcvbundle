@@ -1,4 +1,4 @@
-__version__ = "3.4.20"
+__version__ = "3.4.21.4961"
 
 if __package__ or "." in __name__:
     from .core import *
@@ -31,22 +31,46 @@ class SimplifiedLabelRecognizerSettings(object):
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
     )
 
-    grayscale_transformation_modes: List[int] = property(
-        _DynamsoftLabelRecognizer.SimplifiedLabelRecognizerSettings_grayscaleTransformationModes_get,
-        _DynamsoftLabelRecognizer.SimplifiedLabelRecognizerSettings_grayscaleTransformationModes_set,
-        doc="""
-            Specifies how grayscale transformations should be applied, including whether to process inverted grayscale images and the specific transformation mode to use.
-            It is a list of 8 integers, where each integer represents a mode specified by the EnumGrayscaleTransformationMode enumeration.
-            """
-    )
-    grayscale_enhancement_modes: List[int] = property(
-        _DynamsoftLabelRecognizer.SimplifiedLabelRecognizerSettings_grayscaleEnhancementModes_get,
-        _DynamsoftLabelRecognizer.SimplifiedLabelRecognizerSettings_grayscaleEnhancementModes_set,
-        doc="""
-            Specifies how to enhance the quality of the grayscale image.
-            It is a list of 8 integers, where each integer represents a mode specified by the EnumGrayscaleEnhancementMode enumeration.
-            """,
-    )
+    # grayscale_transformation_modes: List[int] = property(
+    #     _DynamsoftLabelRecognizer.SimplifiedLabelRecognizerSettings_grayscaleTransformationModes_get,
+    #     _DynamsoftLabelRecognizer.SimplifiedLabelRecognizerSettings_grayscaleTransformationModes_set,
+    #     doc="""
+    #         Specifies how grayscale transformations should be applied, including whether to process inverted grayscale images and the specific transformation mode to use.
+    #         It is a list of 8 integers, where each integer represents a mode specified by the EnumGrayscaleTransformationMode enumeration.
+    #         """
+    # )
+    # grayscale_enhancement_modes: List[int] = property(
+    #     _DynamsoftLabelRecognizer.SimplifiedLabelRecognizerSettings_grayscaleEnhancementModes_get,
+    #     _DynamsoftLabelRecognizer.SimplifiedLabelRecognizerSettings_grayscaleEnhancementModes_set,
+    #     doc="""
+    #         Specifies how to enhance the quality of the grayscale image.
+    #         It is a list of 8 integers, where each integer represents a mode specified by the EnumGrayscaleEnhancementMode enumeration.
+    #         """,
+    # )
+    @property
+    def grayscale_transformation_modes(self) -> List[int]:
+        if not hasattr(self, "_grayscale_transformation_modes") or self._grayscale_transformation_modes is None:
+            self._grayscale_transformation_modes = _DynamsoftLabelRecognizer.SimplifiedLabelRecognizerSettings_grayscaleTransformationModes_get(self)
+        return self._grayscale_transformation_modes
+    @grayscale_transformation_modes.setter
+    def grayscale_transformation_modes(self, value):
+        if not hasattr(self, "_grayscale_transformation_modes") or self._grayscale_transformation_modes is None:
+            self._grayscale_transformation_modes = _DynamsoftLabelRecognizer.SimplifiedLabelRecognizerSettings_grayscaleTransformationModes_get(self)
+        _DynamsoftLabelRecognizer.SimplifiedLabelRecognizerSettings_grayscaleTransformationModes_set(self, value)
+        self._grayscale_transformation_modes = value
+
+    @property
+    def grayscale_enhancement_modes(self) -> List[int]:
+        if not hasattr(self, "_grayscale_enhancement_modes") or self._grayscale_enhancement_modes is None:
+            self._grayscale_enhancement_modes = _DynamsoftLabelRecognizer.SimplifiedLabelRecognizerSettings_grayscaleEnhancementModes_get(self)
+        return self._grayscale_enhancement_modes
+    @grayscale_enhancement_modes.setter
+    def grayscale_enhancement_modes(self, value):
+        if not hasattr(self, "_grayscale_enhancement_modes") or self._grayscale_enhancement_modes is None:
+            self._grayscale_enhancement_modes = _DynamsoftLabelRecognizer.SimplifiedLabelRecognizerSettings_grayscaleEnhancementModes_get(self)
+        _DynamsoftLabelRecognizer.SimplifiedLabelRecognizerSettings_grayscaleEnhancementModes_set(self, value)
+        self._grayscale_enhancement_modes = value
+
     character_model_name: str = property(
         _DynamsoftLabelRecognizer.SimplifiedLabelRecognizerSettings_characterModelName_get,
         _DynamsoftLabelRecognizer.SimplifiedLabelRecognizerSettings_characterModelName_set,

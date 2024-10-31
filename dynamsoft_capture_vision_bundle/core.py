@@ -1,4 +1,4 @@
-__version__ = "3.4.20"
+__version__ = "3.4.21.4961"
 
 if __package__ or "." in __name__:
     from . import _DynamsoftCore
@@ -323,11 +323,22 @@ class Quadrilateral(object):
     thisown = property(
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
     )
+    # points: List[Point] = property(
+    #     _DynamsoftCore.CQuadrilateral_points_get,
+    #     _DynamsoftCore.CQuadrilateral_points_set,
+    # )
+    @property
+    def points(self) -> List[Point]:
+        if not hasattr(self, '_point_list') or self._point_list is None:
+            self._point_list = _DynamsoftCore.CQuadrilateral_points_get(self)
+        return self._point_list
 
-    points: List[Point] = property(
-        _DynamsoftCore.CQuadrilateral_points_get,
-        _DynamsoftCore.CQuadrilateral_points_set,
-    )
+    @points.setter
+    def points(self, point_list):
+        if not hasattr(self, '_point_list') or self._point_list is None:
+            self._point_list = _DynamsoftCore.CQuadrilateral_points_get(self)
+        _DynamsoftCore.CQuadrilateral_points_set(self, point_list)
+        self._point_list = point_list
 
     def contains(self, point: "Point") -> bool:
         """
@@ -355,6 +366,8 @@ class Quadrilateral(object):
         Initializes a new instance of the Quadrilateral class with default values.
         """
         _DynamsoftCore.CQuadrilateral_init(self, _DynamsoftCore.new_CQuadrilateral())
+        self._point_list = None
+
 
     __destroy__ = _DynamsoftCore.delete_CQuadrilateral
 
@@ -503,7 +516,7 @@ class FileImageTag(ImageTag):
             total_pages (int): The total pages of the file image.
         """
         _DynamsoftCore.CFileImageTag_init(
-            self, _DynamsoftCore.new_CFileImageTag(file_path, page_number, total_pages)
+            self, _DynamsoftCore.new_CFileImageTag(self, file_path, page_number, total_pages)
         )
 
     __destroy__ = _DynamsoftCore.delete_CFileImageTag

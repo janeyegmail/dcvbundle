@@ -11781,6 +11781,68 @@ extern "C"
     return NULL;
   }
 
+  static bool getCpointArraryFromPyList(PyObject *list, dynamsoft::basic_structures::CPoint **array, int *length)
+  {
+    (*length) = 0;
+    Py_ssize_t list_size;
+    if (!PyList_Check(list))
+    {
+      return false;
+    }
+    list_size = PyList_Size(list);
+    (*array) = new dynamsoft::basic_structures::CPoint[list_size];
+    for (Py_ssize_t i = 0; i < list_size; ++i)
+    {
+      PyObject *item = PyList_GetItem(list, i);
+      if (item == NULL)
+      {
+        delete[] (*array);
+        return false;
+      }
+      dynamsoft::basic_structures::CPoint *p = 0;
+      int res3 = SWIG_ConvertPtr(item, (void **)&p, SWIGTYPE_p_dynamsoft__basic_structures__DMPoint_T_int_t, 0 | 0);
+      if (!SWIG_IsOK(res3))
+      {
+        delete[] (*array);
+        return false;
+      }
+      (*array)[i].Set((*p)[0], (*p)[1]);
+    }
+    (*length) = (int)list_size;
+    return true;
+  }
+
+  PyObject* PyObject_GetAttrString_withNoException(PyObject* obj, const char* attr)
+  {
+    PyObject* attr_value = PyObject_GetAttrString(obj, attr);
+    if (!attr_value)
+    {
+      if (PyErr_Occurred())
+      {
+        PyErr_Clear();
+      }
+    }
+    return attr_value;
+  }
+
+  static void UpdateCQuadrilateralPointsFromPythonObject(dynamsoft::basic_structures::CQuadrilateral *quad, PyObject *obj)
+  {
+    if (quad == NULL || obj == NULL) 
+        return;
+
+    PyObject* attr_value = PyObject_GetAttrString_withNoException(obj, "_point_list");
+    if (!attr_value)
+        return;
+    dynamsoft::basic_structures::CPoint* array = nullptr;
+    int length = 0;
+    if(getCpointArraryFromPyList(attr_value, &array, &length) && length==4)
+    {
+      for(int i = 0; i < 4; i++)
+        quad->points[i] = array[i];
+      delete[] array, array = nullptr;
+    }
+    Py_DECREF(attr_value);
+  }
   SWIGINTERN PyObject *_wrap_new_CCandidateBarcodeZone__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
   {
     PyObject *resultobj = 0;
@@ -11817,6 +11879,7 @@ extern "C"
                                            "'");
     }
     arg1 = reinterpret_cast<dynamsoft::basic_structures::CQuadrilateral *>(argp1);
+    UpdateCQuadrilateralPointsFromPythonObject(arg1, swig_obj[0]);
     ecode2 = SWIG_AsVal_unsigned_SS_long_SS_long(swig_obj[1], &val2);
     if (!SWIG_IsOK(ecode2))
     {
@@ -11954,6 +12017,7 @@ extern "C"
                                            "'");
     }
     arg2 = reinterpret_cast<dynamsoft::basic_structures::CQuadrilateral *>(argp2);
+    UpdateCQuadrilateralPointsFromPythonObject(arg2, swig_obj[1]);
     (arg1)->SetLocation((dynamsoft::basic_structures::CQuadrilateral const &)*arg2);
     resultobj = SWIG_Py_Void();
     return resultobj;
@@ -12301,12 +12365,12 @@ extern "C"
     if (!SWIG_IsOK(res3))
     {
       SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
-                                               "CCandidateBarcodeZonesUnit_AddCandidateBarcodeZone"
-                                               "', argument "
-                                               "3"
-                                               " of type '"
-                                               "double const [9]"
-                                               "'");
+                                          "CCandidateBarcodeZonesUnit_AddCandidateBarcodeZone"
+                                          "', argument "
+                                          "3"
+                                          " of type '"
+                                          "double const [9]"
+                                          "'");
     }
     arg3 = reinterpret_cast<double *>(argp3);
     result = (int)(arg1)->AddCandidateBarcodeZone((dynamsoft::dbr::intermediate_results::CCandidateBarcodeZone const &)*arg2, (double const(*))arg3);
@@ -12413,7 +12477,7 @@ extern "C"
           _v = SWIG_CheckState(res);
           if (_v)
           {
-            return _wrap_CCandidateBarcodeZonesUnit_AddCandidateBarcodeZone__SWIG_0(self, argc, argv);
+    return _wrap_CCandidateBarcodeZonesUnit_AddCandidateBarcodeZone__SWIG_0(self, argc, argv);
           }
         }
       }
@@ -12497,12 +12561,12 @@ extern "C"
     if (!SWIG_IsOK(res4))
     {
       SWIG_exception_fail(SWIG_ArgError(res4), "in method '"
-                                               "CCandidateBarcodeZonesUnit_SetCandidateBarcodeZone"
-                                               "', argument "
-                                               "4"
-                                               " of type '"
-                                               "double const [9]"
-                                               "'");
+                                          "CCandidateBarcodeZonesUnit_SetCandidateBarcodeZone"
+                                          "', argument "
+                                          "4"
+                                          " of type '"
+                                          "double const [9]"
+                                          "'");
     }
     arg4 = reinterpret_cast<double *>(argp4);
     result = (int)(arg1)->SetCandidateBarcodeZone(arg2, (dynamsoft::dbr::intermediate_results::CCandidateBarcodeZone const &)*arg3, (double const(*))arg4);
@@ -12637,7 +12701,7 @@ extern "C"
             _v = SWIG_CheckState(res);
             if (_v)
             {
-              return _wrap_CCandidateBarcodeZonesUnit_SetCandidateBarcodeZone__SWIG_0(self, argc, argv);
+    return _wrap_CCandidateBarcodeZonesUnit_SetCandidateBarcodeZone__SWIG_0(self, argc, argv);
             }
           }
         }
@@ -12856,12 +12920,12 @@ extern "C"
     if (!SWIG_IsOK(res3))
     {
       SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
-                                               "CLocalizedBarcodesUnit_AddLocalizedBarcode"
-                                               "', argument "
-                                               "3"
-                                               " of type '"
-                                               "double const [9]"
-                                               "'");
+                                          "CLocalizedBarcodesUnit_AddLocalizedBarcode"
+                                          "', argument "
+                                          "3"
+                                          " of type '"
+                                          "double const [9]"
+                                          "'");
     }
     arg3 = reinterpret_cast<double *>(argp3);
     result = (int)(arg1)->AddLocalizedBarcode((dynamsoft::dbr::intermediate_results::CLocalizedBarcodeElement const *)arg2, (double const(*))arg3);
@@ -12959,7 +13023,7 @@ extern "C"
           _v = SWIG_CheckState(res);
           if (_v)
           {
-            return _wrap_CLocalizedBarcodesUnit_AddLocalizedBarcode__SWIG_0(self, argc, argv);
+    return _wrap_CLocalizedBarcodesUnit_AddLocalizedBarcode__SWIG_0(self, argc, argv);
           }
         }
       }
@@ -13032,12 +13096,12 @@ extern "C"
     if (!SWIG_IsOK(res4))
     {
       SWIG_exception_fail(SWIG_ArgError(res4), "in method '"
-                                               "CLocalizedBarcodesUnit_SetLocalizedBarcode"
-                                               "', argument "
-                                               "4"
-                                               " of type '"
-                                               "double const [9]"
-                                               "'");
+                                          "CLocalizedBarcodesUnit_SetLocalizedBarcode"
+                                          "', argument "
+                                          "4"
+                                          " of type '"
+                                          "double const [9]"
+                                          "'");
     }
     arg4 = reinterpret_cast<double *>(argp4);
     result = (int)(arg1)->SetLocalizedBarcode(arg2, (dynamsoft::dbr::intermediate_results::CLocalizedBarcodeElement const *)arg3, (double const(*))arg4);
@@ -13163,7 +13227,7 @@ extern "C"
             _v = SWIG_CheckState(res);
             if (_v)
             {
-              return _wrap_CLocalizedBarcodesUnit_SetLocalizedBarcode__SWIG_0(self, argc, argv);
+    return _wrap_CLocalizedBarcodesUnit_SetLocalizedBarcode__SWIG_0(self, argc, argv);
             }
           }
         }
@@ -13403,7 +13467,7 @@ extern "C"
     {
       int res = SWIG_ConvertFunctionPtr(swig_obj[1], (void **)(&arg2), SWIGTYPE_p_f_p_q_const__dynamsoft__basic_structures__CImageData__void);
       if (!SWIG_IsOK(res))
-      {
+    {
         SWIG_exception_fail(SWIG_ArgError(res), "in method '"
                                                 "new_CDeformationResistedBarcode"
                                                 "', argument "
@@ -13436,6 +13500,7 @@ extern "C"
                                            "'");
     }
     arg3 = reinterpret_cast<dynamsoft::basic_structures::CQuadrilateral *>(argp3);
+    UpdateCQuadrilateralPointsFromPythonObject(arg3, swig_obj[2]);
     ecode4 = SWIG_AsVal_int(swig_obj[3], &val4);
     if (!SWIG_IsOK(ecode4))
     {
@@ -13493,20 +13558,20 @@ extern "C"
         if (_v)
         {
           int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_dynamsoft__basic_structures__CQuadrilateral, SWIG_POINTER_NO_NULL | 0);
-          _v = SWIG_CheckState(res);
+        _v = SWIG_CheckState(res);
+        if (_v)
+        {
+          {
+              int res = SWIG_AsVal_int(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
           if (_v)
           {
-            {
-              int res = SWIG_AsVal_int(argv[3], NULL);
-              _v = SWIG_CheckState(res);
-            }
-            if (_v)
-            {
-              return _wrap_new_CDeformationResistedBarcode__SWIG_2(self, argc, argv);
-            }
+            return _wrap_new_CDeformationResistedBarcode__SWIG_2(self, argc, argv);
           }
         }
       }
+    }
     }
 
   fail:
@@ -13590,7 +13655,7 @@ extern "C"
     {
       int res = SWIG_ConvertFunctionPtr(swig_obj[2], (void **)(&arg3), SWIGTYPE_p_f_p_q_const__dynamsoft__basic_structures__CImageData__void);
       if (!SWIG_IsOK(res))
-      {
+    {
         SWIG_exception_fail(SWIG_ArgError(res), "in method '"
                                                 "CDeformationResistedBarcode_SetImageData"
                                                 "', argument "
@@ -13686,6 +13751,7 @@ extern "C"
                                            "'");
     }
     arg2 = reinterpret_cast<dynamsoft::basic_structures::CQuadrilateral *>(argp2);
+    UpdateCQuadrilateralPointsFromPythonObject(arg2, swig_obj[1]);
     (arg1)->SetLocation((dynamsoft::basic_structures::CQuadrilateral const &)*arg2);
     resultobj = SWIG_Py_Void();
     return resultobj;
@@ -13962,6 +14028,7 @@ extern "C"
                                            "'");
     }
     arg2 = reinterpret_cast<dynamsoft::basic_structures::CQuadrilateral *>(argp2);
+    UpdateCQuadrilateralPointsFromPythonObject(arg2, swig_obj[1]);
     result = (int)(arg1)->SetLocation((dynamsoft::basic_structures::CQuadrilateral const &)*arg2);
     resultobj = SWIG_From_int(static_cast<int>(result));
     return resultobj;
@@ -14011,7 +14078,7 @@ extern "C"
           _v = SWIG_CheckState(res);
           if (_v)
           {
-            return _wrap_CComplementedBarcodeImageUnit_SetLocation__SWIG_0(self, argc, argv);
+    return _wrap_CComplementedBarcodeImageUnit_SetLocation__SWIG_0(self, argc, argv);
           }
         }
       }
@@ -14185,11 +14252,11 @@ extern "C"
     {
       SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
                                                "CDecodedBarcodesUnit_SetDecodedBarcode"
-                                               "', argument "
-                                               "3"
-                                               " of type '"
-                                               "double const [9]"
-                                               "'");
+                                          "', argument "
+                                          "3"
+                                          " of type '"
+                                          "double const [9]"
+                                          "'");
     }
     arg3 = reinterpret_cast<double *>(argp3);
     result = (int)(arg1)->SetDecodedBarcode((dynamsoft::dbr::intermediate_results::CDecodedBarcodeElement const *)arg2, (double const(*))arg3);
@@ -14287,7 +14354,7 @@ extern "C"
           _v = SWIG_CheckState(res);
           if (_v)
           {
-            return _wrap_CDecodedBarcodesUnit_SetDecodedBarcode__SWIG_0(self, argc, argv);
+    return _wrap_CDecodedBarcodesUnit_SetDecodedBarcode__SWIG_0(self, argc, argv);
           }
         }
       }
@@ -14746,6 +14813,7 @@ extern "C"
                                            "'");
     }
     arg2 = reinterpret_cast<dynamsoft::basic_structures::CQuadrilateral *>(argp2);
+    UpdateCQuadrilateralPointsFromPythonObject(arg2, swig_obj[1]);
     result = (int)(arg1)->SetLocation((dynamsoft::basic_structures::CQuadrilateral const &)*arg2);
     resultobj = SWIG_From_int(static_cast<int>(result));
     return resultobj;
