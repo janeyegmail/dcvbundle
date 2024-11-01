@@ -1,4 +1,4 @@
-__version__ = "2.4.21.4961"
+__version__ = "2.4.21.4995"
 
 if __package__ or "." in __name__:
     from .core import *
@@ -13,7 +13,7 @@ else:
 from abc import ABC, abstractmethod
 from enum import Enum, IntEnum
 from typing import Tuple, List
-
+import numpy
 
 class EnumPresetTemplate(str, Enum):
     PT_DEFAULT = _DynamsoftCaptureVisionRouter.getPT_DEFAULT()
@@ -844,13 +844,29 @@ class CaptureVisionRouter(object):
             - file_path (str), template_name (str, optional): Specifies the path of the file to process and the template to use for capturing.
             - file_bytes (bytes), template_name (str, optional): Specifies the image file bytes in memory to process and the template to use for capturing.
             - image_data (ImageData), template_name (str, optional): Specifies the image data to process and the template to use for capturing.
-
+            - image (numpy.ndarray), image_pixel_format (EnumImagePixelFormat, optional), template_name (str, optional): Decodes barcodes from the memory buffer containing image pixels in defined format.
         Returns:
             A CapturedResult object containing the captured items.
         """
-        ret = _DynamsoftCaptureVisionRouter.CCaptureVisionRouter_Capture(self, *args)
+        if len(args) not in {1, 2, 3}:
+            raise ValueError("Method capture only accepts 1 to 3 arguments")
+        image = args[0]
+        template_name = ""
+        if isinstance(image, numpy.ndarray):
+            pixel_format = EnumImagePixelFormat.IPF_RGB_888
+            if len(args) > 1:
+                for arg in args[1:]:
+                    if isinstance(arg, str):
+                        template_name = arg
+                    elif isinstance(arg, EnumImagePixelFormat):
+                        pixel_format = arg
+            image = ImageData(image.tobytes(),image.shape[1],image.shape[0],image.strides[0], pixel_format)
+        else:
+            if len(args) == 2:
+                template_name = args[1]
+        
+        ret = _DynamsoftCaptureVisionRouter.CCaptureVisionRouter_Capture(self, image, template_name)
         return ret
-
     def set_input(self, adapter: ImageSourceAdapter) -> Tuple[int, str]:
         """
         Sets an image source to provide images for consecutive process.
