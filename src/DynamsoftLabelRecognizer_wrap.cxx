@@ -5457,6 +5457,8 @@ extern "C"
   SWIGINTERN PyObject *_wrap_CLocalizedTextLineElement_GetCharacterQuad(PyObject *self, PyObject *args)
   {
     PyObject *resultobj = 0;
+    PyObject *resultobj1 = 0;
+    PyObject *tuple = 0;
     dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement *arg1 = (dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement *)0;
     int arg2;
     dynamsoft::basic_structures::CQuadrilateral *arg3 = (dynamsoft::basic_structures::CQuadrilateral *)0;
@@ -5466,10 +5468,10 @@ extern "C"
     int ecode2 = 0;
     void *argp3 = 0;
     int res3 = 0;
-    PyObject *swig_obj[3];
+    PyObject *swig_obj[2];
     int result;
 
-    if (!SWIG_Python_UnpackTuple(args, "CLocalizedTextLineElement_GetCharacterQuad", 3, 3, swig_obj))
+    if (!SWIG_Python_UnpackTuple(args, "CLocalizedTextLineElement_GetCharacterQuad", 2, 2, swig_obj))
       SWIG_fail;
     res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CLocalizedTextLineElement, 0 | 0);
     if (!SWIG_IsOK(res1))
@@ -5495,21 +5497,26 @@ extern "C"
                                                  "'");
     }
     arg2 = static_cast<int>(val2);
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_dynamsoft__basic_structures__CQuadrilateral, 0 | 0);
-    if (!SWIG_IsOK(res3))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
-                                               "CLocalizedTextLineElement_GetCharacterQuad"
-                                               "', argument "
-                                               "3"
-                                               " of type '"
-                                               "dynamsoft::basic_structures::CQuadrilateral *"
-                                               "'");
-    }
-    arg3 = reinterpret_cast<dynamsoft::basic_structures::CQuadrilateral *>(argp3);
+    // res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_dynamsoft__basic_structures__CQuadrilateral, 0 | 0);
+    // if (!SWIG_IsOK(res3))
+    // {
+    //   SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
+    //                                            "CLocalizedTextLineElement_GetCharacterQuad"
+    //                                            "', argument "
+    //                                            "3"
+    //                                            " of type '"
+    //                                            "dynamsoft::basic_structures::CQuadrilateral *"
+    //                                            "'");
+    // }
+    // arg3 = reinterpret_cast<dynamsoft::basic_structures::CQuadrilateral *>(argp3);
+    arg3 = new dynamsoft::basic_structures::CQuadrilateral();
     result = (int)((dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement const *)arg1)->GetCharacterQuad(arg2, arg3);
     resultobj = SWIG_From_int(static_cast<int>(result));
-    return resultobj;
+    resultobj1 = SWIG_NewPointerObj((void *)arg3, SWIGTYPE_p_dynamsoft__basic_structures__CQuadrilateral, SWIG_POINTER_OWN | 0);
+    tuple = PyTuple_New(2);
+    PyTuple_SetItem(tuple, 0, resultobj);
+    PyTuple_SetItem(tuple, 1, resultobj1);
+    return tuple;
   fail:
     return NULL;
   }
@@ -5913,7 +5920,8 @@ extern "C"
     }
     arg2 = static_cast<int>(val2);
     result = (dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement *)((dynamsoft::dlr::intermediate_results::CLocalizedTextLinesUnit const *)arg1)->GetLocalizedTextLine(arg2);
-    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CLocalizedTextLineElement, 0 | 0);
+    result->Retain();
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CLocalizedTextLineElement, SWIG_POINTER_OWN | 0);
     return resultobj;
   fail:
     return NULL;
@@ -5993,6 +6001,37 @@ extern "C"
   fail:
     return NULL;
   }
+  double *convertPythonListToCpp_double(PyObject *obj, int expectedSize)
+  {
+
+    if (PyList_Check(obj))
+    {
+      // Iterate over the Python list and append elements to the C++ vector
+      Py_ssize_t size = PyList_Size(obj);
+      if (size != expectedSize)
+        return nullptr;
+      double *ret = new double[expectedSize]{0};
+      for (Py_ssize_t i = 0; i < size; ++i)
+      {
+        PyObject *item = PyList_GetItem(obj, i);
+        if (PyFloat_Check(item))
+        {
+          ret[i] = PyFloat_AsDouble(item);
+        }
+        else
+        {
+          delete[] ret;
+          return nullptr; // or throw an exception
+        }
+      }
+      return ret;
+    }
+    else
+    {
+      return nullptr;
+    }
+    return nullptr;
+  }
 
   SWIGINTERN PyObject *_wrap_CLocalizedTextLinesUnit_AddLocalizedTextLine__SWIG_0(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
   {
@@ -6034,8 +6073,20 @@ extern "C"
                                                "'");
     }
     arg2 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement *>(argp2);
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_double, 0 | 0);
-    if (!SWIG_IsOK(res3))
+    // res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_double, 0 | 0);
+    // if (!SWIG_IsOK(res3))
+    // {
+    //   SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
+    //                                            "CLocalizedTextLinesUnit_AddLocalizedTextLine"
+    //                                            "', argument "
+    //                                            "3"
+    //                                            " of type '"
+    //                                            "double const [9]"
+    //                                            "'");
+    // }
+    // arg3 = reinterpret_cast<double *>(argp3);
+    arg3 = convertPythonListToCpp_double(swig_obj[2], 9);
+    if(!arg3)
     {
       SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
                                                "CLocalizedTextLinesUnit_AddLocalizedTextLine"
@@ -6045,57 +6096,58 @@ extern "C"
                                                "double const [9]"
                                                "'");
     }
-    arg3 = reinterpret_cast<double *>(argp3);
     result = (int)(arg1)->AddLocalizedTextLine((dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement const *)arg2, (double const(*))arg3);
+    if(arg3)
+      delete[] arg3, arg3 = nullptr;
     resultobj = SWIG_From_int(static_cast<int>(result));
     return resultobj;
   fail:
     return NULL;
   }
 
-  SWIGINTERN PyObject *_wrap_CLocalizedTextLinesUnit_AddLocalizedTextLine__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
-  {
-    PyObject *resultobj = 0;
-    dynamsoft::dlr::intermediate_results::CLocalizedTextLinesUnit *arg1 = (dynamsoft::dlr::intermediate_results::CLocalizedTextLinesUnit *)0;
-    dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement *arg2 = (dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement *)0;
-    void *argp1 = 0;
-    int res1 = 0;
-    void *argp2 = 0;
-    int res2 = 0;
-    int result;
+  // SWIGINTERN PyObject *_wrap_CLocalizedTextLinesUnit_AddLocalizedTextLine__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
+  // {
+  //   PyObject *resultobj = 0;
+  //   dynamsoft::dlr::intermediate_results::CLocalizedTextLinesUnit *arg1 = (dynamsoft::dlr::intermediate_results::CLocalizedTextLinesUnit *)0;
+  //   dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement *arg2 = (dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement *)0;
+  //   void *argp1 = 0;
+  //   int res1 = 0;
+  //   void *argp2 = 0;
+  //   int res2 = 0;
+  //   int result;
 
-    if ((nobjs < 2) || (nobjs > 2))
-      SWIG_fail;
-    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CLocalizedTextLinesUnit, 0 | 0);
-    if (!SWIG_IsOK(res1))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
-                                               "CLocalizedTextLinesUnit_AddLocalizedTextLine"
-                                               "', argument "
-                                               "1"
-                                               " of type '"
-                                               "dynamsoft::dlr::intermediate_results::CLocalizedTextLinesUnit *"
-                                               "'");
-    }
-    arg1 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CLocalizedTextLinesUnit *>(argp1);
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CLocalizedTextLineElement, 0 | 0);
-    if (!SWIG_IsOK(res2))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
-                                               "CLocalizedTextLinesUnit_AddLocalizedTextLine"
-                                               "', argument "
-                                               "2"
-                                               " of type '"
-                                               "dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement const *"
-                                               "'");
-    }
-    arg2 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement *>(argp2);
-    result = (int)(arg1)->AddLocalizedTextLine((dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement const *)arg2);
-    resultobj = SWIG_From_int(static_cast<int>(result));
-    return resultobj;
-  fail:
-    return NULL;
-  }
+  //   if ((nobjs < 2) || (nobjs > 2))
+  //     SWIG_fail;
+  //   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CLocalizedTextLinesUnit, 0 | 0);
+  //   if (!SWIG_IsOK(res1))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+  //                                              "CLocalizedTextLinesUnit_AddLocalizedTextLine"
+  //                                              "', argument "
+  //                                              "1"
+  //                                              " of type '"
+  //                                              "dynamsoft::dlr::intermediate_results::CLocalizedTextLinesUnit *"
+  //                                              "'");
+  //   }
+  //   arg1 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CLocalizedTextLinesUnit *>(argp1);
+  //   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CLocalizedTextLineElement, 0 | 0);
+  //   if (!SWIG_IsOK(res2))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
+  //                                              "CLocalizedTextLinesUnit_AddLocalizedTextLine"
+  //                                              "', argument "
+  //                                              "2"
+  //                                              " of type '"
+  //                                              "dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement const *"
+  //                                              "'");
+  //   }
+  //   arg2 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement *>(argp2);
+  //   result = (int)(arg1)->AddLocalizedTextLine((dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement const *)arg2);
+  //   resultobj = SWIG_From_int(static_cast<int>(result));
+  //   return resultobj;
+  // fail:
+  //   return NULL;
+  // }
 
   SWIGINTERN PyObject *_wrap_CLocalizedTextLinesUnit_AddLocalizedTextLine(PyObject *self, PyObject *args)
   {
@@ -6103,50 +6155,10 @@ extern "C"
     PyObject *argv[4] = {
         0};
 
-    if (!(argc = SWIG_Python_UnpackTuple(args, "CLocalizedTextLinesUnit_AddLocalizedTextLine", 0, 3, argv)))
+    if (!(argc = SWIG_Python_UnpackTuple(args, "CLocalizedTextLinesUnit_AddLocalizedTextLine", 3, 3, argv)))
       SWIG_fail;
     --argc;
-    if (argc == 2)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CLocalizedTextLinesUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        void *vptr = 0;
-        int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CLocalizedTextLineElement, 0);
-        _v = SWIG_CheckState(res);
-        if (_v)
-        {
-          return _wrap_CLocalizedTextLinesUnit_AddLocalizedTextLine__SWIG_1(self, argc, argv);
-        }
-      }
-    }
-    if (argc == 3)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CLocalizedTextLinesUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        void *vptr = 0;
-        int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CLocalizedTextLineElement, 0);
-        _v = SWIG_CheckState(res);
-        if (_v)
-        {
-          void *vptr = 0;
-          int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
-          _v = SWIG_CheckState(res);
-          if (_v)
-          {
-            return _wrap_CLocalizedTextLinesUnit_AddLocalizedTextLine__SWIG_0(self, argc, argv);
-          }
-        }
-      }
-    }
-
+    return _wrap_CLocalizedTextLinesUnit_AddLocalizedTextLine__SWIG_0(self, argc, argv);
   fail:
     SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'CLocalizedTextLinesUnit_AddLocalizedTextLine'.\n"
                                        "  Possible C/C++ prototypes are:\n"
@@ -6210,10 +6222,22 @@ extern "C"
                                                "'");
     }
     arg3 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement *>(argp3);
-    res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_double, 0 | 0);
-    if (!SWIG_IsOK(res4))
+    // res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_double, 0 | 0);
+    // if (!SWIG_IsOK(res4))
+    // {
+    //   SWIG_exception_fail(SWIG_ArgError(res4), "in method '"
+    //                                            "CLocalizedTextLinesUnit_SetLocalizedTextLine"
+    //                                            "', argument "
+    //                                            "4"
+    //                                            " of type '"
+    //                                            "double const [9]"
+    //                                            "'");
+    // }
+    // arg4 = reinterpret_cast<double *>(argp4);
+    arg4 = convertPythonListToCpp_double(swig_obj[3], 9);
+    if(!arg4)
     {
-      SWIG_exception_fail(SWIG_ArgError(res4), "in method '"
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
                                                "CLocalizedTextLinesUnit_SetLocalizedTextLine"
                                                "', argument "
                                                "4"
@@ -6221,72 +6245,73 @@ extern "C"
                                                "double const [9]"
                                                "'");
     }
-    arg4 = reinterpret_cast<double *>(argp4);
     result = (int)(arg1)->SetLocalizedTextLine(arg2, (dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement const *)arg3, (double const(*))arg4);
+    if(arg4)
+      delete[] arg4, arg4 = nullptr;
     resultobj = SWIG_From_int(static_cast<int>(result));
     return resultobj;
   fail:
     return NULL;
   }
 
-  SWIGINTERN PyObject *_wrap_CLocalizedTextLinesUnit_SetLocalizedTextLine__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
-  {
-    PyObject *resultobj = 0;
-    dynamsoft::dlr::intermediate_results::CLocalizedTextLinesUnit *arg1 = (dynamsoft::dlr::intermediate_results::CLocalizedTextLinesUnit *)0;
-    int arg2;
-    dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement *arg3 = (dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement *)0;
-    void *argp1 = 0;
-    int res1 = 0;
-    int val2;
-    int ecode2 = 0;
-    void *argp3 = 0;
-    int res3 = 0;
-    int result;
+  // SWIGINTERN PyObject *_wrap_CLocalizedTextLinesUnit_SetLocalizedTextLine__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
+  // {
+  //   PyObject *resultobj = 0;
+  //   dynamsoft::dlr::intermediate_results::CLocalizedTextLinesUnit *arg1 = (dynamsoft::dlr::intermediate_results::CLocalizedTextLinesUnit *)0;
+  //   int arg2;
+  //   dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement *arg3 = (dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement *)0;
+  //   void *argp1 = 0;
+  //   int res1 = 0;
+  //   int val2;
+  //   int ecode2 = 0;
+  //   void *argp3 = 0;
+  //   int res3 = 0;
+  //   int result;
 
-    if ((nobjs < 3) || (nobjs > 3))
-      SWIG_fail;
-    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CLocalizedTextLinesUnit, 0 | 0);
-    if (!SWIG_IsOK(res1))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
-                                               "CLocalizedTextLinesUnit_SetLocalizedTextLine"
-                                               "', argument "
-                                               "1"
-                                               " of type '"
-                                               "dynamsoft::dlr::intermediate_results::CLocalizedTextLinesUnit *"
-                                               "'");
-    }
-    arg1 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CLocalizedTextLinesUnit *>(argp1);
-    ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-    if (!SWIG_IsOK(ecode2))
-    {
-      SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '"
-                                                 "CLocalizedTextLinesUnit_SetLocalizedTextLine"
-                                                 "', argument "
-                                                 "2"
-                                                 " of type '"
-                                                 "int"
-                                                 "'");
-    }
-    arg2 = static_cast<int>(val2);
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CLocalizedTextLineElement, 0 | 0);
-    if (!SWIG_IsOK(res3))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
-                                               "CLocalizedTextLinesUnit_SetLocalizedTextLine"
-                                               "', argument "
-                                               "3"
-                                               " of type '"
-                                               "dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement const *"
-                                               "'");
-    }
-    arg3 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement *>(argp3);
-    result = (int)(arg1)->SetLocalizedTextLine(arg2, (dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement const *)arg3);
-    resultobj = SWIG_From_int(static_cast<int>(result));
-    return resultobj;
-  fail:
-    return NULL;
-  }
+  //   if ((nobjs < 3) || (nobjs > 3))
+  //     SWIG_fail;
+  //   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CLocalizedTextLinesUnit, 0 | 0);
+  //   if (!SWIG_IsOK(res1))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+  //                                              "CLocalizedTextLinesUnit_SetLocalizedTextLine"
+  //                                              "', argument "
+  //                                              "1"
+  //                                              " of type '"
+  //                                              "dynamsoft::dlr::intermediate_results::CLocalizedTextLinesUnit *"
+  //                                              "'");
+  //   }
+  //   arg1 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CLocalizedTextLinesUnit *>(argp1);
+  //   ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  //   if (!SWIG_IsOK(ecode2))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '"
+  //                                                "CLocalizedTextLinesUnit_SetLocalizedTextLine"
+  //                                                "', argument "
+  //                                                "2"
+  //                                                " of type '"
+  //                                                "int"
+  //                                                "'");
+  //   }
+  //   arg2 = static_cast<int>(val2);
+  //   res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CLocalizedTextLineElement, 0 | 0);
+  //   if (!SWIG_IsOK(res3))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
+  //                                              "CLocalizedTextLinesUnit_SetLocalizedTextLine"
+  //                                              "', argument "
+  //                                              "3"
+  //                                              " of type '"
+  //                                              "dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement const *"
+  //                                              "'");
+  //   }
+  //   arg3 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement *>(argp3);
+  //   result = (int)(arg1)->SetLocalizedTextLine(arg2, (dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement const *)arg3);
+  //   resultobj = SWIG_From_int(static_cast<int>(result));
+  //   return resultobj;
+  // fail:
+  //   return NULL;
+  // }
 
   SWIGINTERN PyObject *_wrap_CLocalizedTextLinesUnit_SetLocalizedTextLine(PyObject *self, PyObject *args)
   {
@@ -6294,64 +6319,10 @@ extern "C"
     PyObject *argv[5] = {
         0};
 
-    if (!(argc = SWIG_Python_UnpackTuple(args, "CLocalizedTextLinesUnit_SetLocalizedTextLine", 0, 4, argv)))
+    if (!(argc = SWIG_Python_UnpackTuple(args, "CLocalizedTextLinesUnit_SetLocalizedTextLine", 4, 4, argv)))
       SWIG_fail;
     --argc;
-    if (argc == 3)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CLocalizedTextLinesUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        {
-          int res = SWIG_AsVal_int(argv[1], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v)
-        {
-          void *vptr = 0;
-          int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CLocalizedTextLineElement, 0);
-          _v = SWIG_CheckState(res);
-          if (_v)
-          {
-            return _wrap_CLocalizedTextLinesUnit_SetLocalizedTextLine__SWIG_1(self, argc, argv);
-          }
-        }
-      }
-    }
-    if (argc == 4)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CLocalizedTextLinesUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        {
-          int res = SWIG_AsVal_int(argv[1], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v)
-        {
-          void *vptr = 0;
-          int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CLocalizedTextLineElement, 0);
-          _v = SWIG_CheckState(res);
-          if (_v)
-          {
-            void *vptr = 0;
-            int res = SWIG_ConvertPtr(argv[3], &vptr, SWIGTYPE_p_double, 0);
-            _v = SWIG_CheckState(res);
-            if (_v)
-            {
-              return _wrap_CLocalizedTextLinesUnit_SetLocalizedTextLine__SWIG_0(self, argc, argv);
-            }
-          }
-        }
-      }
-    }
-
+    return _wrap_CLocalizedTextLinesUnit_SetLocalizedTextLine__SWIG_0(self, argc, argv);
   fail:
     SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'CLocalizedTextLinesUnit_SetLocalizedTextLine'.\n"
                                        "  Possible C/C++ prototypes are:\n"
@@ -6439,7 +6410,8 @@ extern "C"
     }
     arg2 = static_cast<int>(val2);
     result = (dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement *)((dynamsoft::dlr::intermediate_results::CRecognizedTextLinesUnit const *)arg1)->GetRecognizedTextLine(arg2);
-    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRecognizedTextLineElement, 0 | 0);
+    result->Retain();
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRecognizedTextLineElement, SWIG_POINTER_OWN | 0);
     return resultobj;
   fail:
     return NULL;
@@ -6560,8 +6532,20 @@ extern "C"
                                                "'");
     }
     arg2 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement *>(argp2);
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_double, 0 | 0);
-    if (!SWIG_IsOK(res3))
+    // res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_double, 0 | 0);
+    // if (!SWIG_IsOK(res3))
+    // {
+    //   SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
+    //                                            "CRecognizedTextLinesUnit_AddRecognizedTextLine"
+    //                                            "', argument "
+    //                                            "3"
+    //                                            " of type '"
+    //                                            "double const [9]"
+    //                                            "'");
+    // }
+    // arg3 = reinterpret_cast<double *>(argp3);
+    arg3 = convertPythonListToCpp_double(swig_obj[2], 9);
+    if(!arg3)
     {
       SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
                                                "CRecognizedTextLinesUnit_AddRecognizedTextLine"
@@ -6571,57 +6555,58 @@ extern "C"
                                                "double const [9]"
                                                "'");
     }
-    arg3 = reinterpret_cast<double *>(argp3);
     result = (int)(arg1)->AddRecognizedTextLine((dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement const *)arg2, (double const(*))arg3);
+    if(arg3)
+      delete[] arg3, arg3 = nullptr;
     resultobj = SWIG_From_int(static_cast<int>(result));
     return resultobj;
   fail:
     return NULL;
   }
 
-  SWIGINTERN PyObject *_wrap_CRecognizedTextLinesUnit_AddRecognizedTextLine__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
-  {
-    PyObject *resultobj = 0;
-    dynamsoft::dlr::intermediate_results::CRecognizedTextLinesUnit *arg1 = (dynamsoft::dlr::intermediate_results::CRecognizedTextLinesUnit *)0;
-    dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement *arg2 = (dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement *)0;
-    void *argp1 = 0;
-    int res1 = 0;
-    void *argp2 = 0;
-    int res2 = 0;
-    int result;
+  // SWIGINTERN PyObject *_wrap_CRecognizedTextLinesUnit_AddRecognizedTextLine__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
+  // {
+  //   PyObject *resultobj = 0;
+  //   dynamsoft::dlr::intermediate_results::CRecognizedTextLinesUnit *arg1 = (dynamsoft::dlr::intermediate_results::CRecognizedTextLinesUnit *)0;
+  //   dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement *arg2 = (dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement *)0;
+  //   void *argp1 = 0;
+  //   int res1 = 0;
+  //   void *argp2 = 0;
+  //   int res2 = 0;
+  //   int result;
 
-    if ((nobjs < 2) || (nobjs > 2))
-      SWIG_fail;
-    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRecognizedTextLinesUnit, 0 | 0);
-    if (!SWIG_IsOK(res1))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
-                                               "CRecognizedTextLinesUnit_AddRecognizedTextLine"
-                                               "', argument "
-                                               "1"
-                                               " of type '"
-                                               "dynamsoft::dlr::intermediate_results::CRecognizedTextLinesUnit *"
-                                               "'");
-    }
-    arg1 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CRecognizedTextLinesUnit *>(argp1);
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRecognizedTextLineElement, 0 | 0);
-    if (!SWIG_IsOK(res2))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
-                                               "CRecognizedTextLinesUnit_AddRecognizedTextLine"
-                                               "', argument "
-                                               "2"
-                                               " of type '"
-                                               "dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement const *"
-                                               "'");
-    }
-    arg2 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement *>(argp2);
-    result = (int)(arg1)->AddRecognizedTextLine((dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement const *)arg2);
-    resultobj = SWIG_From_int(static_cast<int>(result));
-    return resultobj;
-  fail:
-    return NULL;
-  }
+  //   if ((nobjs < 2) || (nobjs > 2))
+  //     SWIG_fail;
+  //   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRecognizedTextLinesUnit, 0 | 0);
+  //   if (!SWIG_IsOK(res1))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+  //                                              "CRecognizedTextLinesUnit_AddRecognizedTextLine"
+  //                                              "', argument "
+  //                                              "1"
+  //                                              " of type '"
+  //                                              "dynamsoft::dlr::intermediate_results::CRecognizedTextLinesUnit *"
+  //                                              "'");
+  //   }
+  //   arg1 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CRecognizedTextLinesUnit *>(argp1);
+  //   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRecognizedTextLineElement, 0 | 0);
+  //   if (!SWIG_IsOK(res2))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
+  //                                              "CRecognizedTextLinesUnit_AddRecognizedTextLine"
+  //                                              "', argument "
+  //                                              "2"
+  //                                              " of type '"
+  //                                              "dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement const *"
+  //                                              "'");
+  //   }
+  //   arg2 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement *>(argp2);
+  //   result = (int)(arg1)->AddRecognizedTextLine((dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement const *)arg2);
+  //   resultobj = SWIG_From_int(static_cast<int>(result));
+  //   return resultobj;
+  // fail:
+  //   return NULL;
+  // }
 
   SWIGINTERN PyObject *_wrap_CRecognizedTextLinesUnit_AddRecognizedTextLine(PyObject *self, PyObject *args)
   {
@@ -6629,50 +6614,10 @@ extern "C"
     PyObject *argv[4] = {
         0};
 
-    if (!(argc = SWIG_Python_UnpackTuple(args, "CRecognizedTextLinesUnit_AddRecognizedTextLine", 0, 3, argv)))
+    if (!(argc = SWIG_Python_UnpackTuple(args, "CRecognizedTextLinesUnit_AddRecognizedTextLine", 3, 3, argv)))
       SWIG_fail;
     --argc;
-    if (argc == 2)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRecognizedTextLinesUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        void *vptr = 0;
-        int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRecognizedTextLineElement, 0);
-        _v = SWIG_CheckState(res);
-        if (_v)
-        {
-          return _wrap_CRecognizedTextLinesUnit_AddRecognizedTextLine__SWIG_1(self, argc, argv);
-        }
-      }
-    }
-    if (argc == 3)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRecognizedTextLinesUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        void *vptr = 0;
-        int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRecognizedTextLineElement, 0);
-        _v = SWIG_CheckState(res);
-        if (_v)
-        {
-          void *vptr = 0;
-          int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
-          _v = SWIG_CheckState(res);
-          if (_v)
-          {
-            return _wrap_CRecognizedTextLinesUnit_AddRecognizedTextLine__SWIG_0(self, argc, argv);
-          }
-        }
-      }
-    }
-
+    return _wrap_CRecognizedTextLinesUnit_AddRecognizedTextLine__SWIG_0(self, argc, argv);
   fail:
     SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'CRecognizedTextLinesUnit_AddRecognizedTextLine'.\n"
                                        "  Possible C/C++ prototypes are:\n"
@@ -6736,10 +6681,22 @@ extern "C"
                                                "'");
     }
     arg3 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement *>(argp3);
-    res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_double, 0 | 0);
-    if (!SWIG_IsOK(res4))
+    // res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_double, 0 | 0);
+    // if (!SWIG_IsOK(res4))
+    // {
+    //   SWIG_exception_fail(SWIG_ArgError(res4), "in method '"
+    //                                            "CRecognizedTextLinesUnit_SetRecognizedTextLine"
+    //                                            "', argument "
+    //                                            "4"
+    //                                            " of type '"
+    //                                            "double const [9]"
+    //                                            "'");
+    // }
+    // arg4 = reinterpret_cast<double *>(argp4);
+    arg4 = convertPythonListToCpp_double(swig_obj[3], 9);
+    if(!arg4)
     {
-      SWIG_exception_fail(SWIG_ArgError(res4), "in method '"
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
                                                "CRecognizedTextLinesUnit_SetRecognizedTextLine"
                                                "', argument "
                                                "4"
@@ -6747,72 +6704,73 @@ extern "C"
                                                "double const [9]"
                                                "'");
     }
-    arg4 = reinterpret_cast<double *>(argp4);
     result = (int)(arg1)->SetRecognizedTextLine(arg2, (dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement const *)arg3, (double const(*))arg4);
+    if(arg4)
+      delete[] arg4, arg4 = nullptr;
     resultobj = SWIG_From_int(static_cast<int>(result));
     return resultobj;
   fail:
     return NULL;
   }
 
-  SWIGINTERN PyObject *_wrap_CRecognizedTextLinesUnit_SetRecognizedTextLine__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
-  {
-    PyObject *resultobj = 0;
-    dynamsoft::dlr::intermediate_results::CRecognizedTextLinesUnit *arg1 = (dynamsoft::dlr::intermediate_results::CRecognizedTextLinesUnit *)0;
-    int arg2;
-    dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement *arg3 = (dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement *)0;
-    void *argp1 = 0;
-    int res1 = 0;
-    int val2;
-    int ecode2 = 0;
-    void *argp3 = 0;
-    int res3 = 0;
-    int result;
+  // SWIGINTERN PyObject *_wrap_CRecognizedTextLinesUnit_SetRecognizedTextLine__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
+  // {
+  //   PyObject *resultobj = 0;
+  //   dynamsoft::dlr::intermediate_results::CRecognizedTextLinesUnit *arg1 = (dynamsoft::dlr::intermediate_results::CRecognizedTextLinesUnit *)0;
+  //   int arg2;
+  //   dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement *arg3 = (dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement *)0;
+  //   void *argp1 = 0;
+  //   int res1 = 0;
+  //   int val2;
+  //   int ecode2 = 0;
+  //   void *argp3 = 0;
+  //   int res3 = 0;
+  //   int result;
 
-    if ((nobjs < 3) || (nobjs > 3))
-      SWIG_fail;
-    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRecognizedTextLinesUnit, 0 | 0);
-    if (!SWIG_IsOK(res1))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
-                                               "CRecognizedTextLinesUnit_SetRecognizedTextLine"
-                                               "', argument "
-                                               "1"
-                                               " of type '"
-                                               "dynamsoft::dlr::intermediate_results::CRecognizedTextLinesUnit *"
-                                               "'");
-    }
-    arg1 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CRecognizedTextLinesUnit *>(argp1);
-    ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-    if (!SWIG_IsOK(ecode2))
-    {
-      SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '"
-                                                 "CRecognizedTextLinesUnit_SetRecognizedTextLine"
-                                                 "', argument "
-                                                 "2"
-                                                 " of type '"
-                                                 "int"
-                                                 "'");
-    }
-    arg2 = static_cast<int>(val2);
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRecognizedTextLineElement, 0 | 0);
-    if (!SWIG_IsOK(res3))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
-                                               "CRecognizedTextLinesUnit_SetRecognizedTextLine"
-                                               "', argument "
-                                               "3"
-                                               " of type '"
-                                               "dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement const *"
-                                               "'");
-    }
-    arg3 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement *>(argp3);
-    result = (int)(arg1)->SetRecognizedTextLine(arg2, (dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement const *)arg3);
-    resultobj = SWIG_From_int(static_cast<int>(result));
-    return resultobj;
-  fail:
-    return NULL;
-  }
+  //   if ((nobjs < 3) || (nobjs > 3))
+  //     SWIG_fail;
+  //   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRecognizedTextLinesUnit, 0 | 0);
+  //   if (!SWIG_IsOK(res1))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+  //                                              "CRecognizedTextLinesUnit_SetRecognizedTextLine"
+  //                                              "', argument "
+  //                                              "1"
+  //                                              " of type '"
+  //                                              "dynamsoft::dlr::intermediate_results::CRecognizedTextLinesUnit *"
+  //                                              "'");
+  //   }
+  //   arg1 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CRecognizedTextLinesUnit *>(argp1);
+  //   ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  //   if (!SWIG_IsOK(ecode2))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '"
+  //                                                "CRecognizedTextLinesUnit_SetRecognizedTextLine"
+  //                                                "', argument "
+  //                                                "2"
+  //                                                " of type '"
+  //                                                "int"
+  //                                                "'");
+  //   }
+  //   arg2 = static_cast<int>(val2);
+  //   res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRecognizedTextLineElement, 0 | 0);
+  //   if (!SWIG_IsOK(res3))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
+  //                                              "CRecognizedTextLinesUnit_SetRecognizedTextLine"
+  //                                              "', argument "
+  //                                              "3"
+  //                                              " of type '"
+  //                                              "dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement const *"
+  //                                              "'");
+  //   }
+  //   arg3 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement *>(argp3);
+  //   result = (int)(arg1)->SetRecognizedTextLine(arg2, (dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement const *)arg3);
+  //   resultobj = SWIG_From_int(static_cast<int>(result));
+  //   return resultobj;
+  // fail:
+  //   return NULL;
+  // }
 
   SWIGINTERN PyObject *_wrap_CRecognizedTextLinesUnit_SetRecognizedTextLine(PyObject *self, PyObject *args)
   {
@@ -6820,64 +6778,10 @@ extern "C"
     PyObject *argv[5] = {
         0};
 
-    if (!(argc = SWIG_Python_UnpackTuple(args, "CRecognizedTextLinesUnit_SetRecognizedTextLine", 0, 4, argv)))
+    if (!(argc = SWIG_Python_UnpackTuple(args, "CRecognizedTextLinesUnit_SetRecognizedTextLine", 4, 4, argv)))
       SWIG_fail;
     --argc;
-    if (argc == 3)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRecognizedTextLinesUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        {
-          int res = SWIG_AsVal_int(argv[1], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v)
-        {
-          void *vptr = 0;
-          int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRecognizedTextLineElement, 0);
-          _v = SWIG_CheckState(res);
-          if (_v)
-          {
-            return _wrap_CRecognizedTextLinesUnit_SetRecognizedTextLine__SWIG_1(self, argc, argv);
-          }
-        }
-      }
-    }
-    if (argc == 4)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRecognizedTextLinesUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        {
-          int res = SWIG_AsVal_int(argv[1], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v)
-        {
-          void *vptr = 0;
-          int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRecognizedTextLineElement, 0);
-          _v = SWIG_CheckState(res);
-          if (_v)
-          {
-            void *vptr = 0;
-            int res = SWIG_ConvertPtr(argv[3], &vptr, SWIGTYPE_p_double, 0);
-            _v = SWIG_CheckState(res);
-            if (_v)
-            {
-              return _wrap_CRecognizedTextLinesUnit_SetRecognizedTextLine__SWIG_0(self, argc, argv);
-            }
-          }
-        }
-      }
-    }
-
+    return _wrap_CRecognizedTextLinesUnit_SetRecognizedTextLine__SWIG_0(self, argc, argv);
   fail:
     SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'CRecognizedTextLinesUnit_SetRecognizedTextLine'.\n"
                                        "  Possible C/C++ prototypes are:\n"
@@ -7318,7 +7222,7 @@ extern "C"
     }
     arg1 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CRawTextLine *>(argp1);
     result = (dynamsoft::dlr::intermediate_results::CRawTextLine *)((dynamsoft::dlr::intermediate_results::CRawTextLine const *)arg1)->Clone();
-    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRawTextLine, 0 | 0);
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRawTextLine, SWIG_POINTER_OWN | 0);
     return resultobj;
   fail:
     return NULL;
@@ -7470,6 +7374,7 @@ extern "C"
     int ecode2 = 0;
     PyObject *swig_obj[2];
     dynamsoft::dlr::intermediate_results::CRawTextLine *result = 0;
+    dynamsoft::dlr::intermediate_results::CRawTextLine *result2 = 0;
 
     if (!SWIG_Python_UnpackTuple(args, "CRawTextLinesUnit_GetRawTextLine", 2, 2, swig_obj))
       SWIG_fail;
@@ -7498,7 +7403,8 @@ extern "C"
     }
     arg2 = static_cast<int>(val2);
     result = (dynamsoft::dlr::intermediate_results::CRawTextLine *)((dynamsoft::dlr::intermediate_results::CRawTextLinesUnit const *)arg1)->GetRawTextLine(arg2);
-    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRawTextLine, 0 | 0);
+    result2 = result->Clone();
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result2), SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRawTextLine, SWIG_POINTER_OWN | 0);
     return resultobj;
   fail:
     return NULL;
@@ -7619,8 +7525,20 @@ extern "C"
                                                "'");
     }
     arg2 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CRawTextLine *>(argp2);
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_double, 0 | 0);
-    if (!SWIG_IsOK(res3))
+    // res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_double, 0 | 0);
+    // if (!SWIG_IsOK(res3))
+    // {
+    //   SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
+    //                                            "CRawTextLinesUnit_AddRawTextLine"
+    //                                            "', argument "
+    //                                            "3"
+    //                                            " of type '"
+    //                                            "double const [9]"
+    //                                            "'");
+    // }
+    // arg3 = reinterpret_cast<double *>(argp3);
+    arg3 = convertPythonListToCpp_double(swig_obj[2], 9);
+    if(!arg3)
     {
       SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
                                                "CRawTextLinesUnit_AddRawTextLine"
@@ -7630,57 +7548,58 @@ extern "C"
                                                "double const [9]"
                                                "'");
     }
-    arg3 = reinterpret_cast<double *>(argp3);
     result = (int)(arg1)->AddRawTextLine((dynamsoft::dlr::intermediate_results::CRawTextLine const *)arg2, (double const(*))arg3);
+    if(arg3)
+      delete[] arg3, arg3 = nullptr;
     resultobj = SWIG_From_int(static_cast<int>(result));
     return resultobj;
   fail:
     return NULL;
   }
 
-  SWIGINTERN PyObject *_wrap_CRawTextLinesUnit_AddRawTextLine__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
-  {
-    PyObject *resultobj = 0;
-    dynamsoft::dlr::intermediate_results::CRawTextLinesUnit *arg1 = (dynamsoft::dlr::intermediate_results::CRawTextLinesUnit *)0;
-    dynamsoft::dlr::intermediate_results::CRawTextLine *arg2 = (dynamsoft::dlr::intermediate_results::CRawTextLine *)0;
-    void *argp1 = 0;
-    int res1 = 0;
-    void *argp2 = 0;
-    int res2 = 0;
-    int result;
+  // SWIGINTERN PyObject *_wrap_CRawTextLinesUnit_AddRawTextLine__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
+  // {
+  //   PyObject *resultobj = 0;
+  //   dynamsoft::dlr::intermediate_results::CRawTextLinesUnit *arg1 = (dynamsoft::dlr::intermediate_results::CRawTextLinesUnit *)0;
+  //   dynamsoft::dlr::intermediate_results::CRawTextLine *arg2 = (dynamsoft::dlr::intermediate_results::CRawTextLine *)0;
+  //   void *argp1 = 0;
+  //   int res1 = 0;
+  //   void *argp2 = 0;
+  //   int res2 = 0;
+  //   int result;
 
-    if ((nobjs < 2) || (nobjs > 2))
-      SWIG_fail;
-    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRawTextLinesUnit, 0 | 0);
-    if (!SWIG_IsOK(res1))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
-                                               "CRawTextLinesUnit_AddRawTextLine"
-                                               "', argument "
-                                               "1"
-                                               " of type '"
-                                               "dynamsoft::dlr::intermediate_results::CRawTextLinesUnit *"
-                                               "'");
-    }
-    arg1 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CRawTextLinesUnit *>(argp1);
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRawTextLine, 0 | 0);
-    if (!SWIG_IsOK(res2))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
-                                               "CRawTextLinesUnit_AddRawTextLine"
-                                               "', argument "
-                                               "2"
-                                               " of type '"
-                                               "dynamsoft::dlr::intermediate_results::CRawTextLine const *"
-                                               "'");
-    }
-    arg2 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CRawTextLine *>(argp2);
-    result = (int)(arg1)->AddRawTextLine((dynamsoft::dlr::intermediate_results::CRawTextLine const *)arg2);
-    resultobj = SWIG_From_int(static_cast<int>(result));
-    return resultobj;
-  fail:
-    return NULL;
-  }
+  //   if ((nobjs < 2) || (nobjs > 2))
+  //     SWIG_fail;
+  //   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRawTextLinesUnit, 0 | 0);
+  //   if (!SWIG_IsOK(res1))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+  //                                              "CRawTextLinesUnit_AddRawTextLine"
+  //                                              "', argument "
+  //                                              "1"
+  //                                              " of type '"
+  //                                              "dynamsoft::dlr::intermediate_results::CRawTextLinesUnit *"
+  //                                              "'");
+  //   }
+  //   arg1 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CRawTextLinesUnit *>(argp1);
+  //   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRawTextLine, 0 | 0);
+  //   if (!SWIG_IsOK(res2))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
+  //                                              "CRawTextLinesUnit_AddRawTextLine"
+  //                                              "', argument "
+  //                                              "2"
+  //                                              " of type '"
+  //                                              "dynamsoft::dlr::intermediate_results::CRawTextLine const *"
+  //                                              "'");
+  //   }
+  //   arg2 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CRawTextLine *>(argp2);
+  //   result = (int)(arg1)->AddRawTextLine((dynamsoft::dlr::intermediate_results::CRawTextLine const *)arg2);
+  //   resultobj = SWIG_From_int(static_cast<int>(result));
+  //   return resultobj;
+  // fail:
+  //   return NULL;
+  // }
 
   SWIGINTERN PyObject *_wrap_CRawTextLinesUnit_AddRawTextLine(PyObject *self, PyObject *args)
   {
@@ -7688,50 +7607,10 @@ extern "C"
     PyObject *argv[4] = {
         0};
 
-    if (!(argc = SWIG_Python_UnpackTuple(args, "CRawTextLinesUnit_AddRawTextLine", 0, 3, argv)))
+    if (!(argc = SWIG_Python_UnpackTuple(args, "CRawTextLinesUnit_AddRawTextLine", 3, 3, argv)))
       SWIG_fail;
     --argc;
-    if (argc == 2)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRawTextLinesUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        void *vptr = 0;
-        int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRawTextLine, 0);
-        _v = SWIG_CheckState(res);
-        if (_v)
-        {
-          return _wrap_CRawTextLinesUnit_AddRawTextLine__SWIG_1(self, argc, argv);
-        }
-      }
-    }
-    if (argc == 3)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRawTextLinesUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        void *vptr = 0;
-        int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRawTextLine, 0);
-        _v = SWIG_CheckState(res);
-        if (_v)
-        {
-          void *vptr = 0;
-          int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
-          _v = SWIG_CheckState(res);
-          if (_v)
-          {
-            return _wrap_CRawTextLinesUnit_AddRawTextLine__SWIG_0(self, argc, argv);
-          }
-        }
-      }
-    }
-
+    return _wrap_CRawTextLinesUnit_AddRawTextLine__SWIG_0(self, argc, argv);
   fail:
     SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'CRawTextLinesUnit_AddRawTextLine'.\n"
                                        "  Possible C/C++ prototypes are:\n"
@@ -7795,10 +7674,22 @@ extern "C"
                                                "'");
     }
     arg3 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CRawTextLine *>(argp3);
-    res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_double, 0 | 0);
-    if (!SWIG_IsOK(res4))
+    // res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_double, 0 | 0);
+    // if (!SWIG_IsOK(res4))
+    // {
+    //   SWIG_exception_fail(SWIG_ArgError(res4), "in method '"
+    //                                            "CRawTextLinesUnit_SetRawTextLine"
+    //                                            "', argument "
+    //                                            "4"
+    //                                            " of type '"
+    //                                            "double const [9]"
+    //                                            "'");
+    // }
+    // arg4 = reinterpret_cast<double *>(argp4);
+    arg4 = convertPythonListToCpp_double(swig_obj[3], 9);
+    if(!arg4)
     {
-      SWIG_exception_fail(SWIG_ArgError(res4), "in method '"
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
                                                "CRawTextLinesUnit_SetRawTextLine"
                                                "', argument "
                                                "4"
@@ -7806,72 +7697,73 @@ extern "C"
                                                "double const [9]"
                                                "'");
     }
-    arg4 = reinterpret_cast<double *>(argp4);
     result = (int)(arg1)->SetRawTextLine(arg2, (dynamsoft::dlr::intermediate_results::CRawTextLine const *)arg3, (double const(*))arg4);
+    if(arg4)
+      delete[] arg4, arg4 = nullptr;
     resultobj = SWIG_From_int(static_cast<int>(result));
     return resultobj;
   fail:
     return NULL;
   }
 
-  SWIGINTERN PyObject *_wrap_CRawTextLinesUnit_SetRawTextLine__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
-  {
-    PyObject *resultobj = 0;
-    dynamsoft::dlr::intermediate_results::CRawTextLinesUnit *arg1 = (dynamsoft::dlr::intermediate_results::CRawTextLinesUnit *)0;
-    int arg2;
-    dynamsoft::dlr::intermediate_results::CRawTextLine *arg3 = (dynamsoft::dlr::intermediate_results::CRawTextLine *)0;
-    void *argp1 = 0;
-    int res1 = 0;
-    int val2;
-    int ecode2 = 0;
-    void *argp3 = 0;
-    int res3 = 0;
-    int result;
+  // SWIGINTERN PyObject *_wrap_CRawTextLinesUnit_SetRawTextLine__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
+  // {
+  //   PyObject *resultobj = 0;
+  //   dynamsoft::dlr::intermediate_results::CRawTextLinesUnit *arg1 = (dynamsoft::dlr::intermediate_results::CRawTextLinesUnit *)0;
+  //   int arg2;
+  //   dynamsoft::dlr::intermediate_results::CRawTextLine *arg3 = (dynamsoft::dlr::intermediate_results::CRawTextLine *)0;
+  //   void *argp1 = 0;
+  //   int res1 = 0;
+  //   int val2;
+  //   int ecode2 = 0;
+  //   void *argp3 = 0;
+  //   int res3 = 0;
+  //   int result;
 
-    if ((nobjs < 3) || (nobjs > 3))
-      SWIG_fail;
-    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRawTextLinesUnit, 0 | 0);
-    if (!SWIG_IsOK(res1))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
-                                               "CRawTextLinesUnit_SetRawTextLine"
-                                               "', argument "
-                                               "1"
-                                               " of type '"
-                                               "dynamsoft::dlr::intermediate_results::CRawTextLinesUnit *"
-                                               "'");
-    }
-    arg1 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CRawTextLinesUnit *>(argp1);
-    ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-    if (!SWIG_IsOK(ecode2))
-    {
-      SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '"
-                                                 "CRawTextLinesUnit_SetRawTextLine"
-                                                 "', argument "
-                                                 "2"
-                                                 " of type '"
-                                                 "int"
-                                                 "'");
-    }
-    arg2 = static_cast<int>(val2);
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRawTextLine, 0 | 0);
-    if (!SWIG_IsOK(res3))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
-                                               "CRawTextLinesUnit_SetRawTextLine"
-                                               "', argument "
-                                               "3"
-                                               " of type '"
-                                               "dynamsoft::dlr::intermediate_results::CRawTextLine const *"
-                                               "'");
-    }
-    arg3 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CRawTextLine *>(argp3);
-    result = (int)(arg1)->SetRawTextLine(arg2, (dynamsoft::dlr::intermediate_results::CRawTextLine const *)arg3);
-    resultobj = SWIG_From_int(static_cast<int>(result));
-    return resultobj;
-  fail:
-    return NULL;
-  }
+  //   if ((nobjs < 3) || (nobjs > 3))
+  //     SWIG_fail;
+  //   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRawTextLinesUnit, 0 | 0);
+  //   if (!SWIG_IsOK(res1))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+  //                                              "CRawTextLinesUnit_SetRawTextLine"
+  //                                              "', argument "
+  //                                              "1"
+  //                                              " of type '"
+  //                                              "dynamsoft::dlr::intermediate_results::CRawTextLinesUnit *"
+  //                                              "'");
+  //   }
+  //   arg1 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CRawTextLinesUnit *>(argp1);
+  //   ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  //   if (!SWIG_IsOK(ecode2))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '"
+  //                                                "CRawTextLinesUnit_SetRawTextLine"
+  //                                                "', argument "
+  //                                                "2"
+  //                                                " of type '"
+  //                                                "int"
+  //                                                "'");
+  //   }
+  //   arg2 = static_cast<int>(val2);
+  //   res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRawTextLine, 0 | 0);
+  //   if (!SWIG_IsOK(res3))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
+  //                                              "CRawTextLinesUnit_SetRawTextLine"
+  //                                              "', argument "
+  //                                              "3"
+  //                                              " of type '"
+  //                                              "dynamsoft::dlr::intermediate_results::CRawTextLine const *"
+  //                                              "'");
+  //   }
+  //   arg3 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CRawTextLine *>(argp3);
+  //   result = (int)(arg1)->SetRawTextLine(arg2, (dynamsoft::dlr::intermediate_results::CRawTextLine const *)arg3);
+  //   resultobj = SWIG_From_int(static_cast<int>(result));
+  //   return resultobj;
+  // fail:
+  //   return NULL;
+  // }
 
   SWIGINTERN PyObject *_wrap_CRawTextLinesUnit_SetRawTextLine(PyObject *self, PyObject *args)
   {
@@ -7879,64 +7771,10 @@ extern "C"
     PyObject *argv[5] = {
         0};
 
-    if (!(argc = SWIG_Python_UnpackTuple(args, "CRawTextLinesUnit_SetRawTextLine", 0, 4, argv)))
+    if (!(argc = SWIG_Python_UnpackTuple(args, "CRawTextLinesUnit_SetRawTextLine", 4, 4, argv)))
       SWIG_fail;
     --argc;
-    if (argc == 3)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRawTextLinesUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        {
-          int res = SWIG_AsVal_int(argv[1], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v)
-        {
-          void *vptr = 0;
-          int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRawTextLine, 0);
-          _v = SWIG_CheckState(res);
-          if (_v)
-          {
-            return _wrap_CRawTextLinesUnit_SetRawTextLine__SWIG_1(self, argc, argv);
-          }
-        }
-      }
-    }
-    if (argc == 4)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRawTextLinesUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        {
-          int res = SWIG_AsVal_int(argv[1], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v)
-        {
-          void *vptr = 0;
-          int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRawTextLine, 0);
-          _v = SWIG_CheckState(res);
-          if (_v)
-          {
-            void *vptr = 0;
-            int res = SWIG_ConvertPtr(argv[3], &vptr, SWIGTYPE_p_double, 0);
-            _v = SWIG_CheckState(res);
-            if (_v)
-            {
-              return _wrap_CRawTextLinesUnit_SetRawTextLine__SWIG_0(self, argc, argv);
-            }
-          }
-        }
-      }
-    }
-
+    return _wrap_CRawTextLinesUnit_SetRawTextLine__SWIG_0(self, argc, argv);
   fail:
     SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'CRawTextLinesUnit_SetRawTextLine'.\n"
                                        "  Possible C/C++ prototypes are:\n"
@@ -8445,7 +8283,8 @@ extern "C"
     }
     arg2 = static_cast<int>(val2);
     result = (dynamsoft::dlr::CTextLineResultItem *)((dynamsoft::dlr::CRecognizedTextLinesResult const *)arg1)->GetItem(arg2);
-    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__dlr__CTextLineResultItem, 0 | 0);
+    result->Retain();
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__dlr__CTextLineResultItem, SWIG_POINTER_OWN | 0);
     return resultobj;
   fail:
     return NULL;
@@ -9343,6 +9182,7 @@ extern "C"
   }
 
   static PyMethodDef SwigMethods[] = {
+      {"Class_init", SimplifiedLabelRecognizerSettings_swiginit, METH_VARARGS, NULL},
       {"SimplifiedLabelRecognizerSettings_grayscaleTransformationModes_set", _wrap_SimplifiedLabelRecognizerSettings_grayscaleTransformationModes_set, METH_VARARGS, NULL},
       {"SimplifiedLabelRecognizerSettings_grayscaleTransformationModes_get", _wrap_SimplifiedLabelRecognizerSettings_grayscaleTransformationModes_get, METH_O, NULL},
       {"SimplifiedLabelRecognizerSettings_grayscaleEnhancementModes_set", _wrap_SimplifiedLabelRecognizerSettings_grayscaleEnhancementModes_set, METH_VARARGS, NULL},
@@ -9360,7 +9200,7 @@ extern "C"
       {"new_SimplifiedLabelRecognizerSettings", _wrap_new_SimplifiedLabelRecognizerSettings, METH_NOARGS, NULL},
       {"delete_SimplifiedLabelRecognizerSettings", _wrap_delete_SimplifiedLabelRecognizerSettings, METH_O, NULL},
       {"SimplifiedLabelRecognizerSettings_register", SimplifiedLabelRecognizerSettings_swigregister, METH_O, NULL},
-      {"SimplifiedLabelRecognizerSettings_init", SimplifiedLabelRecognizerSettings_swiginit, METH_VARARGS, NULL},
+      // {"SimplifiedLabelRecognizerSettings_init", SimplifiedLabelRecognizerSettings_swiginit, METH_VARARGS, NULL},
       {"CCharacterResult_characterH_set", _wrap_CCharacterResult_characterH_set, METH_VARARGS, NULL},
       {"CCharacterResult_characterH_get", _wrap_CCharacterResult_characterH_get, METH_O, NULL},
       {"CCharacterResult_characterM_set", _wrap_CCharacterResult_characterM_set, METH_VARARGS, NULL},
@@ -9378,56 +9218,56 @@ extern "C"
       {"new_CCharacterResult", _wrap_new_CCharacterResult, METH_NOARGS, NULL},
       {"delete_CCharacterResult", _wrap_delete_CCharacterResult, METH_O, NULL},
       {"CCharacterResult_register", CCharacterResult_swigregister, METH_O, NULL},
-      {"CCharacterResult_init", CCharacterResult_swiginit, METH_VARARGS, NULL},
-      // {"CLocalizedTextLineElement_GetCharacterQuadsCount", _wrap_CLocalizedTextLineElement_GetCharacterQuadsCount, METH_O, NULL},
-      // {"CLocalizedTextLineElement_GetCharacterQuad", _wrap_CLocalizedTextLineElement_GetCharacterQuad, METH_VARARGS, NULL},
-      // {"CLocalizedTextLineElement_GetRowNumber", _wrap_CLocalizedTextLineElement_GetRowNumber, METH_O, NULL},
-      // {"CLocalizedTextLineElement_register", CLocalizedTextLineElement_swigregister, METH_O, NULL},
-      // {"CRecognizedTextLineElement_GetText", _wrap_CRecognizedTextLineElement_GetText, METH_O, NULL},
-      // {"CRecognizedTextLineElement_GetConfidence", _wrap_CRecognizedTextLineElement_GetConfidence, METH_O, NULL},
-      // {"CRecognizedTextLineElement_GetCharacterResultsCount", _wrap_CRecognizedTextLineElement_GetCharacterResultsCount, METH_O, NULL},
-      // {"CRecognizedTextLineElement_GetRowNumber", _wrap_CRecognizedTextLineElement_GetRowNumber, METH_O, NULL},
-      // {"CRecognizedTextLineElement_GetCharacterResult", _wrap_CRecognizedTextLineElement_GetCharacterResult, METH_VARARGS, NULL},
-      // {"CRecognizedTextLineElement_SetText", _wrap_CRecognizedTextLineElement_SetText, METH_VARARGS, NULL},
-      // {"CRecognizedTextLineElement_GetSpecificationName", _wrap_CRecognizedTextLineElement_GetSpecificationName, METH_O, NULL},
-      // {"CRecognizedTextLineElement_GetRawText", _wrap_CRecognizedTextLineElement_GetRawText, METH_O, NULL},
-      // {"CRecognizedTextLineElement_register", CRecognizedTextLineElement_swigregister, METH_O, NULL},
-      // {"CLocalizedTextLinesUnit_GetCount", _wrap_CLocalizedTextLinesUnit_GetCount, METH_O, NULL},
-      // {"CLocalizedTextLinesUnit_GetLocalizedTextLine", _wrap_CLocalizedTextLinesUnit_GetLocalizedTextLine, METH_VARARGS, NULL},
-      // {"CLocalizedTextLinesUnit_RemoveAllLocalizedTextLines", _wrap_CLocalizedTextLinesUnit_RemoveAllLocalizedTextLines, METH_O, NULL},
-      // {"CLocalizedTextLinesUnit_RemoveLocalizedTextLine", _wrap_CLocalizedTextLinesUnit_RemoveLocalizedTextLine, METH_VARARGS, NULL},
-      // {"CLocalizedTextLinesUnit_AddLocalizedTextLine", _wrap_CLocalizedTextLinesUnit_AddLocalizedTextLine, METH_VARARGS, NULL},
-      // {"CLocalizedTextLinesUnit_SetLocalizedTextLine", _wrap_CLocalizedTextLinesUnit_SetLocalizedTextLine, METH_VARARGS, NULL},
-      // {"CLocalizedTextLinesUnit_register", CLocalizedTextLinesUnit_swigregister, METH_O, NULL},
-      // {"CRecognizedTextLinesUnit_GetCount", _wrap_CRecognizedTextLinesUnit_GetCount, METH_O, NULL},
-      // {"CRecognizedTextLinesUnit_GetRecognizedTextLine", _wrap_CRecognizedTextLinesUnit_GetRecognizedTextLine, METH_VARARGS, NULL},
-      // {"CRecognizedTextLinesUnit_RemoveAllRecognizedTextLines", _wrap_CRecognizedTextLinesUnit_RemoveAllRecognizedTextLines, METH_O, NULL},
-      // {"CRecognizedTextLinesUnit_RemoveRecognizedTextLine", _wrap_CRecognizedTextLinesUnit_RemoveRecognizedTextLine, METH_VARARGS, NULL},
-      // {"CRecognizedTextLinesUnit_AddRecognizedTextLine", _wrap_CRecognizedTextLinesUnit_AddRecognizedTextLine, METH_VARARGS, NULL},
-      // {"CRecognizedTextLinesUnit_SetRecognizedTextLine", _wrap_CRecognizedTextLinesUnit_SetRecognizedTextLine, METH_VARARGS, NULL},
-      // {"CRecognizedTextLinesUnit_register", CRecognizedTextLinesUnit_swigregister, METH_O, NULL},
-      // {"CRawTextLine_GetText", _wrap_CRawTextLine_GetText, METH_O, NULL},
-      // {"CRawTextLine_GetConfidence", _wrap_CRawTextLine_GetConfidence, METH_O, NULL},
-      // {"CRawTextLine_GetCharacterResultsCount", _wrap_CRawTextLine_GetCharacterResultsCount, METH_O, NULL},
-      // {"CRawTextLine_GetRowNumber", _wrap_CRawTextLine_GetRowNumber, METH_O, NULL},
-      // {"CRawTextLine_GetCharacterResult", _wrap_CRawTextLine_GetCharacterResult, METH_VARARGS, NULL},
-      // {"CRawTextLine_SetText", _wrap_CRawTextLine_SetText, METH_VARARGS, NULL},
-      // {"CRawTextLine_GetSpecificationName", _wrap_CRawTextLine_GetSpecificationName, METH_O, NULL},
-      // {"CRawTextLine_GetLocation", _wrap_CRawTextLine_GetLocation, METH_O, NULL},
-      // {"CRawTextLine_SetLocation", _wrap_CRawTextLine_SetLocation, METH_VARARGS, NULL},
-      // {"CRawTextLine_GetStatus", _wrap_CRawTextLine_GetStatus, METH_O, NULL},
-      // {"CRawTextLine_Release", _wrap_CRawTextLine_Release, METH_O, NULL},
-      // {"CRawTextLine_Clone", _wrap_CRawTextLine_Clone, METH_O, NULL},
-      // {"CRawTextLine_SetRowNumber", _wrap_CRawTextLine_SetRowNumber, METH_VARARGS, NULL},
-      // {"CRawTextLine_SetSpecificationName", _wrap_CRawTextLine_SetSpecificationName, METH_VARARGS, NULL},
-      // {"CRawTextLine_register", CRawTextLine_swigregister, METH_O, NULL},
-      // {"CRawTextLinesUnit_GetCount", _wrap_CRawTextLinesUnit_GetCount, METH_O, NULL},
-      // {"CRawTextLinesUnit_GetRawTextLine", _wrap_CRawTextLinesUnit_GetRawTextLine, METH_VARARGS, NULL},
-      // {"CRawTextLinesUnit_RemoveAllRawTextLines", _wrap_CRawTextLinesUnit_RemoveAllRawTextLines, METH_O, NULL},
-      // {"CRawTextLinesUnit_RemoveRawTextLine", _wrap_CRawTextLinesUnit_RemoveRawTextLine, METH_VARARGS, NULL},
-      // {"CRawTextLinesUnit_AddRawTextLine", _wrap_CRawTextLinesUnit_AddRawTextLine, METH_VARARGS, NULL},
-      // {"CRawTextLinesUnit_SetRawTextLine", _wrap_CRawTextLinesUnit_SetRawTextLine, METH_VARARGS, NULL},
-      // {"CRawTextLinesUnit_register", CRawTextLinesUnit_swigregister, METH_O, NULL},
+      // {"CCharacterResult_init", CCharacterResult_swiginit, METH_VARARGS, NULL},
+      {"CLocalizedTextLineElement_GetCharacterQuadsCount", _wrap_CLocalizedTextLineElement_GetCharacterQuadsCount, METH_O, NULL},
+      {"CLocalizedTextLineElement_GetCharacterQuad", _wrap_CLocalizedTextLineElement_GetCharacterQuad, METH_VARARGS, NULL},
+      {"CLocalizedTextLineElement_GetRowNumber", _wrap_CLocalizedTextLineElement_GetRowNumber, METH_O, NULL},
+      {"CLocalizedTextLineElement_register", CLocalizedTextLineElement_swigregister, METH_O, NULL},
+      {"CRecognizedTextLineElement_GetText", _wrap_CRecognizedTextLineElement_GetText, METH_O, NULL},
+      {"CRecognizedTextLineElement_GetConfidence", _wrap_CRecognizedTextLineElement_GetConfidence, METH_O, NULL},
+      {"CRecognizedTextLineElement_GetCharacterResultsCount", _wrap_CRecognizedTextLineElement_GetCharacterResultsCount, METH_O, NULL},
+      {"CRecognizedTextLineElement_GetRowNumber", _wrap_CRecognizedTextLineElement_GetRowNumber, METH_O, NULL},
+      {"CRecognizedTextLineElement_GetCharacterResult", _wrap_CRecognizedTextLineElement_GetCharacterResult, METH_VARARGS, NULL},
+      {"CRecognizedTextLineElement_SetText", _wrap_CRecognizedTextLineElement_SetText, METH_VARARGS, NULL},
+      {"CRecognizedTextLineElement_GetSpecificationName", _wrap_CRecognizedTextLineElement_GetSpecificationName, METH_O, NULL},
+      {"CRecognizedTextLineElement_GetRawText", _wrap_CRecognizedTextLineElement_GetRawText, METH_O, NULL},
+      {"CRecognizedTextLineElement_register", CRecognizedTextLineElement_swigregister, METH_O, NULL},
+      {"CLocalizedTextLinesUnit_GetCount", _wrap_CLocalizedTextLinesUnit_GetCount, METH_O, NULL},
+      {"CLocalizedTextLinesUnit_GetLocalizedTextLine", _wrap_CLocalizedTextLinesUnit_GetLocalizedTextLine, METH_VARARGS, NULL},
+      {"CLocalizedTextLinesUnit_RemoveAllLocalizedTextLines", _wrap_CLocalizedTextLinesUnit_RemoveAllLocalizedTextLines, METH_O, NULL},
+      {"CLocalizedTextLinesUnit_RemoveLocalizedTextLine", _wrap_CLocalizedTextLinesUnit_RemoveLocalizedTextLine, METH_VARARGS, NULL},
+      {"CLocalizedTextLinesUnit_AddLocalizedTextLine", _wrap_CLocalizedTextLinesUnit_AddLocalizedTextLine, METH_VARARGS, NULL},
+      {"CLocalizedTextLinesUnit_SetLocalizedTextLine", _wrap_CLocalizedTextLinesUnit_SetLocalizedTextLine, METH_VARARGS, NULL},
+      {"CLocalizedTextLinesUnit_register", CLocalizedTextLinesUnit_swigregister, METH_O, NULL},
+      {"CRecognizedTextLinesUnit_GetCount", _wrap_CRecognizedTextLinesUnit_GetCount, METH_O, NULL},
+      {"CRecognizedTextLinesUnit_GetRecognizedTextLine", _wrap_CRecognizedTextLinesUnit_GetRecognizedTextLine, METH_VARARGS, NULL},
+      {"CRecognizedTextLinesUnit_RemoveAllRecognizedTextLines", _wrap_CRecognizedTextLinesUnit_RemoveAllRecognizedTextLines, METH_O, NULL},
+      {"CRecognizedTextLinesUnit_RemoveRecognizedTextLine", _wrap_CRecognizedTextLinesUnit_RemoveRecognizedTextLine, METH_VARARGS, NULL},
+      {"CRecognizedTextLinesUnit_AddRecognizedTextLine", _wrap_CRecognizedTextLinesUnit_AddRecognizedTextLine, METH_VARARGS, NULL},
+      {"CRecognizedTextLinesUnit_SetRecognizedTextLine", _wrap_CRecognizedTextLinesUnit_SetRecognizedTextLine, METH_VARARGS, NULL},
+      {"CRecognizedTextLinesUnit_register", CRecognizedTextLinesUnit_swigregister, METH_O, NULL},
+      {"CRawTextLine_GetText", _wrap_CRawTextLine_GetText, METH_O, NULL},
+      {"CRawTextLine_GetConfidence", _wrap_CRawTextLine_GetConfidence, METH_O, NULL},
+      {"CRawTextLine_GetCharacterResultsCount", _wrap_CRawTextLine_GetCharacterResultsCount, METH_O, NULL},
+      {"CRawTextLine_GetRowNumber", _wrap_CRawTextLine_GetRowNumber, METH_O, NULL},
+      {"CRawTextLine_GetCharacterResult", _wrap_CRawTextLine_GetCharacterResult, METH_VARARGS, NULL},
+      {"CRawTextLine_SetText", _wrap_CRawTextLine_SetText, METH_VARARGS, NULL},
+      {"CRawTextLine_GetSpecificationName", _wrap_CRawTextLine_GetSpecificationName, METH_O, NULL},
+      {"CRawTextLine_GetLocation", _wrap_CRawTextLine_GetLocation, METH_O, NULL},
+      {"CRawTextLine_SetLocation", _wrap_CRawTextLine_SetLocation, METH_VARARGS, NULL},
+      {"CRawTextLine_GetStatus", _wrap_CRawTextLine_GetStatus, METH_O, NULL},
+      {"CRawTextLine_Release", _wrap_CRawTextLine_Release, METH_O, NULL},
+      {"CRawTextLine_Clone", _wrap_CRawTextLine_Clone, METH_O, NULL},
+      {"CRawTextLine_SetRowNumber", _wrap_CRawTextLine_SetRowNumber, METH_VARARGS, NULL},
+      {"CRawTextLine_SetSpecificationName", _wrap_CRawTextLine_SetSpecificationName, METH_VARARGS, NULL},
+      {"CRawTextLine_register", CRawTextLine_swigregister, METH_O, NULL},
+      {"CRawTextLinesUnit_GetCount", _wrap_CRawTextLinesUnit_GetCount, METH_O, NULL},
+      {"CRawTextLinesUnit_GetRawTextLine", _wrap_CRawTextLinesUnit_GetRawTextLine, METH_VARARGS, NULL},
+      {"CRawTextLinesUnit_RemoveAllRawTextLines", _wrap_CRawTextLinesUnit_RemoveAllRawTextLines, METH_O, NULL},
+      {"CRawTextLinesUnit_RemoveRawTextLine", _wrap_CRawTextLinesUnit_RemoveRawTextLine, METH_VARARGS, NULL},
+      {"CRawTextLinesUnit_AddRawTextLine", _wrap_CRawTextLinesUnit_AddRawTextLine, METH_VARARGS, NULL},
+      {"CRawTextLinesUnit_SetRawTextLine", _wrap_CRawTextLinesUnit_SetRawTextLine, METH_VARARGS, NULL},
+      {"CRawTextLinesUnit_register", CRawTextLinesUnit_swigregister, METH_O, NULL},
       {"CTextLineResultItem_GetText", _wrap_CTextLineResultItem_GetText, METH_O, NULL},
       {"CTextLineResultItem_GetLocation", _wrap_CTextLineResultItem_GetLocation, METH_O, NULL},
       {"CTextLineResultItem_GetConfidence", _wrap_CTextLineResultItem_GetConfidence, METH_O, NULL},
@@ -9457,7 +9297,7 @@ extern "C"
       {"new_CLabelRecognizerModule", _wrap_new_CLabelRecognizerModule, METH_NOARGS, NULL},
       {"delete_CLabelRecognizerModule", _wrap_delete_CLabelRecognizerModule, METH_O, NULL},
       {"CLabelRecognizerModule_register", CLabelRecognizerModule_swigregister, METH_O, NULL},
-      {"CLabelRecognizerModule_init", CLabelRecognizerModule_swiginit, METH_VARARGS, NULL},
+      // {"CLabelRecognizerModule_init", CLabelRecognizerModule_swiginit, METH_VARARGS, NULL},
       {"delete_CBufferedCharacterItem", _wrap_delete_CBufferedCharacterItem, METH_O, NULL},
       {"CBufferedCharacterItem_GetCharacter", _wrap_CBufferedCharacterItem_GetCharacter, METH_O, NULL},
       {"CBufferedCharacterItem_GetImage", _wrap_CBufferedCharacterItem_GetImage, METH_O, NULL},

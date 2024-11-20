@@ -1,4 +1,4 @@
-__version__ = "3.4.21.4995"
+__version__ = "3.5.21.5521"
 
 if __package__ or "." in __name__:
     from .core import *
@@ -14,7 +14,12 @@ from typing import List,Tuple
 
 from enum import IntEnum
 
-class SimplifiedLabelRecognizerSettings(object):
+class EnumRawTextLineStatus(IntEnum):
+    RTLS_LOCALIZED = _DynamsoftLabelRecognizer.RTLS_LOCALIZED
+    RTLS_RECOGNITION_FAILED = _DynamsoftLabelRecognizer.RTLS_RECOGNITION_FAILED
+    RTLS_RECOGNITION_SUCCEEDED = _DynamsoftLabelRecognizer.RTLS_RECOGNITION_SUCCEEDED
+
+class SimplifiedLabelRecognizerSettings:
     """
     The SimplifiedLabelRecognizerSettings class contains settings for label recognition.
     It is a sub-parameter of SimplifiedCaptureVisionSettings.
@@ -27,7 +32,7 @@ class SimplifiedLabelRecognizerSettings(object):
         max_threads_in_one_task(int): Specifies the maximum available threads count in one label recognition task.
         scale_down_threshold(int): Specifies the threshold for the image shrinking.
     """
-    thisown = property(
+    _thisown = property(
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
     )
 
@@ -101,7 +106,7 @@ class SimplifiedLabelRecognizerSettings(object):
     )
 
     def __init__(self):
-        _DynamsoftLabelRecognizer.SimplifiedLabelRecognizerSettings_init(
+        _DynamsoftLabelRecognizer.Class_init(
             self, _DynamsoftLabelRecognizer.new_SimplifiedLabelRecognizerSettings()
         )
 
@@ -112,7 +117,7 @@ _DynamsoftLabelRecognizer.SimplifiedLabelRecognizerSettings_register(
     SimplifiedLabelRecognizerSettings
 )
 
-class CharacterResult(object):
+class CharacterResult:
     """
     The CharacterResult class represents the result of a character recognition process.
     It contains the characters recognized (high, medium, and low confidence), their respective confidences, and the location of the character in a quadrilateral shape.
@@ -126,7 +131,7 @@ class CharacterResult(object):
         character_m_confidence(int): The confidence of the character with medium confidence.
         character_l_confidence(int): The confidence of the character with low confidence.
     """
-    thisown = property(
+    _thisown = property(
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
     )
 
@@ -167,7 +172,7 @@ class CharacterResult(object):
     )
 
     def __init__(self):
-        _DynamsoftLabelRecognizer.CCharacterResult_init(
+        _DynamsoftLabelRecognizer.Class_init(
             self, _DynamsoftLabelRecognizer.new_CCharacterResult()
         )
 
@@ -188,7 +193,7 @@ class TextLineResultItem(CapturedResultItem):
         get_specification_name(self) -> str: Gets the name of the text line specification that generated this item.
         get_raw_text(self) -> str: Gets the recognized raw text, excluding any concatenation separators.
     """
-    thisown = property(
+    _thisown = property(
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
     )
 
@@ -263,7 +268,7 @@ class TextLineResultItem(CapturedResultItem):
 _DynamsoftLabelRecognizer.CTextLineResultItem_register(TextLineResultItem)
 
 
-class RecognizedTextLinesResult(object):
+class RecognizedTextLinesResult:
     """
     The RecognizedTextLinesResult class represents the result of a text recognition process.
     It provides access to information about the recognized text lines, the original image, and any errors that occurred during the recognition process.
@@ -276,7 +281,7 @@ class RecognizedTextLinesResult(object):
         get_error_code(self) -> int: Gets the error code of the recognition result, if an error occurred.
         get_error_string(self) -> str: Gets the error message of the recognition result, if an error occurred.
     """
-    thisown = property(
+    _thisown = property(
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
     )
 
@@ -357,14 +362,14 @@ class RecognizedTextLinesResult(object):
 _DynamsoftLabelRecognizer.CRecognizedTextLinesResult_register(RecognizedTextLinesResult)
 
 
-class LabelRecognizerModule(object):
+class LabelRecognizerModule:
     """
     The LabelRecognizerModule class represents a label recognizer module.
 
     Methods:
         get_version() -> str: Gets the version of the label recognizer module.
     """
-    thisown = property(
+    _thisown = property(
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
     )
 
@@ -379,7 +384,7 @@ class LabelRecognizerModule(object):
         return __version__ + " (Algotithm " + _DynamsoftLabelRecognizer.CLabelRecognizerModule_GetVersion() + ")"
 
     def __init__(self):
-        _DynamsoftLabelRecognizer.CLabelRecognizerModule_init(
+        _DynamsoftLabelRecognizer.Class_init(
             self, _DynamsoftLabelRecognizer.new_CLabelRecognizerModule()
         )
 
@@ -389,7 +394,7 @@ class LabelRecognizerModule(object):
 _DynamsoftLabelRecognizer.CLabelRecognizerModule_register(LabelRecognizerModule)
 
 
-class BufferedCharacterItem(object):
+class BufferedCharacterItem:
     """
     The BufferedCharacterItem class represents a text line result item recognized by the library. It is derived from CapturedResultItem.
 
@@ -398,7 +403,7 @@ class BufferedCharacterItem(object):
         get_image(self) -> ImageData: Gets the image data of the buffered character.
         get_features(self) -> List[Tuple[int, float]]: Gets all the features formatted with id and value of the buffered character.
     """
-    thisown = property(
+    _thisown = property(
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
     )
 
@@ -445,7 +450,7 @@ class BufferedCharacterItem(object):
 _DynamsoftLabelRecognizer.CBufferedCharacterItem_register(BufferedCharacterItem)
 
 
-class CharacterCluster(object):
+class CharacterCluster:
     """
     The CharacterCluster class represents a character cluster generated from the buffered character items. These buffered items will be clustered based on feature similarity to obtain cluster centers.
 
@@ -453,7 +458,7 @@ class CharacterCluster(object):
         get_character(self) -> str: Gets the character value of the cluster.
         get_mean(self) -> BufferedCharacterItem: Gets the mean of the cluster.
     """
-    thisown = property(
+    _thisown = property(
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
     )
 
@@ -484,7 +489,7 @@ class CharacterCluster(object):
 _DynamsoftLabelRecognizer.CCharacterCluster_register(CharacterCluster)
 
 
-class BufferedCharacterItemSet(object):
+class BufferedCharacterItemSet:
     """
     The BufferedCharacterItemSet class represents a collection of buffered character items and associated character clusters.
 
@@ -492,7 +497,7 @@ class BufferedCharacterItemSet(object):
         get_items(self) -> List[BufferedCharacterItem]: Gets all the buffered items.
         get_character_clusters(self) -> List[CharacterCluster]: Gets all the character clusters.
     """
-    thisown = property(
+    _thisown = property(
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
     )
 
@@ -537,3 +542,192 @@ class BufferedCharacterItemSet(object):
 
 
 _DynamsoftLabelRecognizer.CBufferedCharacterItemSet_register(BufferedCharacterItemSet)
+
+
+#new 
+
+class LocalizedTextLineElement(RegionObjectElement):
+    _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        _DynamsoftLabelRecognizer.Class_init(
+            self, _DynamsoftLabelRecognizer.CLabelRecognizerModule_CreateLocalizedTextLineElement()
+        )
+
+    def get_character_quads_count(self) -> int:
+        return _DynamsoftLabelRecognizer.CLocalizedTextLineElement_GetCharacterQuadsCount(self)
+    
+    def get_character_quad(self, index: int) -> Tuple[int, Quadrilateral]:
+        return _DynamsoftLabelRecognizer.CLocalizedTextLineElement_GetCharacterQuad(self, index)
+
+    def get_row_number(self) -> int:
+        return _DynamsoftLabelRecognizer.CLocalizedTextLineElement_GetRowNumber(self)
+
+# Register CLocalizedTextLineElement in _DynamsoftLabelRecognizer:
+_DynamsoftLabelRecognizer.CLocalizedTextLineElement_register(LocalizedTextLineElement)
+class RecognizedTextLineElement(RegionObjectElement):
+    _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        _DynamsoftLabelRecognizer.Class_init(
+            self, _DynamsoftLabelRecognizer.CLabelRecognizerModule_CreateRecognizedTextLineElement()
+        )
+    
+
+    def get_text(self) -> str:
+        return _DynamsoftLabelRecognizer.CRecognizedTextLineElement_GetText(self)
+
+    def get_confidence(self) -> int:
+        return _DynamsoftLabelRecognizer.CRecognizedTextLineElement_GetConfidence(self)
+
+    def get_character_results_count(self) -> int:
+        return _DynamsoftLabelRecognizer.CRecognizedTextLineElement_GetCharacterResultsCount(self)
+
+    def get_row_number(self) -> int:
+        return _DynamsoftLabelRecognizer.CRecognizedTextLineElement_GetRowNumber(self)
+
+    def get_character_result(self, index: int) -> CharacterResult:
+        return _DynamsoftLabelRecognizer.CRecognizedTextLineElement_GetCharacterResult(self, index)
+
+    def set_text(self, text: str) -> None:
+        return _DynamsoftLabelRecognizer.CRecognizedTextLineElement_SetText(self, text)
+
+    def get_specification_name(self) -> str:
+        return _DynamsoftLabelRecognizer.CRecognizedTextLineElement_GetSpecificationName(self)
+
+    def get_raw_text(self) -> str:
+        return _DynamsoftLabelRecognizer.CRecognizedTextLineElement_GetRawText(self)
+
+# Register CRecognizedTextLineElement in _DynamsoftLabelRecognizer:
+_DynamsoftLabelRecognizer.CRecognizedTextLineElement_register(RecognizedTextLineElement)
+class LocalizedTextLinesUnit(IntermediateResultUnit):
+    _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    
+
+    def get_count(self) -> int:
+        return _DynamsoftLabelRecognizer.CLocalizedTextLinesUnit_GetCount(self)
+
+    def get_localized_text_line(self, index: int) -> LocalizedTextLineElement:
+        return _DynamsoftLabelRecognizer.CLocalizedTextLinesUnit_GetLocalizedTextLine(self, index)
+
+    def remove_all_localized_text_lines(self) -> None:
+        return _DynamsoftLabelRecognizer.CLocalizedTextLinesUnit_RemoveAllLocalizedTextLines(self)
+
+    def remove_localized_text_line(self, index: int) -> int:
+        return _DynamsoftLabelRecognizer.CLocalizedTextLinesUnit_RemoveLocalizedTextLine(self, index)
+
+    def add_localized_text_line(self, element: LocalizedTextLineElement, matrix_to_original_image: List[float] = IDENTITY_MATRIX) -> int:
+        return _DynamsoftLabelRecognizer.CLocalizedTextLinesUnit_AddLocalizedTextLine(self, element, matrix_to_original_image)
+
+    def set_localized_text_line(self, index: int, element: LocalizedTextLineElement, matrix_to_original_image: List[float] = IDENTITY_MATRIX) -> int:
+        return _DynamsoftLabelRecognizer.CLocalizedTextLinesUnit_SetLocalizedTextLine(self, index, element, matrix_to_original_image)
+
+# Register CLocalizedTextLinesUnit in _DynamsoftLabelRecognizer:
+_DynamsoftLabelRecognizer.CLocalizedTextLinesUnit_register(LocalizedTextLinesUnit)
+class RecognizedTextLinesUnit(IntermediateResultUnit):
+    _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    
+
+    def get_count(self) -> int:
+        return _DynamsoftLabelRecognizer.CRecognizedTextLinesUnit_GetCount(self)
+
+    def get_recognized_text_line(self, index: int) -> RecognizedTextLineElement:
+        return _DynamsoftLabelRecognizer.CRecognizedTextLinesUnit_GetRecognizedTextLine(self, index)
+
+    def remove_all_recognized_text_lines(self) -> None:
+        return _DynamsoftLabelRecognizer.CRecognizedTextLinesUnit_RemoveAllRecognizedTextLines(self)
+
+    def remove_recognized_text_line(self, index: int) -> int:
+        return _DynamsoftLabelRecognizer.CRecognizedTextLinesUnit_RemoveRecognizedTextLine(self, index)
+
+    def add_recognized_text_line(self, element: RecognizedTextLineElement, matrix_to_original_image: List[float] = IDENTITY_MATRIX) -> int:
+        return _DynamsoftLabelRecognizer.CRecognizedTextLinesUnit_AddRecognizedTextLine(self, element, matrix_to_original_image)
+
+    def set_recognized_text_line(self, index: int, element: RecognizedTextLineElement, matrix_to_original_image: List[float] = IDENTITY_MATRIX) -> int:
+        return _DynamsoftLabelRecognizer.CRecognizedTextLinesUnit_SetRecognizedTextLine(self, index, element, matrix_to_original_image)
+
+# Register CRecognizedTextLinesUnit in _DynamsoftLabelRecognizer:
+_DynamsoftLabelRecognizer.CRecognizedTextLinesUnit_register(RecognizedTextLinesUnit)
+class RawTextLine(object):
+    _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        _DynamsoftLabelRecognizer.Class_init(
+            self, _DynamsoftLabelRecognizer.CLabelRecognizerModule_CreateRawTextLine()
+        )
+    __destroy__ = _DynamsoftLabelRecognizer.CRawTextLine_Release
+
+    def get_text(self) -> str:
+        return _DynamsoftLabelRecognizer.CRawTextLine_GetText(self)
+
+    def get_confidence(self) -> int:
+        return _DynamsoftLabelRecognizer.CRawTextLine_GetConfidence(self)
+
+    def get_character_results_count(self) -> int:
+        return _DynamsoftLabelRecognizer.CRawTextLine_GetCharacterResultsCount(self)
+
+    def get_row_number(self) -> int:
+        return _DynamsoftLabelRecognizer.CRawTextLine_GetRowNumber(self)
+
+    def get_character_result(self, index: int) -> CharacterResult:
+        return _DynamsoftLabelRecognizer.CRawTextLine_GetCharacterResult(self, index)
+
+    def set_text(self, text: str) -> None:
+        return _DynamsoftLabelRecognizer.CRawTextLine_SetText(self, text)
+
+    def get_specification_name(self) -> str:
+        return _DynamsoftLabelRecognizer.CRawTextLine_GetSpecificationName(self)
+
+    def get_location(self) -> Quadrilateral:
+        return _DynamsoftLabelRecognizer.CRawTextLine_GetLocation(self)
+
+    def set_location(self, location: Quadrilateral) -> int:
+        return _DynamsoftLabelRecognizer.CRawTextLine_SetLocation(self, location)
+
+    def get_status(self) -> int:
+        return _DynamsoftLabelRecognizer.CRawTextLine_GetStatus(self)
+
+    def clone(self) -> "RawTextLine":
+        return _DynamsoftLabelRecognizer.CRawTextLine_Clone(self)
+
+    def set_row_number(self, row_number: int) -> int:
+        return _DynamsoftLabelRecognizer.CRawTextLine_SetRowNumber(self, row_number)
+
+    def set_specification_name(self, specification_name: str) -> int:
+        return _DynamsoftLabelRecognizer.CRawTextLine_SetSpecificationName(self, specification_name)
+
+# Register CRawTextLine in _DynamsoftLabelRecognizer:
+_DynamsoftLabelRecognizer.CRawTextLine_register(RawTextLine)
+class RawTextLinesUnit(IntermediateResultUnit):
+    _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    
+
+    def get_count(self) -> int:
+        return _DynamsoftLabelRecognizer.CRawTextLinesUnit_GetCount(self)
+
+    def get_raw_text_line(self, index: int) -> RawTextLine:
+        return _DynamsoftLabelRecognizer.CRawTextLinesUnit_GetRawTextLine(self, index)
+
+    def remove_all_raw_text_lines(self) -> None:
+        return _DynamsoftLabelRecognizer.CRawTextLinesUnit_RemoveAllRawTextLines(self)
+
+    def remove_raw_text_line(self, index: int) -> int:
+        return _DynamsoftLabelRecognizer.CRawTextLinesUnit_RemoveRawTextLine(self, index)
+
+    def add_raw_text_line(self, text_line: RawTextLine, matrix_to_original_image: List[float] = IDENTITY_MATRIX) -> int:
+        return _DynamsoftLabelRecognizer.CRawTextLinesUnit_AddRawTextLine(self, text_line, matrix_to_original_image)
+
+    def set_raw_text_line(self, index: int, text_line: RawTextLine, matrix_to_original_image: List[float] = IDENTITY_MATRIX) -> int:
+        return _DynamsoftLabelRecognizer.CRawTextLinesUnit_SetRawTextLine(self, index, text_line, matrix_to_original_image)
+
+# Register CRawTextLinesUnit in _DynamsoftLabelRecognizer:
+_DynamsoftLabelRecognizer.CRawTextLinesUnit_register(RawTextLinesUnit)

@@ -1,4 +1,4 @@
-__version__ = "2.4.21.4995"
+__version__ = "2.5.21.5521"
 
 if __package__ or "." in __name__:
     from .core import *
@@ -9,7 +9,7 @@ if __package__ or "." in __name__:
     from . import _DynamsoftDocumentNormalizer
 else:
     import _DynamsoftDocumentNormalizer
-from typing import List
+from typing import List, Tuple
 
 
 from enum import IntEnum
@@ -20,7 +20,7 @@ class EnumImageColourMode(IntEnum):
     ICM_GRAYSCALE = _DynamsoftDocumentNormalizer.ICM_GRAYSCALE
     ICM_BINARY = _DynamsoftDocumentNormalizer.ICM_BINARY
 
-class SimplifiedDocumentNormalizerSettings(object):
+class SimplifiedDocumentNormalizerSettings:
     """
     The SimplifiedDocumentNormalizerSettings class contains settings for document normalization. It is a sub-parameter of SimplifiedCaptureVisionSettings.
 
@@ -36,7 +36,7 @@ class SimplifiedDocumentNormalizerSettings(object):
         min_quadrilateral_area_ratio(int): Specifies the minimum ratio between the target quadrilateral area and the total image area. Only those exceeding this value will be output (measured in percentages).
         expected_documents_count(int): Specifies the number of documents expected to be detected.
     """
-    thisown = property(
+    _thisown = property(
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
     )
 
@@ -162,7 +162,7 @@ class SimplifiedDocumentNormalizerSettings(object):
     )
 
     def __init__(self):
-        _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_init(
+        _DynamsoftDocumentNormalizer.Class_init(
             self,
             _DynamsoftDocumentNormalizer.new_SimplifiedDocumentNormalizerSettings(),
         )
@@ -184,7 +184,7 @@ class DetectedQuadResultItem(CapturedResultItem):
         get_location(self) -> Quadrilateral: Gets the location of current object.
         get_confidence_as_document_boundary(self) -> int: Gets the confidence of current object as a document boundary.
     """
-    thisown = property(
+    _thisown = property(
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
     )
 
@@ -223,7 +223,7 @@ class NormalizedImageResultItem(CapturedResultItem):
         get_image_data(self) -> ImageData: Gets the image data of current object.
         get_location(self) -> Quadrilateral: Gets the location of current object.
     """
-    thisown = property(
+    _thisown = property(
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
     )
 
@@ -255,7 +255,7 @@ _DynamsoftDocumentNormalizer.CNormalizedImageResultItem_register(
     NormalizedImageResultItem
 )
 
-class DetectedQuadsResult(object):
+class DetectedQuadsResult:
     """
     The DetectedQuadsResult class stores a captured result whose type is detected quads.
 
@@ -267,7 +267,7 @@ class DetectedQuadsResult(object):
         get_original_image_hash_id(self) -> str: Gets the hash ID of the original image.
         get_original_image_tag(self) -> ImageTag: Gets the tag of the original image.
     """
-    thisown = property(
+    _thisown = property(
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
     )
 
@@ -345,7 +345,7 @@ class DetectedQuadsResult(object):
 
 _DynamsoftDocumentNormalizer.CDetectedQuadsResult_register(DetectedQuadsResult)
 
-class NormalizedImagesResult(object):
+class NormalizedImagesResult:
     """
     The NormalizedImagesResult class stores a collection of captured result items whose type are normalized images.
 
@@ -357,7 +357,7 @@ class NormalizedImagesResult(object):
         get_original_image_hash_id(self) -> str: Gets the hash ID of the original image that was normalized.
         get_original_image_tag(self) -> ImageTag: Gets the tag of the original image that was normalized.
     """
-    thisown = property(
+    _thisown = property(
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
     )
 
@@ -438,14 +438,14 @@ class NormalizedImagesResult(object):
 _DynamsoftDocumentNormalizer.CNormalizedImagesResult_register(NormalizedImagesResult)
 
 
-class DocumentNormalizerModule(object):
+class DocumentNormalizerModule:
     """
     The DocumentNormalizerModule class defines general functions in the document normalizer module.
     
     Methods:
         get_version() -> str: Returns the version of the document normalizer module.
     """
-    thisown = property(
+    _thisown = property(
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
     )
 
@@ -460,7 +460,7 @@ class DocumentNormalizerModule(object):
         return __version__ + " (Algotithm " + _DynamsoftDocumentNormalizer.CDocumentNormalizerModule_GetVersion() + ")"
 
     def __init__(self):
-        _DynamsoftDocumentNormalizer.CDocumentNormalizerModule_init(
+        _DynamsoftDocumentNormalizer.Class_init(
             self, _DynamsoftDocumentNormalizer.new_CDocumentNormalizerModule()
         )
 
@@ -470,3 +470,163 @@ class DocumentNormalizerModule(object):
 _DynamsoftDocumentNormalizer.CDocumentNormalizerModule_register(
     DocumentNormalizerModule
 )
+
+
+#new 
+
+class DetectedQuadElement(RegionObjectElement):
+    _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        _DynamsoftDocumentNormalizer.Class_init(
+            self, _DynamsoftDocumentNormalizer.CDocumentNormalizerModule_CreateDetectedQuadElement()
+        )
+
+    def get_confidence_as_document_boundary(self) -> int:
+        return _DynamsoftDocumentNormalizer.CDetectedQuadElement_GetConfidenceAsDocumentBoundary(self)
+
+# Register CDetectedQuadElement in _DynamsoftDocumentNormalizer:
+_DynamsoftDocumentNormalizer.CDetectedQuadElement_register(DetectedQuadElement)
+class NormalizedImageElement(RegionObjectElement):
+    _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        _DynamsoftDocumentNormalizer.Class_init(
+            self, _DynamsoftDocumentNormalizer.CDocumentNormalizerModule_CreateNormalizedImageElement()
+        )
+    
+
+    def get_image_data(self) -> ImageData:
+        return _DynamsoftDocumentNormalizer.CNormalizedImageElement_GetImageData(self)
+
+# Register CNormalizedImageElement in _DynamsoftDocumentNormalizer:
+_DynamsoftDocumentNormalizer.CNormalizedImageElement_register(NormalizedImageElement)
+class LongLinesUnit(IntermediateResultUnit):
+    _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    
+
+    def get_count(self) -> int:
+        return _DynamsoftDocumentNormalizer.CLongLinesUnit_GetCount(self)
+
+    def get_long_line(self, index: int) -> LineSegment:
+        return _DynamsoftDocumentNormalizer.CLongLinesUnit_GetLongLine(self, index)
+
+    def remove_all_long_lines(self) -> None:
+        return _DynamsoftDocumentNormalizer.CLongLinesUnit_RemoveAllLongLines(self)
+
+    def remove_long_line(self, index: int) -> int:
+        return _DynamsoftDocumentNormalizer.CLongLinesUnit_RemoveLongLine(self, index)
+
+    def add_long_line(self, line: LineSegment, matrix_to_original_image: List[float] = IDENTITY_MATRIX) -> int:
+        return _DynamsoftDocumentNormalizer.CLongLinesUnit_AddLongLine(self, line, matrix_to_original_image)
+
+    def set_long_line(self, index: int, line: LineSegment, matrix_to_original_image: List[float] = IDENTITY_MATRIX) -> int:
+        return _DynamsoftDocumentNormalizer.CLongLinesUnit_SetLongLine(self, index, line, matrix_to_original_image)
+
+# Register CLongLinesUnit in _DynamsoftDocumentNormalizer:
+_DynamsoftDocumentNormalizer.CLongLinesUnit_register(LongLinesUnit)
+class CornersUnit(IntermediateResultUnit):
+    _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    
+
+    def get_count(self) -> int:
+        return _DynamsoftDocumentNormalizer.CCornersUnit_GetCount(self)
+
+    def get_corner(self, index: int) -> Tuple[int, Corner]:
+        return _DynamsoftDocumentNormalizer.CCornersUnit_GetCorner(self, index)
+
+    def remove_all_corners(self) -> None:
+        return _DynamsoftDocumentNormalizer.CCornersUnit_RemoveAllCorners(self)
+
+    def remove_corner(self, index: int) -> int:
+        return _DynamsoftDocumentNormalizer.CCornersUnit_RemoveCorner(self, index)
+
+    def add_corner(self, corner: Corner, matrix_to_original_image: List[float] = IDENTITY_MATRIX) -> int:
+        return _DynamsoftDocumentNormalizer.CCornersUnit_AddCorner(self, corner, matrix_to_original_image)
+
+    def set_corner(self, index: int, corner: Corner, matrix_to_original_image: List[float] = IDENTITY_MATRIX) -> int:
+        return _DynamsoftDocumentNormalizer.CCornersUnit_SetCorner(self, index, corner, matrix_to_original_image)
+
+# Register CCornersUnit in _DynamsoftDocumentNormalizer:
+_DynamsoftDocumentNormalizer.CCornersUnit_register(CornersUnit)
+class CandidateQuadEdgesUnit(IntermediateResultUnit):
+    _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    
+
+    def get_count(self) -> int:
+        return _DynamsoftDocumentNormalizer.CCandidateQuadEdgesUnit_GetCount(self)
+
+    def get_candidate_quad_edge(self, index: int) -> Tuple[int, Edge]:
+        return _DynamsoftDocumentNormalizer.CCandidateQuadEdgesUnit_GetCandidateQuadEdge(self, index)
+
+    def remove_all_candidate_quad_edges(self) -> None:
+        return _DynamsoftDocumentNormalizer.CCandidateQuadEdgesUnit_RemoveAllCandidateQuadEdges(self)
+
+    def remove_candidate_quad_edge(self, index: int) -> int:
+        return _DynamsoftDocumentNormalizer.CCandidateQuadEdgesUnit_RemoveCandidateQuadEdge(self, index)
+
+    def add_candidate_quad_edge(self, edge: Edge, matrix_to_original_image: List[float] = IDENTITY_MATRIX) -> int:
+        return _DynamsoftDocumentNormalizer.CCandidateQuadEdgesUnit_AddCandidateQuadEdge(self, edge, matrix_to_original_image)
+
+    def set_candidate_quad_edge(self, index: int, edge: Edge, matrix_to_original_image: List[float] = IDENTITY_MATRIX) -> int:
+        return _DynamsoftDocumentNormalizer.CCandidateQuadEdgesUnit_SetCandidateQuadEdge(self, index, edge, matrix_to_original_image)
+
+# Register CCandidateQuadEdgesUnit in _DynamsoftDocumentNormalizer:
+_DynamsoftDocumentNormalizer.CCandidateQuadEdgesUnit_register(CandidateQuadEdgesUnit)
+class DetectedQuadsUnit(IntermediateResultUnit):
+    _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    
+
+    def get_count(self) -> int:
+        return _DynamsoftDocumentNormalizer.CDetectedQuadsUnit_GetCount(self)
+
+    def get_detected_quad(self, index: int) -> DetectedQuadElement:
+        return _DynamsoftDocumentNormalizer.CDetectedQuadsUnit_GetDetectedQuad(self, index)
+
+    def remove_all_detected_quads(self) -> None:
+        return _DynamsoftDocumentNormalizer.CDetectedQuadsUnit_RemoveAllDetectedQuads(self)
+
+    def remove_detected_quad(self, index: int) -> int:
+        return _DynamsoftDocumentNormalizer.CDetectedQuadsUnit_RemoveDetectedQuad(self, index)
+
+    def add_detected_quad(self, element: DetectedQuadElement, matrix_to_original_image: List[float] = IDENTITY_MATRIX) -> int:
+        return _DynamsoftDocumentNormalizer.CDetectedQuadsUnit_AddDetectedQuad(self, element, matrix_to_original_image)
+
+    def set_detected_quad(self, index: int, element: DetectedQuadElement, matrix_to_original_image: List[float] = IDENTITY_MATRIX) -> int:
+        return _DynamsoftDocumentNormalizer.CDetectedQuadsUnit_SetDetectedQuad(self, index, element, matrix_to_original_image)
+
+# Register CDetectedQuadsUnit in _DynamsoftDocumentNormalizer:
+_DynamsoftDocumentNormalizer.CDetectedQuadsUnit_register(DetectedQuadsUnit)
+class NormalizedImagesUnit(IntermediateResultUnit):
+    _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    
+
+    def get_count(self) -> int:
+        return _DynamsoftDocumentNormalizer.CNormalizedImagesUnit_GetCount(self)
+
+    def get_normalized_image(self, index: int) -> NormalizedImageElement:
+        return _DynamsoftDocumentNormalizer.CNormalizedImagesUnit_GetNormalizedImage(self, index)
+
+    def remove_all_normalized_images(self) -> None:
+        return _DynamsoftDocumentNormalizer.CNormalizedImagesUnit_RemoveAllNormalizedImages(self)
+
+    def set_normalized_image(self, element: NormalizedImageElement, matrix_to_original_image: List[float] = IDENTITY_MATRIX) -> int:
+        return _DynamsoftDocumentNormalizer.CNormalizedImagesUnit_SetNormalizedImage(self, element, matrix_to_original_image)
+
+# Register CNormalizedImagesUnit in _DynamsoftDocumentNormalizer:
+_DynamsoftDocumentNormalizer.CNormalizedImagesUnit_register(NormalizedImagesUnit)

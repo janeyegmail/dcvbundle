@@ -4354,7 +4354,8 @@ extern "C"
     }
     arg2 = static_cast<int>(val2);
     result = (dynamsoft::dcp::CParsedResultItem *)((dynamsoft::dcp::CParsedResult const *)arg1)->GetItem(arg2);
-    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__dcp__CParsedResultItem, 0 | 0);
+    result->Retain();
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__dcp__CParsedResultItem, SWIG_POINTER_OWN | 0);
     return resultobj;
   fail:
     return NULL;
@@ -5661,6 +5662,7 @@ extern "C"
   }
 
   static PyMethodDef SwigMethods[] = {
+      {"Class_init", CCodeParserModule_swiginit, METH_VARARGS, NULL},
       {"CParsedResultItem_GetJsonString", _wrap_CParsedResultItem_GetJsonString, METH_O, NULL},
       {"CParsedResultItem_GetCodeType", _wrap_CParsedResultItem_GetCodeType, METH_O, NULL},
       {"CParsedResultItem_GetFieldValue", _wrap_CParsedResultItem_GetFieldValue, METH_VARARGS, NULL},
@@ -5690,7 +5692,7 @@ extern "C"
       {"new_CCodeParserModule", _wrap_new_CCodeParserModule, METH_NOARGS, NULL},
       {"delete_CCodeParserModule", _wrap_delete_CCodeParserModule, METH_O, NULL},
       {"CCodeParserModule_register", CCodeParserModule_swigregister, METH_O, NULL},
-      {"CCodeParserModule_init", CCodeParserModule_swiginit, METH_VARARGS, NULL},
+      // {"CCodeParserModule_init", CCodeParserModule_swiginit, METH_VARARGS, NULL},
       {NULL, NULL, 0, NULL}};
 
   /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
@@ -6260,7 +6262,7 @@ void
       SwigPyObject_own,
       SwigPyObject_own};
   static PyGetSetDef thisown_getset_def = {
-      (char *)"thisown", SwigPyBuiltin_GetterClosure, SwigPyBuiltin_SetterClosure, NULL, &thisown_getset_closure};
+      (char *)"_thisown", SwigPyBuiltin_GetterClosure, SwigPyBuiltin_SetterClosure, NULL, &thisown_getset_closure};
   PyTypeObject *builtin_pytype;
   int builtin_base_count;
   swig_type_info *builtin_basetype;

@@ -1,4 +1,4 @@
-__version__ = "2.4.20.4995"
+__version__ = "2.4.20.5521"
 
 if __package__ or "." in __name__:
     from . import _DynamsoftImageProcessing

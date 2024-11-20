@@ -4110,6 +4110,39 @@ int *convertPythonListToCpp(PyObject *obj, int expectedSize)
   }
   return nullptr;
 }
+
+double *convertPythonListToCpp_double(PyObject *obj, int expectedSize)
+{
+
+  if (PyList_Check(obj))
+  {
+    // Iterate over the Python list and append elements to the C++ vector
+    Py_ssize_t size = PyList_Size(obj);
+    if (size != expectedSize)
+      return nullptr;
+    double *ret = new double[expectedSize]{0};
+    for (Py_ssize_t i = 0; i < size; ++i)
+    {
+      PyObject *item = PyList_GetItem(obj, i);
+      if (PyFloat_Check(item))
+      {
+        ret[i] = PyFloat_AsDouble(item);
+      }
+      else
+      {
+        delete[] ret;
+        return nullptr; // or throw an exception
+      }
+    }
+    return ret;
+  }
+  else
+  {
+    return nullptr;
+  }
+  return nullptr;
+}
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -5147,6 +5180,7 @@ extern "C"
     int ecode2 = 0;
     PyObject *swig_obj[2];
     dynamsoft::basic_structures::CLineSegment *result = 0;
+    dynamsoft::basic_structures::CLineSegment *result2 = 0;
 
     if (!SWIG_Python_UnpackTuple(args, "CLongLinesUnit_GetLongLine", 2, 2, swig_obj))
       SWIG_fail;
@@ -5175,7 +5209,9 @@ extern "C"
     }
     arg2 = static_cast<int>(val2);
     result = (dynamsoft::basic_structures::CLineSegment *)((dynamsoft::ddn::intermediate_results::CLongLinesUnit const *)arg1)->GetLongLine(arg2);
-    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__basic_structures__CLineSegment, 0 | 0);
+    result2 = new dynamsoft::basic_structures::CLineSegment();
+    (*result2) = (*result);
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result2), SWIGTYPE_p_dynamsoft__basic_structures__CLineSegment, SWIG_POINTER_OWN | 0);
     return resultobj;
   fail:
     return NULL;
@@ -5307,8 +5343,20 @@ extern "C"
                                            "'");
     }
     arg2 = reinterpret_cast<dynamsoft::basic_structures::CLineSegment *>(argp2);
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_double, 0 | 0);
-    if (!SWIG_IsOK(res3))
+    // res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_double, 0 | 0);
+    // if (!SWIG_IsOK(res3))
+    // {
+    //   SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
+    //                                            "CLongLinesUnit_AddLongLine"
+    //                                            "', argument "
+    //                                            "3"
+    //                                            " of type '"
+    //                                            "double const [9]"
+    //                                            "'");
+    // }
+    // arg3 = reinterpret_cast<double *>(argp3);
+    arg3 = convertPythonListToCpp_double(swig_obj[2], 9);
+    if(!arg3)
     {
       SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
                                                "CLongLinesUnit_AddLongLine"
@@ -5318,8 +5366,9 @@ extern "C"
                                                "double const [9]"
                                                "'");
     }
-    arg3 = reinterpret_cast<double *>(argp3);
     result = (int)(arg1)->AddLongLine((dynamsoft::basic_structures::CLineSegment const &)*arg2, (double const(*))arg3);
+    if(arg3)
+      delete[] arg3, arg3 = nullptr;
     resultobj = SWIG_From_int(static_cast<int>(result));
     return resultobj;
   fail:
@@ -5390,45 +5439,7 @@ extern "C"
     if (!(argc = SWIG_Python_UnpackTuple(args, "CLongLinesUnit_AddLongLine", 0, 3, argv)))
       SWIG_fail;
     --argc;
-    if (argc == 2)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CLongLinesUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_dynamsoft__basic_structures__CLineSegment, SWIG_POINTER_NO_NULL | 0);
-        _v = SWIG_CheckState(res);
-        if (_v)
-        {
-          return _wrap_CLongLinesUnit_AddLongLine__SWIG_1(self, argc, argv);
-        }
-      }
-    }
-    if (argc == 3)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CLongLinesUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_dynamsoft__basic_structures__CLineSegment, SWIG_POINTER_NO_NULL | 0);
-        _v = SWIG_CheckState(res);
-        if (_v)
-        {
-          void *vptr = 0;
-          int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
-          _v = SWIG_CheckState(res);
-          if (_v)
-          {
-            return _wrap_CLongLinesUnit_AddLongLine__SWIG_0(self, argc, argv);
-          }
-        }
-      }
-    }
-
+    return _wrap_CLongLinesUnit_AddLongLine__SWIG_0(self, argc, argv);
   fail:
     SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'CLongLinesUnit_AddLongLine'.\n"
                                        "  Possible C/C++ prototypes are:\n"
@@ -5503,8 +5514,20 @@ extern "C"
                                            "'");
     }
     arg3 = reinterpret_cast<dynamsoft::basic_structures::CLineSegment *>(argp3);
-    res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_double, 0 | 0);
-    if (!SWIG_IsOK(res4))
+    // res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_double, 0 | 0);
+    // if (!SWIG_IsOK(res4))
+    // {
+    //   SWIG_exception_fail(SWIG_ArgError(res4), "in method '"
+    //                                            "CLongLinesUnit_SetLongLine"
+    //                                            "', argument "
+    //                                            "4"
+    //                                            " of type '"
+    //                                            "double const [9]"
+    //                                            "'");
+    // }
+    // arg4 = reinterpret_cast<double *>(argp4);
+    arg4 = convertPythonListToCpp_double(swig_obj[3], 9);
+    if(!arg4)
     {
       SWIG_exception_fail(SWIG_ArgError(res4), "in method '"
                                                "CLongLinesUnit_SetLongLine"
@@ -5514,8 +5537,9 @@ extern "C"
                                                "double const [9]"
                                                "'");
     }
-    arg4 = reinterpret_cast<double *>(argp4);
     result = (int)(arg1)->SetLongLine(arg2, (dynamsoft::basic_structures::CLineSegment const &)*arg3, (double const(*))arg4);
+    if(arg4)
+      delete[] arg4, arg4 = nullptr;
     resultobj = SWIG_From_int(static_cast<int>(result));
     return resultobj;
   fail:
@@ -5601,59 +5625,7 @@ extern "C"
     if (!(argc = SWIG_Python_UnpackTuple(args, "CLongLinesUnit_SetLongLine", 0, 4, argv)))
       SWIG_fail;
     --argc;
-    if (argc == 3)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CLongLinesUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        {
-          int res = SWIG_AsVal_int(argv[1], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v)
-        {
-          int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_dynamsoft__basic_structures__CLineSegment, SWIG_POINTER_NO_NULL | 0);
-          _v = SWIG_CheckState(res);
-          if (_v)
-          {
-            return _wrap_CLongLinesUnit_SetLongLine__SWIG_1(self, argc, argv);
-          }
-        }
-      }
-    }
-    if (argc == 4)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CLongLinesUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        {
-          int res = SWIG_AsVal_int(argv[1], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v)
-        {
-          int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_dynamsoft__basic_structures__CLineSegment, SWIG_POINTER_NO_NULL | 0);
-          _v = SWIG_CheckState(res);
-          if (_v)
-          {
-            void *vptr = 0;
-            int res = SWIG_ConvertPtr(argv[3], &vptr, SWIGTYPE_p_double, 0);
-            _v = SWIG_CheckState(res);
-            if (_v)
-            {
-              return _wrap_CLongLinesUnit_SetLongLine__SWIG_0(self, argc, argv);
-            }
-          }
-        }
-      }
-    }
-
+    return _wrap_CLongLinesUnit_SetLongLine__SWIG_0(self, argc, argv);
   fail:
     SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'CLongLinesUnit_SetLongLine'.\n"
                                        "  Possible C/C++ prototypes are:\n"
@@ -5705,6 +5677,8 @@ extern "C"
   SWIGINTERN PyObject *_wrap_CCornersUnit_GetCorner(PyObject *self, PyObject *args)
   {
     PyObject *resultobj = 0;
+    PyObject *resultobj2 = 0;
+    PyObject *tuple = 0;
     dynamsoft::ddn::intermediate_results::CCornersUnit *arg1 = (dynamsoft::ddn::intermediate_results::CCornersUnit *)0;
     int arg2;
     dynamsoft::basic_structures::CCorner *arg3 = (dynamsoft::basic_structures::CCorner *)0;
@@ -5714,10 +5688,10 @@ extern "C"
     int ecode2 = 0;
     void *argp3 = 0;
     int res3 = 0;
-    PyObject *swig_obj[3];
+    PyObject *swig_obj[2];
     int result;
 
-    if (!SWIG_Python_UnpackTuple(args, "CCornersUnit_GetCorner", 3, 3, swig_obj))
+    if (!SWIG_Python_UnpackTuple(args, "CCornersUnit_GetCorner", 2, 2, swig_obj))
       SWIG_fail;
     res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CCornersUnit, 0 | 0);
     if (!SWIG_IsOK(res1))
@@ -5743,21 +5717,26 @@ extern "C"
                                                  "'");
     }
     arg2 = static_cast<int>(val2);
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_dynamsoft__basic_structures__CCorner, 0 | 0);
-    if (!SWIG_IsOK(res3))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
-                                               "CCornersUnit_GetCorner"
-                                               "', argument "
-                                               "3"
-                                               " of type '"
-                                               "dynamsoft::basic_structures::CCorner *"
-                                               "'");
-    }
-    arg3 = reinterpret_cast<dynamsoft::basic_structures::CCorner *>(argp3);
+    // res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_dynamsoft__basic_structures__CCorner, 0 | 0);
+    // if (!SWIG_IsOK(res3))
+    // {
+    //   SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
+    //                                            "CCornersUnit_GetCorner"
+    //                                            "', argument "
+    //                                            "3"
+    //                                            " of type '"
+    //                                            "dynamsoft::basic_structures::CCorner *"
+    //                                            "'");
+    // }
+    // arg3 = reinterpret_cast<dynamsoft::basic_structures::CCorner *>(argp3);
+    arg3 = new dynamsoft::basic_structures::CCorner();
     result = (int)((dynamsoft::ddn::intermediate_results::CCornersUnit const *)arg1)->GetCorner(arg2, arg3);
     resultobj = SWIG_From_int(static_cast<int>(result));
-    return resultobj;
+    resultobj2 = SWIG_NewPointerObj(SWIG_as_voidptr(arg3), SWIGTYPE_p_dynamsoft__basic_structures__CCorner, SWIG_POINTER_OWN | 0);
+    tuple = PyTuple_New(2);
+    PyTuple_SetItem(tuple, 0, resultobj);
+    PyTuple_SetItem(tuple, 1, resultobj2);
+    return tuple;
   fail:
     return NULL;
   }
@@ -5888,20 +5867,34 @@ extern "C"
                                            "'");
     }
     arg2 = reinterpret_cast<dynamsoft::basic_structures::CCorner *>(argp2);
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_double, 0 | 0);
-    if (!SWIG_IsOK(res3))
+    // res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_double, 0 | 0);
+    // if (!SWIG_IsOK(res3))
+    // {
+    //   SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
+    //                                            "CCornersUnit_AddCorner"
+    //                                            "', argument "
+    //                                            "3"
+    //                                            " of type '"
+    //                                            "double const [9]"
+    //                                            "'");
+    // }
+    // arg3 = reinterpret_cast<double *>(argp3);
+    arg3 = convertPythonListToCpp_double(swig_obj[2], 9);
+    if(!arg3)
     {
       SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
-                                               "CCornersUnit_AddCorner"
-                                               "', argument "
-                                               "3"
-                                               " of type '"
-                                               "double const [9]"
-                                               "'");
+                                          "CCornersUnit_AddCorner"
+                                          "', argument "
+                                          "3"
+                                          " of type '"
+                                          "double const [9]"
+                                          "'");
     }
-    arg3 = reinterpret_cast<double *>(argp3);
+
     result = (int)(arg1)->AddCorner((dynamsoft::basic_structures::CCorner const &)*arg2, (double const(*))arg3);
     resultobj = SWIG_From_int(static_cast<int>(result));
+    if(arg3)
+      delete[] arg3, arg3 = nullptr;
     return resultobj;
   fail:
     return NULL;
@@ -5971,45 +5964,7 @@ extern "C"
     if (!(argc = SWIG_Python_UnpackTuple(args, "CCornersUnit_AddCorner", 0, 3, argv)))
       SWIG_fail;
     --argc;
-    if (argc == 2)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CCornersUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_dynamsoft__basic_structures__CCorner, SWIG_POINTER_NO_NULL | 0);
-        _v = SWIG_CheckState(res);
-        if (_v)
-        {
-          return _wrap_CCornersUnit_AddCorner__SWIG_1(self, argc, argv);
-        }
-      }
-    }
-    if (argc == 3)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CCornersUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_dynamsoft__basic_structures__CCorner, SWIG_POINTER_NO_NULL | 0);
-        _v = SWIG_CheckState(res);
-        if (_v)
-        {
-          void *vptr = 0;
-          int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
-          _v = SWIG_CheckState(res);
-          if (_v)
-          {
-            return _wrap_CCornersUnit_AddCorner__SWIG_0(self, argc, argv);
-          }
-        }
-      }
-    }
-
+    return _wrap_CCornersUnit_AddCorner__SWIG_0(self, argc, argv);
   fail:
     SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'CCornersUnit_AddCorner'.\n"
                                        "  Possible C/C++ prototypes are:\n"
@@ -6084,94 +6039,107 @@ extern "C"
                                            "'");
     }
     arg3 = reinterpret_cast<dynamsoft::basic_structures::CCorner *>(argp3);
-    res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_double, 0 | 0);
-    if (!SWIG_IsOK(res4))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res4), "in method '"
-                                               "CCornersUnit_SetCorner"
-                                               "', argument "
-                                               "4"
-                                               " of type '"
-                                               "double const [9]"
-                                               "'");
-    }
-    arg4 = reinterpret_cast<double *>(argp4);
-    result = (int)(arg1)->SetCorner(arg2, (dynamsoft::basic_structures::CCorner const &)*arg3, (double const(*))arg4);
-    resultobj = SWIG_From_int(static_cast<int>(result));
-    return resultobj;
-  fail:
-    return NULL;
-  }
-
-  SWIGINTERN PyObject *_wrap_CCornersUnit_SetCorner__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
-  {
-    PyObject *resultobj = 0;
-    dynamsoft::ddn::intermediate_results::CCornersUnit *arg1 = (dynamsoft::ddn::intermediate_results::CCornersUnit *)0;
-    int arg2;
-    dynamsoft::basic_structures::CCorner *arg3 = 0;
-    void *argp1 = 0;
-    int res1 = 0;
-    int val2;
-    int ecode2 = 0;
-    void *argp3 = 0;
-    int res3 = 0;
-    int result;
-
-    if ((nobjs < 3) || (nobjs > 3))
-      SWIG_fail;
-    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CCornersUnit, 0 | 0);
-    if (!SWIG_IsOK(res1))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
-                                               "CCornersUnit_SetCorner"
-                                               "', argument "
-                                               "1"
-                                               " of type '"
-                                               "dynamsoft::ddn::intermediate_results::CCornersUnit *"
-                                               "'");
-    }
-    arg1 = reinterpret_cast<dynamsoft::ddn::intermediate_results::CCornersUnit *>(argp1);
-    ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-    if (!SWIG_IsOK(ecode2))
-    {
-      SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '"
-                                                 "CCornersUnit_SetCorner"
-                                                 "', argument "
-                                                 "2"
-                                                 " of type '"
-                                                 "int"
-                                                 "'");
-    }
-    arg2 = static_cast<int>(val2);
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_dynamsoft__basic_structures__CCorner, 0 | 0);
-    if (!SWIG_IsOK(res3))
+    // res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_double, 0 | 0);
+    // if (!SWIG_IsOK(res4))
+    // {
+    //   SWIG_exception_fail(SWIG_ArgError(res4), "in method '"
+    //                                            "CCornersUnit_SetCorner"
+    //                                            "', argument "
+    //                                            "4"
+    //                                            " of type '"
+    //                                            "double const [9]"
+    //                                            "'");
+    // }
+    // arg4 = reinterpret_cast<double *>(argp4);
+    arg4 = convertPythonListToCpp_double(swig_obj[3], 9);
+    if(!arg4)
     {
       SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
-                                               "CCornersUnit_SetCorner"
-                                               "', argument "
-                                               "3"
-                                               " of type '"
-                                               "dynamsoft::basic_structures::CCorner const &"
-                                               "'");
+                                          "CCornersUnit_SetCorner"
+                                          "', argument "
+                                          "4"
+                                          " of type '"
+                                          "double const [9]"
+                                          "'");
     }
-    if (!argp3)
-    {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference "
-                                           "in method '"
-                                           "CCornersUnit_SetCorner"
-                                           "', argument "
-                                           "3"
-                                           " of type '"
-                                           "dynamsoft::basic_structures::CCorner const &"
-                                           "'");
-    }
-    arg3 = reinterpret_cast<dynamsoft::basic_structures::CCorner *>(argp3);
-    result = (int)(arg1)->SetCorner(arg2, (dynamsoft::basic_structures::CCorner const &)*arg3);
+    result = (int)(arg1)->SetCorner(arg2, (dynamsoft::basic_structures::CCorner const &)*arg3, (double const(*))arg4);
     resultobj = SWIG_From_int(static_cast<int>(result));
+    if(arg4)
+      delete[] arg4, arg4 = nullptr;
     return resultobj;
   fail:
     return NULL;
   }
+
+  // SWIGINTERN PyObject *_wrap_CCornersUnit_SetCorner__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
+  // {
+  //   PyObject *resultobj = 0;
+  //   dynamsoft::ddn::intermediate_results::CCornersUnit *arg1 = (dynamsoft::ddn::intermediate_results::CCornersUnit *)0;
+  //   int arg2;
+  //   dynamsoft::basic_structures::CCorner *arg3 = 0;
+  //   void *argp1 = 0;
+  //   int res1 = 0;
+  //   int val2;
+  //   int ecode2 = 0;
+  //   void *argp3 = 0;
+  //   int res3 = 0;
+  //   int result;
+
+  //   if ((nobjs < 3) || (nobjs > 3))
+  //     SWIG_fail;
+  //   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CCornersUnit, 0 | 0);
+  //   if (!SWIG_IsOK(res1))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+  //                                              "CCornersUnit_SetCorner"
+  //                                              "', argument "
+  //                                              "1"
+  //                                              " of type '"
+  //                                              "dynamsoft::ddn::intermediate_results::CCornersUnit *"
+  //                                              "'");
+  //   }
+  //   arg1 = reinterpret_cast<dynamsoft::ddn::intermediate_results::CCornersUnit *>(argp1);
+  //   ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  //   if (!SWIG_IsOK(ecode2))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '"
+  //                                                "CCornersUnit_SetCorner"
+  //                                                "', argument "
+  //                                                "2"
+  //                                                " of type '"
+  //                                                "int"
+  //                                                "'");
+  //   }
+  //   arg2 = static_cast<int>(val2);
+  //   res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_dynamsoft__basic_structures__CCorner, 0 | 0);
+  //   if (!SWIG_IsOK(res3))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
+  //                                              "CCornersUnit_SetCorner"
+  //                                              "', argument "
+  //                                              "3"
+  //                                              " of type '"
+  //                                              "dynamsoft::basic_structures::CCorner const &"
+  //                                              "'");
+  //   }
+  //   if (!argp3)
+  //   {
+  //     SWIG_exception_fail(SWIG_ValueError, "invalid null reference "
+  //                                          "in method '"
+  //                                          "CCornersUnit_SetCorner"
+  //                                          "', argument "
+  //                                          "3"
+  //                                          " of type '"
+  //                                          "dynamsoft::basic_structures::CCorner const &"
+  //                                          "'");
+  //   }
+  //   arg3 = reinterpret_cast<dynamsoft::basic_structures::CCorner *>(argp3);
+  //   result = (int)(arg1)->SetCorner(arg2, (dynamsoft::basic_structures::CCorner const &)*arg3);
+  //   resultobj = SWIG_From_int(static_cast<int>(result));
+  //   return resultobj;
+  // fail:
+  //   return NULL;
+  // }
 
   SWIGINTERN PyObject *_wrap_CCornersUnit_SetCorner(PyObject *self, PyObject *args)
   {
@@ -6179,62 +6147,11 @@ extern "C"
     PyObject *argv[5] = {
         0};
 
-    if (!(argc = SWIG_Python_UnpackTuple(args, "CCornersUnit_SetCorner", 0, 4, argv)))
+    if (!(argc = SWIG_Python_UnpackTuple(args, "CCornersUnit_SetCorner", 4, 4, argv)))
       SWIG_fail;
     --argc;
-    if (argc == 3)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CCornersUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        {
-          int res = SWIG_AsVal_int(argv[1], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v)
-        {
-          int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_dynamsoft__basic_structures__CCorner, SWIG_POINTER_NO_NULL | 0);
-          _v = SWIG_CheckState(res);
-          if (_v)
-          {
-            return _wrap_CCornersUnit_SetCorner__SWIG_1(self, argc, argv);
-          }
-        }
-      }
-    }
-    if (argc == 4)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CCornersUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        {
-          int res = SWIG_AsVal_int(argv[1], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v)
-        {
-          int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_dynamsoft__basic_structures__CCorner, SWIG_POINTER_NO_NULL | 0);
-          _v = SWIG_CheckState(res);
-          if (_v)
-          {
-            void *vptr = 0;
-            int res = SWIG_ConvertPtr(argv[3], &vptr, SWIGTYPE_p_double, 0);
-            _v = SWIG_CheckState(res);
-            if (_v)
-            {
-              return _wrap_CCornersUnit_SetCorner__SWIG_0(self, argc, argv);
-            }
-          }
-        }
-      }
-    }
 
+    return _wrap_CCornersUnit_SetCorner__SWIG_0(self, argc, argv);
   fail:
     SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'CCornersUnit_SetCorner'.\n"
                                        "  Possible C/C++ prototypes are:\n"
@@ -6286,6 +6203,8 @@ extern "C"
   SWIGINTERN PyObject *_wrap_CCandidateQuadEdgesUnit_GetCandidateQuadEdge(PyObject *self, PyObject *args)
   {
     PyObject *resultobj = 0;
+    PyObject *resultobj2 = 0;
+    PyObject *tuple = 0;
     dynamsoft::ddn::intermediate_results::CCandidateQuadEdgesUnit *arg1 = (dynamsoft::ddn::intermediate_results::CCandidateQuadEdgesUnit *)0;
     int arg2;
     dynamsoft::basic_structures::CEdge *arg3 = (dynamsoft::basic_structures::CEdge *)0;
@@ -6295,10 +6214,10 @@ extern "C"
     int ecode2 = 0;
     void *argp3 = 0;
     int res3 = 0;
-    PyObject *swig_obj[3];
+    PyObject *swig_obj[2];
     int result;
 
-    if (!SWIG_Python_UnpackTuple(args, "CCandidateQuadEdgesUnit_GetCandidateQuadEdge", 3, 3, swig_obj))
+    if (!SWIG_Python_UnpackTuple(args, "CCandidateQuadEdgesUnit_GetCandidateQuadEdge", 2, 2, swig_obj))
       SWIG_fail;
     res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CCandidateQuadEdgesUnit, 0 | 0);
     if (!SWIG_IsOK(res1))
@@ -6324,21 +6243,26 @@ extern "C"
                                                  "'");
     }
     arg2 = static_cast<int>(val2);
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_dynamsoft__basic_structures__CEdge, 0 | 0);
-    if (!SWIG_IsOK(res3))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
-                                               "CCandidateQuadEdgesUnit_GetCandidateQuadEdge"
-                                               "', argument "
-                                               "3"
-                                               " of type '"
-                                               "dynamsoft::basic_structures::CEdge *"
-                                               "'");
-    }
-    arg3 = reinterpret_cast<dynamsoft::basic_structures::CEdge *>(argp3);
+    // res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_dynamsoft__basic_structures__CEdge, 0 | 0);
+    // if (!SWIG_IsOK(res3))
+    // {
+    //   SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
+    //                                            "CCandidateQuadEdgesUnit_GetCandidateQuadEdge"
+    //                                            "', argument "
+    //                                            "3"
+    //                                            " of type '"
+    //                                            "dynamsoft::basic_structures::CEdge *"
+    //                                            "'");
+    // }
+    // arg3 = reinterpret_cast<dynamsoft::basic_structures::CEdge *>(argp3);
+    arg3 = new dynamsoft::basic_structures::CEdge();
     result = (int)((dynamsoft::ddn::intermediate_results::CCandidateQuadEdgesUnit const *)arg1)->GetCandidateQuadEdge(arg2, arg3);
     resultobj = SWIG_From_int(static_cast<int>(result));
-    return resultobj;
+    resultobj2 = SWIG_NewPointerObj(SWIG_as_voidptr(arg3), SWIGTYPE_p_dynamsoft__basic_structures__CEdge, SWIG_POINTER_OWN | 0);
+    tuple = PyTuple_New(2);
+    PyTuple_SetItem(tuple, 0, resultobj);
+    PyTuple_SetItem(tuple, 1, resultobj2);
+    return tuple;
   fail:
     return NULL;
   }
@@ -6469,79 +6393,92 @@ extern "C"
                                            "'");
     }
     arg2 = reinterpret_cast<dynamsoft::basic_structures::CEdge *>(argp2);
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_double, 0 | 0);
-    if (!SWIG_IsOK(res3))
+    // res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_double, 0 | 0);
+    // if (!SWIG_IsOK(res3))
+    // {
+    //   SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
+    //                                            "CCandidateQuadEdgesUnit_AddCandidateQuadEdge"
+    //                                            "', argument "
+    //                                            "3"
+    //                                            " of type '"
+    //                                            "double const [9]"
+    //                                            "'");
+    // }
+    // arg3 = reinterpret_cast<double *>(argp3);
+    arg3 = convertPythonListToCpp_double(swig_obj[2], 9);
+    if(!arg3)
     {
       SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
-                                               "CCandidateQuadEdgesUnit_AddCandidateQuadEdge"
-                                               "', argument "
-                                               "3"
-                                               " of type '"
-                                               "double const [9]"
-                                               "'");
+                                          "CCandidateQuadEdgesUnit_AddCandidateQuadEdge"
+                                          "', argument "
+                                          "3"
+                                          " of type '"
+                                          "double const [9]"
+                                          "'");
     }
-    arg3 = reinterpret_cast<double *>(argp3);
     result = (int)(arg1)->AddCandidateQuadEdge((dynamsoft::basic_structures::CEdge const &)*arg2, (double const(*))arg3);
+    if(arg3)
+      delete[] arg3, arg3 = nullptr;
     resultobj = SWIG_From_int(static_cast<int>(result));
     return resultobj;
   fail:
     return NULL;
   }
 
-  SWIGINTERN PyObject *_wrap_CCandidateQuadEdgesUnit_AddCandidateQuadEdge__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
-  {
-    PyObject *resultobj = 0;
-    dynamsoft::ddn::intermediate_results::CCandidateQuadEdgesUnit *arg1 = (dynamsoft::ddn::intermediate_results::CCandidateQuadEdgesUnit *)0;
-    dynamsoft::basic_structures::CEdge *arg2 = 0;
-    void *argp1 = 0;
-    int res1 = 0;
-    void *argp2 = 0;
-    int res2 = 0;
-    int result;
+  // SWIGINTERN PyObject *_wrap_CCandidateQuadEdgesUnit_AddCandidateQuadEdge__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
+  // {
+  //   PyObject *resultobj = 0;
+  //   dynamsoft::ddn::intermediate_results::CCandidateQuadEdgesUnit *arg1 = (dynamsoft::ddn::intermediate_results::CCandidateQuadEdgesUnit *)0;
+  //   dynamsoft::basic_structures::CEdge *arg2 = 0;
+  //   void *argp1 = 0;
+  //   int res1 = 0;
+  //   void *argp2 = 0;
+  //   int res2 = 0;
+  //   int result;
 
-    if ((nobjs < 2) || (nobjs > 2))
-      SWIG_fail;
-    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CCandidateQuadEdgesUnit, 0 | 0);
-    if (!SWIG_IsOK(res1))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
-                                               "CCandidateQuadEdgesUnit_AddCandidateQuadEdge"
-                                               "', argument "
-                                               "1"
-                                               " of type '"
-                                               "dynamsoft::ddn::intermediate_results::CCandidateQuadEdgesUnit *"
-                                               "'");
-    }
-    arg1 = reinterpret_cast<dynamsoft::ddn::intermediate_results::CCandidateQuadEdgesUnit *>(argp1);
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_dynamsoft__basic_structures__CEdge, 0 | 0);
-    if (!SWIG_IsOK(res2))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
-                                               "CCandidateQuadEdgesUnit_AddCandidateQuadEdge"
-                                               "', argument "
-                                               "2"
-                                               " of type '"
-                                               "dynamsoft::basic_structures::CEdge const &"
-                                               "'");
-    }
-    if (!argp2)
-    {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference "
-                                           "in method '"
-                                           "CCandidateQuadEdgesUnit_AddCandidateQuadEdge"
-                                           "', argument "
-                                           "2"
-                                           " of type '"
-                                           "dynamsoft::basic_structures::CEdge const &"
-                                           "'");
-    }
-    arg2 = reinterpret_cast<dynamsoft::basic_structures::CEdge *>(argp2);
-    result = (int)(arg1)->AddCandidateQuadEdge((dynamsoft::basic_structures::CEdge const &)*arg2);
-    resultobj = SWIG_From_int(static_cast<int>(result));
-    return resultobj;
-  fail:
-    return NULL;
-  }
+  //   if ((nobjs < 2) || (nobjs > 2))
+  //     SWIG_fail;
+  //   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CCandidateQuadEdgesUnit, 0 | 0);
+  //   if (!SWIG_IsOK(res1))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+  //                                              "CCandidateQuadEdgesUnit_AddCandidateQuadEdge"
+  //                                              "', argument "
+  //                                              "1"
+  //                                              " of type '"
+  //                                              "dynamsoft::ddn::intermediate_results::CCandidateQuadEdgesUnit *"
+  //                                              "'");
+  //   }
+  //   arg1 = reinterpret_cast<dynamsoft::ddn::intermediate_results::CCandidateQuadEdgesUnit *>(argp1);
+  //   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_dynamsoft__basic_structures__CEdge, 0 | 0);
+  //   if (!SWIG_IsOK(res2))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
+  //                                              "CCandidateQuadEdgesUnit_AddCandidateQuadEdge"
+  //                                              "', argument "
+  //                                              "2"
+  //                                              " of type '"
+  //                                              "dynamsoft::basic_structures::CEdge const &"
+  //                                              "'");
+  //   }
+  //   if (!argp2)
+  //   {
+  //     SWIG_exception_fail(SWIG_ValueError, "invalid null reference "
+  //                                          "in method '"
+  //                                          "CCandidateQuadEdgesUnit_AddCandidateQuadEdge"
+  //                                          "', argument "
+  //                                          "2"
+  //                                          " of type '"
+  //                                          "dynamsoft::basic_structures::CEdge const &"
+  //                                          "'");
+  //   }
+  //   arg2 = reinterpret_cast<dynamsoft::basic_structures::CEdge *>(argp2);
+  //   result = (int)(arg1)->AddCandidateQuadEdge((dynamsoft::basic_structures::CEdge const &)*arg2);
+  //   resultobj = SWIG_From_int(static_cast<int>(result));
+  //   return resultobj;
+  // fail:
+  //   return NULL;
+  // }
 
   SWIGINTERN PyObject *_wrap_CCandidateQuadEdgesUnit_AddCandidateQuadEdge(PyObject *self, PyObject *args)
   {
@@ -6552,45 +6489,7 @@ extern "C"
     if (!(argc = SWIG_Python_UnpackTuple(args, "CCandidateQuadEdgesUnit_AddCandidateQuadEdge", 0, 3, argv)))
       SWIG_fail;
     --argc;
-    if (argc == 2)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CCandidateQuadEdgesUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_dynamsoft__basic_structures__CEdge, SWIG_POINTER_NO_NULL | 0);
-        _v = SWIG_CheckState(res);
-        if (_v)
-        {
-          return _wrap_CCandidateQuadEdgesUnit_AddCandidateQuadEdge__SWIG_1(self, argc, argv);
-        }
-      }
-    }
-    if (argc == 3)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CCandidateQuadEdgesUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_dynamsoft__basic_structures__CEdge, SWIG_POINTER_NO_NULL | 0);
-        _v = SWIG_CheckState(res);
-        if (_v)
-        {
-          void *vptr = 0;
-          int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
-          _v = SWIG_CheckState(res);
-          if (_v)
-          {
-            return _wrap_CCandidateQuadEdgesUnit_AddCandidateQuadEdge__SWIG_0(self, argc, argv);
-          }
-        }
-      }
-    }
-
+    return _wrap_CCandidateQuadEdgesUnit_AddCandidateQuadEdge__SWIG_0(self, argc, argv);
   fail:
     SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'CCandidateQuadEdgesUnit_AddCandidateQuadEdge'.\n"
                                        "  Possible C/C++ prototypes are:\n"
@@ -6665,8 +6564,20 @@ extern "C"
                                            "'");
     }
     arg3 = reinterpret_cast<dynamsoft::basic_structures::CEdge *>(argp3);
-    res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_double, 0 | 0);
-    if (!SWIG_IsOK(res4))
+    // res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_double, 0 | 0);
+    // if (!SWIG_IsOK(res4))
+    // {
+    //   SWIG_exception_fail(SWIG_ArgError(res4), "in method '"
+    //                                            "CCandidateQuadEdgesUnit_SetCandidateQuadEdge"
+    //                                            "', argument "
+    //                                            "4"
+    //                                            " of type '"
+    //                                            "double const [9]"
+    //                                            "'");
+    // }
+    // arg4 = reinterpret_cast<double *>(argp4);
+    arg4 = convertPythonListToCpp_double(swig_obj[3], 9);
+    if(!arg4)
     {
       SWIG_exception_fail(SWIG_ArgError(res4), "in method '"
                                                "CCandidateQuadEdgesUnit_SetCandidateQuadEdge"
@@ -6676,83 +6587,85 @@ extern "C"
                                                "double const [9]"
                                                "'");
     }
-    arg4 = reinterpret_cast<double *>(argp4);
     result = (int)(arg1)->SetCandidateQuadEdge(arg2, (dynamsoft::basic_structures::CEdge const &)*arg3, (double const(*))arg4);
+    if(arg4)
+      delete[] arg4, arg4 = nullptr;
+
     resultobj = SWIG_From_int(static_cast<int>(result));
     return resultobj;
   fail:
     return NULL;
   }
 
-  SWIGINTERN PyObject *_wrap_CCandidateQuadEdgesUnit_SetCandidateQuadEdge__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
-  {
-    PyObject *resultobj = 0;
-    dynamsoft::ddn::intermediate_results::CCandidateQuadEdgesUnit *arg1 = (dynamsoft::ddn::intermediate_results::CCandidateQuadEdgesUnit *)0;
-    int arg2;
-    dynamsoft::basic_structures::CEdge *arg3 = 0;
-    void *argp1 = 0;
-    int res1 = 0;
-    int val2;
-    int ecode2 = 0;
-    void *argp3 = 0;
-    int res3 = 0;
-    int result;
+  // SWIGINTERN PyObject *_wrap_CCandidateQuadEdgesUnit_SetCandidateQuadEdge__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
+  // {
+  //   PyObject *resultobj = 0;
+  //   dynamsoft::ddn::intermediate_results::CCandidateQuadEdgesUnit *arg1 = (dynamsoft::ddn::intermediate_results::CCandidateQuadEdgesUnit *)0;
+  //   int arg2;
+  //   dynamsoft::basic_structures::CEdge *arg3 = 0;
+  //   void *argp1 = 0;
+  //   int res1 = 0;
+  //   int val2;
+  //   int ecode2 = 0;
+  //   void *argp3 = 0;
+  //   int res3 = 0;
+  //   int result;
 
-    if ((nobjs < 3) || (nobjs > 3))
-      SWIG_fail;
-    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CCandidateQuadEdgesUnit, 0 | 0);
-    if (!SWIG_IsOK(res1))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
-                                               "CCandidateQuadEdgesUnit_SetCandidateQuadEdge"
-                                               "', argument "
-                                               "1"
-                                               " of type '"
-                                               "dynamsoft::ddn::intermediate_results::CCandidateQuadEdgesUnit *"
-                                               "'");
-    }
-    arg1 = reinterpret_cast<dynamsoft::ddn::intermediate_results::CCandidateQuadEdgesUnit *>(argp1);
-    ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-    if (!SWIG_IsOK(ecode2))
-    {
-      SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '"
-                                                 "CCandidateQuadEdgesUnit_SetCandidateQuadEdge"
-                                                 "', argument "
-                                                 "2"
-                                                 " of type '"
-                                                 "int"
-                                                 "'");
-    }
-    arg2 = static_cast<int>(val2);
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_dynamsoft__basic_structures__CEdge, 0 | 0);
-    if (!SWIG_IsOK(res3))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
-                                               "CCandidateQuadEdgesUnit_SetCandidateQuadEdge"
-                                               "', argument "
-                                               "3"
-                                               " of type '"
-                                               "dynamsoft::basic_structures::CEdge const &"
-                                               "'");
-    }
-    if (!argp3)
-    {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference "
-                                           "in method '"
-                                           "CCandidateQuadEdgesUnit_SetCandidateQuadEdge"
-                                           "', argument "
-                                           "3"
-                                           " of type '"
-                                           "dynamsoft::basic_structures::CEdge const &"
-                                           "'");
-    }
-    arg3 = reinterpret_cast<dynamsoft::basic_structures::CEdge *>(argp3);
-    result = (int)(arg1)->SetCandidateQuadEdge(arg2, (dynamsoft::basic_structures::CEdge const &)*arg3);
-    resultobj = SWIG_From_int(static_cast<int>(result));
-    return resultobj;
-  fail:
-    return NULL;
-  }
+  //   if ((nobjs < 3) || (nobjs > 3))
+  //     SWIG_fail;
+  //   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CCandidateQuadEdgesUnit, 0 | 0);
+  //   if (!SWIG_IsOK(res1))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+  //                                              "CCandidateQuadEdgesUnit_SetCandidateQuadEdge"
+  //                                              "', argument "
+  //                                              "1"
+  //                                              " of type '"
+  //                                              "dynamsoft::ddn::intermediate_results::CCandidateQuadEdgesUnit *"
+  //                                              "'");
+  //   }
+  //   arg1 = reinterpret_cast<dynamsoft::ddn::intermediate_results::CCandidateQuadEdgesUnit *>(argp1);
+  //   ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  //   if (!SWIG_IsOK(ecode2))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '"
+  //                                                "CCandidateQuadEdgesUnit_SetCandidateQuadEdge"
+  //                                                "', argument "
+  //                                                "2"
+  //                                                " of type '"
+  //                                                "int"
+  //                                                "'");
+  //   }
+  //   arg2 = static_cast<int>(val2);
+  //   res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_dynamsoft__basic_structures__CEdge, 0 | 0);
+  //   if (!SWIG_IsOK(res3))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
+  //                                              "CCandidateQuadEdgesUnit_SetCandidateQuadEdge"
+  //                                              "', argument "
+  //                                              "3"
+  //                                              " of type '"
+  //                                              "dynamsoft::basic_structures::CEdge const &"
+  //                                              "'");
+  //   }
+  //   if (!argp3)
+  //   {
+  //     SWIG_exception_fail(SWIG_ValueError, "invalid null reference "
+  //                                          "in method '"
+  //                                          "CCandidateQuadEdgesUnit_SetCandidateQuadEdge"
+  //                                          "', argument "
+  //                                          "3"
+  //                                          " of type '"
+  //                                          "dynamsoft::basic_structures::CEdge const &"
+  //                                          "'");
+  //   }
+  //   arg3 = reinterpret_cast<dynamsoft::basic_structures::CEdge *>(argp3);
+  //   result = (int)(arg1)->SetCandidateQuadEdge(arg2, (dynamsoft::basic_structures::CEdge const &)*arg3);
+  //   resultobj = SWIG_From_int(static_cast<int>(result));
+  //   return resultobj;
+  // fail:
+  //   return NULL;
+  // }
 
   SWIGINTERN PyObject *_wrap_CCandidateQuadEdgesUnit_SetCandidateQuadEdge(PyObject *self, PyObject *args)
   {
@@ -6760,62 +6673,10 @@ extern "C"
     PyObject *argv[5] = {
         0};
 
-    if (!(argc = SWIG_Python_UnpackTuple(args, "CCandidateQuadEdgesUnit_SetCandidateQuadEdge", 0, 4, argv)))
+    if (!(argc = SWIG_Python_UnpackTuple(args, "CCandidateQuadEdgesUnit_SetCandidateQuadEdge", 4, 4, argv)))
       SWIG_fail;
     --argc;
-    if (argc == 3)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CCandidateQuadEdgesUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        {
-          int res = SWIG_AsVal_int(argv[1], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v)
-        {
-          int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_dynamsoft__basic_structures__CEdge, SWIG_POINTER_NO_NULL | 0);
-          _v = SWIG_CheckState(res);
-          if (_v)
-          {
-            return _wrap_CCandidateQuadEdgesUnit_SetCandidateQuadEdge__SWIG_1(self, argc, argv);
-          }
-        }
-      }
-    }
-    if (argc == 4)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CCandidateQuadEdgesUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        {
-          int res = SWIG_AsVal_int(argv[1], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v)
-        {
-          int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_dynamsoft__basic_structures__CEdge, SWIG_POINTER_NO_NULL | 0);
-          _v = SWIG_CheckState(res);
-          if (_v)
-          {
-            void *vptr = 0;
-            int res = SWIG_ConvertPtr(argv[3], &vptr, SWIGTYPE_p_double, 0);
-            _v = SWIG_CheckState(res);
-            if (_v)
-            {
-              return _wrap_CCandidateQuadEdgesUnit_SetCandidateQuadEdge__SWIG_0(self, argc, argv);
-            }
-          }
-        }
-      }
-    }
-
+    return _wrap_CCandidateQuadEdgesUnit_SetCandidateQuadEdge__SWIG_0(self, argc, argv);
   fail:
     SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'CCandidateQuadEdgesUnit_SetCandidateQuadEdge'.\n"
                                        "  Possible C/C++ prototypes are:\n"
@@ -6903,7 +6764,8 @@ extern "C"
     }
     arg2 = static_cast<int>(val2);
     result = (dynamsoft::ddn::intermediate_results::CDetectedQuadElement *)((dynamsoft::ddn::intermediate_results::CDetectedQuadsUnit const *)arg1)->GetDetectedQuad(arg2);
-    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CDetectedQuadElement, 0 | 0);
+    result->Retain();
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CDetectedQuadElement, SWIG_POINTER_OWN | 0);
     return resultobj;
   fail:
     return NULL;
@@ -7024,68 +6886,82 @@ extern "C"
                                                "'");
     }
     arg2 = reinterpret_cast<dynamsoft::ddn::intermediate_results::CDetectedQuadElement *>(argp2);
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_double, 0 | 0);
-    if (!SWIG_IsOK(res3))
+    // res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_double, 0 | 0);
+    // if (!SWIG_IsOK(res3))
+    // {
+    //   SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
+    //                                            "CDetectedQuadsUnit_AddDetectedQuad"
+    //                                            "', argument "
+    //                                            "3"
+    //                                            " of type '"
+    //                                            "double const [9]"
+    //                                            "'");
+    // }
+    // arg3 = reinterpret_cast<double *>(argp3);
+    arg3 = convertPythonListToCpp_double(swig_obj[2], 9);
+    if(!arg3)
     {
       SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
-                                               "CDetectedQuadsUnit_AddDetectedQuad"
-                                               "', argument "
-                                               "3"
-                                               " of type '"
-                                               "double const [9]"
-                                               "'");
+                                          "CDetectedQuadsUnit_AddDetectedQuad"
+                                          "', argument "
+                                          "3"
+                                          " of type '"
+                                          "double const [9]"
+                                          "'");
     }
-    arg3 = reinterpret_cast<double *>(argp3);
     result = (int)(arg1)->AddDetectedQuad((dynamsoft::ddn::intermediate_results::CDetectedQuadElement const *)arg2, (double const(*))arg3);
+    if(arg3)
+      delete[] arg3, arg3 = nullptr;
+
     resultobj = SWIG_From_int(static_cast<int>(result));
     return resultobj;
   fail:
     return NULL;
   }
 
-  SWIGINTERN PyObject *_wrap_CDetectedQuadsUnit_AddDetectedQuad__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
-  {
-    PyObject *resultobj = 0;
-    dynamsoft::ddn::intermediate_results::CDetectedQuadsUnit *arg1 = (dynamsoft::ddn::intermediate_results::CDetectedQuadsUnit *)0;
-    dynamsoft::ddn::intermediate_results::CDetectedQuadElement *arg2 = (dynamsoft::ddn::intermediate_results::CDetectedQuadElement *)0;
-    void *argp1 = 0;
-    int res1 = 0;
-    void *argp2 = 0;
-    int res2 = 0;
-    int result;
+  // SWIGINTERN PyObject *_wrap_CDetectedQuadsUnit_AddDetectedQuad__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
+  // {
+  //   PyObject *resultobj = 0;
+  //   dynamsoft::ddn::intermediate_results::CDetectedQuadsUnit *arg1 = (dynamsoft::ddn::intermediate_results::CDetectedQuadsUnit *)0;
+  //   dynamsoft::ddn::intermediate_results::CDetectedQuadElement *arg2 = (dynamsoft::ddn::intermediate_results::CDetectedQuadElement *)0;
+  //   void *argp1 = 0;
+  //   int res1 = 0;
+  //   void *argp2 = 0;
+  //   int res2 = 0;
+  //   int result;
 
-    if ((nobjs < 2) || (nobjs > 2))
-      SWIG_fail;
-    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CDetectedQuadsUnit, 0 | 0);
-    if (!SWIG_IsOK(res1))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
-                                               "CDetectedQuadsUnit_AddDetectedQuad"
-                                               "', argument "
-                                               "1"
-                                               " of type '"
-                                               "dynamsoft::ddn::intermediate_results::CDetectedQuadsUnit *"
-                                               "'");
-    }
-    arg1 = reinterpret_cast<dynamsoft::ddn::intermediate_results::CDetectedQuadsUnit *>(argp1);
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CDetectedQuadElement, 0 | 0);
-    if (!SWIG_IsOK(res2))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
-                                               "CDetectedQuadsUnit_AddDetectedQuad"
-                                               "', argument "
-                                               "2"
-                                               " of type '"
-                                               "dynamsoft::ddn::intermediate_results::CDetectedQuadElement const *"
-                                               "'");
-    }
-    arg2 = reinterpret_cast<dynamsoft::ddn::intermediate_results::CDetectedQuadElement *>(argp2);
-    result = (int)(arg1)->AddDetectedQuad((dynamsoft::ddn::intermediate_results::CDetectedQuadElement const *)arg2);
-    resultobj = SWIG_From_int(static_cast<int>(result));
-    return resultobj;
-  fail:
-    return NULL;
-  }
+  //   if ((nobjs < 2) || (nobjs > 2))
+  //     SWIG_fail;
+  //   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CDetectedQuadsUnit, 0 | 0);
+  //   if (!SWIG_IsOK(res1))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+  //                                              "CDetectedQuadsUnit_AddDetectedQuad"
+  //                                              "', argument "
+  //                                              "1"
+  //                                              " of type '"
+  //                                              "dynamsoft::ddn::intermediate_results::CDetectedQuadsUnit *"
+  //                                              "'");
+  //   }
+  //   arg1 = reinterpret_cast<dynamsoft::ddn::intermediate_results::CDetectedQuadsUnit *>(argp1);
+  //   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CDetectedQuadElement, 0 | 0);
+  //   if (!SWIG_IsOK(res2))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
+  //                                              "CDetectedQuadsUnit_AddDetectedQuad"
+  //                                              "', argument "
+  //                                              "2"
+  //                                              " of type '"
+  //                                              "dynamsoft::ddn::intermediate_results::CDetectedQuadElement const *"
+  //                                              "'");
+  //   }
+  //   arg2 = reinterpret_cast<dynamsoft::ddn::intermediate_results::CDetectedQuadElement *>(argp2);
+  //   result = (int)(arg1)->AddDetectedQuad((dynamsoft::ddn::intermediate_results::CDetectedQuadElement const *)arg2);
+  //   resultobj = SWIG_From_int(static_cast<int>(result));
+  //   return resultobj;
+  // fail:
+  //   return NULL;
+  // }
 
   SWIGINTERN PyObject *_wrap_CDetectedQuadsUnit_AddDetectedQuad(PyObject *self, PyObject *args)
   {
@@ -7096,47 +6972,7 @@ extern "C"
     if (!(argc = SWIG_Python_UnpackTuple(args, "CDetectedQuadsUnit_AddDetectedQuad", 0, 3, argv)))
       SWIG_fail;
     --argc;
-    if (argc == 2)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CDetectedQuadsUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        void *vptr = 0;
-        int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CDetectedQuadElement, 0);
-        _v = SWIG_CheckState(res);
-        if (_v)
-        {
-          return _wrap_CDetectedQuadsUnit_AddDetectedQuad__SWIG_1(self, argc, argv);
-        }
-      }
-    }
-    if (argc == 3)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CDetectedQuadsUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        void *vptr = 0;
-        int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CDetectedQuadElement, 0);
-        _v = SWIG_CheckState(res);
-        if (_v)
-        {
-          void *vptr = 0;
-          int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
-          _v = SWIG_CheckState(res);
-          if (_v)
-          {
-            return _wrap_CDetectedQuadsUnit_AddDetectedQuad__SWIG_0(self, argc, argv);
-          }
-        }
-      }
-    }
-
+    return _wrap_CDetectedQuadsUnit_AddDetectedQuad__SWIG_0(self, argc, argv);
   fail:
     SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'CDetectedQuadsUnit_AddDetectedQuad'.\n"
                                        "  Possible C/C++ prototypes are:\n"
@@ -7200,8 +7036,20 @@ extern "C"
                                                "'");
     }
     arg3 = reinterpret_cast<dynamsoft::ddn::intermediate_results::CDetectedQuadElement *>(argp3);
-    res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_double, 0 | 0);
-    if (!SWIG_IsOK(res4))
+    // res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_double, 0 | 0);
+    // if (!SWIG_IsOK(res4))
+    // {
+    //   SWIG_exception_fail(SWIG_ArgError(res4), "in method '"
+    //                                            "CDetectedQuadsUnit_SetDetectedQuad"
+    //                                            "', argument "
+    //                                            "4"
+    //                                            " of type '"
+    //                                            "double const [9]"
+    //                                            "'");
+    // }
+    // arg4 = reinterpret_cast<double *>(argp4);
+    arg4 = convertPythonListToCpp_double(swig_obj[3], 9);
+    if(!arg4)
     {
       SWIG_exception_fail(SWIG_ArgError(res4), "in method '"
                                                "CDetectedQuadsUnit_SetDetectedQuad"
@@ -7211,72 +7059,74 @@ extern "C"
                                                "double const [9]"
                                                "'");
     }
-    arg4 = reinterpret_cast<double *>(argp4);
     result = (int)(arg1)->SetDetectedQuad(arg2, (dynamsoft::ddn::intermediate_results::CDetectedQuadElement const *)arg3, (double const(*))arg4);
+    if(arg4)
+      delete[] arg4, arg4 = nullptr;
+
     resultobj = SWIG_From_int(static_cast<int>(result));
     return resultobj;
   fail:
     return NULL;
   }
 
-  SWIGINTERN PyObject *_wrap_CDetectedQuadsUnit_SetDetectedQuad__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
-  {
-    PyObject *resultobj = 0;
-    dynamsoft::ddn::intermediate_results::CDetectedQuadsUnit *arg1 = (dynamsoft::ddn::intermediate_results::CDetectedQuadsUnit *)0;
-    int arg2;
-    dynamsoft::ddn::intermediate_results::CDetectedQuadElement *arg3 = (dynamsoft::ddn::intermediate_results::CDetectedQuadElement *)0;
-    void *argp1 = 0;
-    int res1 = 0;
-    int val2;
-    int ecode2 = 0;
-    void *argp3 = 0;
-    int res3 = 0;
-    int result;
+  // SWIGINTERN PyObject *_wrap_CDetectedQuadsUnit_SetDetectedQuad__SWIG_1(PyObject *self, Py_ssize_t nobjs, PyObject **swig_obj)
+  // {
+  //   PyObject *resultobj = 0;
+  //   dynamsoft::ddn::intermediate_results::CDetectedQuadsUnit *arg1 = (dynamsoft::ddn::intermediate_results::CDetectedQuadsUnit *)0;
+  //   int arg2;
+  //   dynamsoft::ddn::intermediate_results::CDetectedQuadElement *arg3 = (dynamsoft::ddn::intermediate_results::CDetectedQuadElement *)0;
+  //   void *argp1 = 0;
+  //   int res1 = 0;
+  //   int val2;
+  //   int ecode2 = 0;
+  //   void *argp3 = 0;
+  //   int res3 = 0;
+  //   int result;
 
-    if ((nobjs < 3) || (nobjs > 3))
-      SWIG_fail;
-    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CDetectedQuadsUnit, 0 | 0);
-    if (!SWIG_IsOK(res1))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
-                                               "CDetectedQuadsUnit_SetDetectedQuad"
-                                               "', argument "
-                                               "1"
-                                               " of type '"
-                                               "dynamsoft::ddn::intermediate_results::CDetectedQuadsUnit *"
-                                               "'");
-    }
-    arg1 = reinterpret_cast<dynamsoft::ddn::intermediate_results::CDetectedQuadsUnit *>(argp1);
-    ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-    if (!SWIG_IsOK(ecode2))
-    {
-      SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '"
-                                                 "CDetectedQuadsUnit_SetDetectedQuad"
-                                                 "', argument "
-                                                 "2"
-                                                 " of type '"
-                                                 "int"
-                                                 "'");
-    }
-    arg2 = static_cast<int>(val2);
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CDetectedQuadElement, 0 | 0);
-    if (!SWIG_IsOK(res3))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
-                                               "CDetectedQuadsUnit_SetDetectedQuad"
-                                               "', argument "
-                                               "3"
-                                               " of type '"
-                                               "dynamsoft::ddn::intermediate_results::CDetectedQuadElement const *"
-                                               "'");
-    }
-    arg3 = reinterpret_cast<dynamsoft::ddn::intermediate_results::CDetectedQuadElement *>(argp3);
-    result = (int)(arg1)->SetDetectedQuad(arg2, (dynamsoft::ddn::intermediate_results::CDetectedQuadElement const *)arg3);
-    resultobj = SWIG_From_int(static_cast<int>(result));
-    return resultobj;
-  fail:
-    return NULL;
-  }
+  //   if ((nobjs < 3) || (nobjs > 3))
+  //     SWIG_fail;
+  //   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CDetectedQuadsUnit, 0 | 0);
+  //   if (!SWIG_IsOK(res1))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+  //                                              "CDetectedQuadsUnit_SetDetectedQuad"
+  //                                              "', argument "
+  //                                              "1"
+  //                                              " of type '"
+  //                                              "dynamsoft::ddn::intermediate_results::CDetectedQuadsUnit *"
+  //                                              "'");
+  //   }
+  //   arg1 = reinterpret_cast<dynamsoft::ddn::intermediate_results::CDetectedQuadsUnit *>(argp1);
+  //   ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  //   if (!SWIG_IsOK(ecode2))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '"
+  //                                                "CDetectedQuadsUnit_SetDetectedQuad"
+  //                                                "', argument "
+  //                                                "2"
+  //                                                " of type '"
+  //                                                "int"
+  //                                                "'");
+  //   }
+  //   arg2 = static_cast<int>(val2);
+  //   res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CDetectedQuadElement, 0 | 0);
+  //   if (!SWIG_IsOK(res3))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
+  //                                              "CDetectedQuadsUnit_SetDetectedQuad"
+  //                                              "', argument "
+  //                                              "3"
+  //                                              " of type '"
+  //                                              "dynamsoft::ddn::intermediate_results::CDetectedQuadElement const *"
+  //                                              "'");
+  //   }
+  //   arg3 = reinterpret_cast<dynamsoft::ddn::intermediate_results::CDetectedQuadElement *>(argp3);
+  //   result = (int)(arg1)->SetDetectedQuad(arg2, (dynamsoft::ddn::intermediate_results::CDetectedQuadElement const *)arg3);
+  //   resultobj = SWIG_From_int(static_cast<int>(result));
+  //   return resultobj;
+  // fail:
+  //   return NULL;
+  // }
 
   SWIGINTERN PyObject *_wrap_CDetectedQuadsUnit_SetDetectedQuad(PyObject *self, PyObject *args)
   {
@@ -7284,64 +7134,10 @@ extern "C"
     PyObject *argv[5] = {
         0};
 
-    if (!(argc = SWIG_Python_UnpackTuple(args, "CDetectedQuadsUnit_SetDetectedQuad", 0, 4, argv)))
+    if (!(argc = SWIG_Python_UnpackTuple(args, "CDetectedQuadsUnit_SetDetectedQuad", 4, 4, argv)))
       SWIG_fail;
     --argc;
-    if (argc == 3)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CDetectedQuadsUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        {
-          int res = SWIG_AsVal_int(argv[1], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v)
-        {
-          void *vptr = 0;
-          int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CDetectedQuadElement, 0);
-          _v = SWIG_CheckState(res);
-          if (_v)
-          {
-            return _wrap_CDetectedQuadsUnit_SetDetectedQuad__SWIG_1(self, argc, argv);
-          }
-        }
-      }
-    }
-    if (argc == 4)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CDetectedQuadsUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        {
-          int res = SWIG_AsVal_int(argv[1], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v)
-        {
-          void *vptr = 0;
-          int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CDetectedQuadElement, 0);
-          _v = SWIG_CheckState(res);
-          if (_v)
-          {
-            void *vptr = 0;
-            int res = SWIG_ConvertPtr(argv[3], &vptr, SWIGTYPE_p_double, 0);
-            _v = SWIG_CheckState(res);
-            if (_v)
-            {
-              return _wrap_CDetectedQuadsUnit_SetDetectedQuad__SWIG_0(self, argc, argv);
-            }
-          }
-        }
-      }
-    }
-
+    return _wrap_CDetectedQuadsUnit_SetDetectedQuad__SWIG_0(self, argc, argv);
   fail:
     SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'CDetectedQuadsUnit_SetDetectedQuad'.\n"
                                        "  Possible C/C++ prototypes are:\n"
@@ -7429,7 +7225,8 @@ extern "C"
     }
     arg2 = static_cast<int>(val2);
     result = (dynamsoft::ddn::intermediate_results::CNormalizedImageElement *)((dynamsoft::ddn::intermediate_results::CNormalizedImagesUnit const *)arg1)->GetNormalizedImage(arg2);
-    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CNormalizedImageElement, 0 | 0);
+    result->Retain();
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CNormalizedImageElement, SWIG_POINTER_OWN | 0);
     return resultobj;
   fail:
     return NULL;
@@ -7505,8 +7302,20 @@ extern "C"
                                                "'");
     }
     arg2 = reinterpret_cast<dynamsoft::ddn::intermediate_results::CNormalizedImageElement *>(argp2);
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_double, 0 | 0);
-    if (!SWIG_IsOK(res3))
+    // res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_double, 0 | 0);
+    // if (!SWIG_IsOK(res3))
+    // {
+    //   SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
+    //                                            "CNormalizedImagesUnit_SetNormalizedImage"
+    //                                            "', argument "
+    //                                            "3"
+    //                                            " of type '"
+    //                                            "double const [9]"
+    //                                            "'");
+    // }
+    // arg3 = reinterpret_cast<double *>(argp3);
+    arg3 = convertPythonListToCpp_double(swig_obj[2], 9);
+    if(!arg3)
     {
       SWIG_exception_fail(SWIG_ArgError(res3), "in method '"
                                                "CNormalizedImagesUnit_SetNormalizedImage"
@@ -7516,8 +7325,10 @@ extern "C"
                                                "double const [9]"
                                                "'");
     }
-    arg3 = reinterpret_cast<double *>(argp3);
     result = (int)(arg1)->SetNormalizedImage((dynamsoft::ddn::intermediate_results::CNormalizedImageElement const *)arg2, (double const(*))arg3);
+    if(arg3)
+      delete[] arg3, arg3 = nullptr;
+
     resultobj = SWIG_From_int(static_cast<int>(result));
     return resultobj;
   fail:
@@ -7574,50 +7385,10 @@ extern "C"
     PyObject *argv[4] = {
         0};
 
-    if (!(argc = SWIG_Python_UnpackTuple(args, "CNormalizedImagesUnit_SetNormalizedImage", 0, 3, argv)))
+    if (!(argc = SWIG_Python_UnpackTuple(args, "CNormalizedImagesUnit_SetNormalizedImage", 3, 3, argv)))
       SWIG_fail;
     --argc;
-    if (argc == 2)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CNormalizedImagesUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        void *vptr = 0;
-        int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CNormalizedImageElement, 0);
-        _v = SWIG_CheckState(res);
-        if (_v)
-        {
-          return _wrap_CNormalizedImagesUnit_SetNormalizedImage__SWIG_1(self, argc, argv);
-        }
-      }
-    }
-    if (argc == 3)
-    {
-      int _v = 0;
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CNormalizedImagesUnit, 0);
-      _v = SWIG_CheckState(res);
-      if (_v)
-      {
-        void *vptr = 0;
-        int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CNormalizedImageElement, 0);
-        _v = SWIG_CheckState(res);
-        if (_v)
-        {
-          void *vptr = 0;
-          int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_double, 0);
-          _v = SWIG_CheckState(res);
-          if (_v)
-          {
-            return _wrap_CNormalizedImagesUnit_SetNormalizedImage__SWIG_0(self, argc, argv);
-          }
-        }
-      }
-    }
-
+    return _wrap_CNormalizedImagesUnit_SetNormalizedImage__SWIG_0(self, argc, argv);
   fail:
     SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'CNormalizedImagesUnit_SetNormalizedImage'.\n"
                                        "  Possible C/C++ prototypes are:\n"
@@ -7970,7 +7741,8 @@ extern "C"
     }
     arg2 = static_cast<int>(val2);
     result = (dynamsoft::ddn::CDetectedQuadResultItem *)((dynamsoft::ddn::CDetectedQuadsResult const *)arg1)->GetItem(arg2);
-    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__ddn__CDetectedQuadResultItem, 0 | 0);
+    result->Retain();
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__ddn__CDetectedQuadResultItem, SWIG_POINTER_OWN | 0);
     return resultobj;
   fail:
     return NULL;
@@ -8391,7 +8163,8 @@ extern "C"
     }
     arg2 = static_cast<int>(val2);
     result = (dynamsoft::ddn::CNormalizedImageResultItem *)((dynamsoft::ddn::CNormalizedImagesResult const *)arg1)->GetItem(arg2);
-    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__ddn__CNormalizedImageResultItem, 0 | 0);
+    result->Retain();
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__ddn__CNormalizedImageResultItem, SWIG_POINTER_OWN | 0);
     return resultobj;
   fail:
     return NULL;
@@ -8641,7 +8414,7 @@ extern "C"
     if (!SWIG_Python_UnpackTuple(args, "CDocumentNormalizerModule_CreateNormalizedImageElement", 0, 0, 0))
       SWIG_fail;
     result = (dynamsoft::ddn::intermediate_results::CNormalizedImageElement *)dynamsoft::ddn::CDocumentNormalizerModule::CreateNormalizedImageElement();
-    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CNormalizedImageElement, 0 | 0);
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CNormalizedImageElement, SWIG_POINTER_NEW | 0);
     return resultobj;
   fail:
     return NULL;
@@ -8655,7 +8428,7 @@ extern "C"
     if (!SWIG_Python_UnpackTuple(args, "CDocumentNormalizerModule_CreateDetectedQuadElement", 0, 0, 0))
       SWIG_fail;
     result = (dynamsoft::ddn::intermediate_results::CDetectedQuadElement *)dynamsoft::ddn::CDocumentNormalizerModule::CreateDetectedQuadElement();
-    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CDetectedQuadElement, 0 | 0);
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__ddn__intermediate_results__CDetectedQuadElement, SWIG_POINTER_NEW | 0);
     return resultobj;
   fail:
     return NULL;
@@ -8720,6 +8493,7 @@ extern "C"
   }
 
   static PyMethodDef SwigMethods[] = {
+      {"Class_init", CDocumentNormalizerModule_swiginit, METH_VARARGS, NULL},
       {"SimplifiedDocumentNormalizerSettings_grayscaleTransformationModes_set", _wrap_SimplifiedDocumentNormalizerSettings_grayscaleTransformationModes_set, METH_VARARGS, NULL},
       {"SimplifiedDocumentNormalizerSettings_grayscaleTransformationModes_get", _wrap_SimplifiedDocumentNormalizerSettings_grayscaleTransformationModes_get, METH_O, NULL},
       {"SimplifiedDocumentNormalizerSettings_grayscaleEnhancementModes_set", _wrap_SimplifiedDocumentNormalizerSettings_grayscaleEnhancementModes_set, METH_VARARGS, NULL},
@@ -8745,44 +8519,44 @@ extern "C"
       {"new_SimplifiedDocumentNormalizerSettings", _wrap_new_SimplifiedDocumentNormalizerSettings, METH_NOARGS, NULL},
       {"delete_SimplifiedDocumentNormalizerSettings", _wrap_delete_SimplifiedDocumentNormalizerSettings, METH_O, NULL},
       {"SimplifiedDocumentNormalizerSettings_register", SimplifiedDocumentNormalizerSettings_swigregister, METH_O, NULL},
-      {"SimplifiedDocumentNormalizerSettings_init", SimplifiedDocumentNormalizerSettings_swiginit, METH_VARARGS, NULL},
-      // {"CDetectedQuadElement_GetConfidenceAsDocumentBoundary", _wrap_CDetectedQuadElement_GetConfidenceAsDocumentBoundary, METH_O, NULL},
-      // {"CDetectedQuadElement_register", CDetectedQuadElement_swigregister, METH_O, NULL},
-      // {"CNormalizedImageElement_GetImageData", _wrap_CNormalizedImageElement_GetImageData, METH_O, NULL},
-      // {"CNormalizedImageElement_register", CNormalizedImageElement_swigregister, METH_O, NULL},
-      // {"CLongLinesUnit_GetCount", _wrap_CLongLinesUnit_GetCount, METH_O, NULL},
-      // {"CLongLinesUnit_GetLongLine", _wrap_CLongLinesUnit_GetLongLine, METH_VARARGS, NULL},
-      // {"CLongLinesUnit_RemoveAllLongLines", _wrap_CLongLinesUnit_RemoveAllLongLines, METH_O, NULL},
-      // {"CLongLinesUnit_RemoveLongLine", _wrap_CLongLinesUnit_RemoveLongLine, METH_VARARGS, NULL},
-      // {"CLongLinesUnit_AddLongLine", _wrap_CLongLinesUnit_AddLongLine, METH_VARARGS, NULL},
-      // {"CLongLinesUnit_SetLongLine", _wrap_CLongLinesUnit_SetLongLine, METH_VARARGS, NULL},
-      // {"CLongLinesUnit_register", CLongLinesUnit_swigregister, METH_O, NULL},
-      // {"CCornersUnit_GetCount", _wrap_CCornersUnit_GetCount, METH_O, NULL},
-      // {"CCornersUnit_GetCorner", _wrap_CCornersUnit_GetCorner, METH_VARARGS, NULL},
-      // {"CCornersUnit_RemoveAllCorners", _wrap_CCornersUnit_RemoveAllCorners, METH_O, NULL},
-      // {"CCornersUnit_RemoveCorner", _wrap_CCornersUnit_RemoveCorner, METH_VARARGS, NULL},
-      // {"CCornersUnit_AddCorner", _wrap_CCornersUnit_AddCorner, METH_VARARGS, NULL},
-      // {"CCornersUnit_SetCorner", _wrap_CCornersUnit_SetCorner, METH_VARARGS, NULL},
-      // {"CCornersUnit_register", CCornersUnit_swigregister, METH_O, NULL},
-      // {"CCandidateQuadEdgesUnit_GetCount", _wrap_CCandidateQuadEdgesUnit_GetCount, METH_O, NULL},
-      // {"CCandidateQuadEdgesUnit_GetCandidateQuadEdge", _wrap_CCandidateQuadEdgesUnit_GetCandidateQuadEdge, METH_VARARGS, NULL},
-      // {"CCandidateQuadEdgesUnit_RemoveAllCandidateQuadEdges", _wrap_CCandidateQuadEdgesUnit_RemoveAllCandidateQuadEdges, METH_O, NULL},
-      // {"CCandidateQuadEdgesUnit_RemoveCandidateQuadEdge", _wrap_CCandidateQuadEdgesUnit_RemoveCandidateQuadEdge, METH_VARARGS, NULL},
-      // {"CCandidateQuadEdgesUnit_AddCandidateQuadEdge", _wrap_CCandidateQuadEdgesUnit_AddCandidateQuadEdge, METH_VARARGS, NULL},
-      // {"CCandidateQuadEdgesUnit_SetCandidateQuadEdge", _wrap_CCandidateQuadEdgesUnit_SetCandidateQuadEdge, METH_VARARGS, NULL},
-      // {"CCandidateQuadEdgesUnit_register", CCandidateQuadEdgesUnit_swigregister, METH_O, NULL},
-      // {"CDetectedQuadsUnit_GetCount", _wrap_CDetectedQuadsUnit_GetCount, METH_O, NULL},
-      // {"CDetectedQuadsUnit_GetDetectedQuad", _wrap_CDetectedQuadsUnit_GetDetectedQuad, METH_VARARGS, NULL},
-      // {"CDetectedQuadsUnit_RemoveAllDetectedQuads", _wrap_CDetectedQuadsUnit_RemoveAllDetectedQuads, METH_O, NULL},
-      // {"CDetectedQuadsUnit_RemoveDetectedQuad", _wrap_CDetectedQuadsUnit_RemoveDetectedQuad, METH_VARARGS, NULL},
-      // {"CDetectedQuadsUnit_AddDetectedQuad", _wrap_CDetectedQuadsUnit_AddDetectedQuad, METH_VARARGS, NULL},
-      // {"CDetectedQuadsUnit_SetDetectedQuad", _wrap_CDetectedQuadsUnit_SetDetectedQuad, METH_VARARGS, NULL},
-      // {"CDetectedQuadsUnit_register", CDetectedQuadsUnit_swigregister, METH_O, NULL},
-      // {"CNormalizedImagesUnit_GetCount", _wrap_CNormalizedImagesUnit_GetCount, METH_O, NULL},
-      // {"CNormalizedImagesUnit_GetNormalizedImage", _wrap_CNormalizedImagesUnit_GetNormalizedImage, METH_VARARGS, NULL},
-      // {"CNormalizedImagesUnit_RemoveAllNormalizedImages", _wrap_CNormalizedImagesUnit_RemoveAllNormalizedImages, METH_O, NULL},
-      // {"CNormalizedImagesUnit_SetNormalizedImage", _wrap_CNormalizedImagesUnit_SetNormalizedImage, METH_VARARGS, NULL},
-      // {"CNormalizedImagesUnit_register", CNormalizedImagesUnit_swigregister, METH_O, NULL},
+      // {"SimplifiedDocumentNormalizerSettings_init", SimplifiedDocumentNormalizerSettings_swiginit, METH_VARARGS, NULL},
+      {"CDetectedQuadElement_GetConfidenceAsDocumentBoundary", _wrap_CDetectedQuadElement_GetConfidenceAsDocumentBoundary, METH_O, NULL},
+      {"CDetectedQuadElement_register", CDetectedQuadElement_swigregister, METH_O, NULL},
+      {"CNormalizedImageElement_GetImageData", _wrap_CNormalizedImageElement_GetImageData, METH_O, NULL},
+      {"CNormalizedImageElement_register", CNormalizedImageElement_swigregister, METH_O, NULL},
+      {"CLongLinesUnit_GetCount", _wrap_CLongLinesUnit_GetCount, METH_O, NULL},
+      {"CLongLinesUnit_GetLongLine", _wrap_CLongLinesUnit_GetLongLine, METH_VARARGS, NULL},
+      {"CLongLinesUnit_RemoveAllLongLines", _wrap_CLongLinesUnit_RemoveAllLongLines, METH_O, NULL},
+      {"CLongLinesUnit_RemoveLongLine", _wrap_CLongLinesUnit_RemoveLongLine, METH_VARARGS, NULL},
+      {"CLongLinesUnit_AddLongLine", _wrap_CLongLinesUnit_AddLongLine, METH_VARARGS, NULL},
+      {"CLongLinesUnit_SetLongLine", _wrap_CLongLinesUnit_SetLongLine, METH_VARARGS, NULL},
+      {"CLongLinesUnit_register", CLongLinesUnit_swigregister, METH_O, NULL},
+      {"CCornersUnit_GetCount", _wrap_CCornersUnit_GetCount, METH_O, NULL},
+      {"CCornersUnit_GetCorner", _wrap_CCornersUnit_GetCorner, METH_VARARGS, NULL},
+      {"CCornersUnit_RemoveAllCorners", _wrap_CCornersUnit_RemoveAllCorners, METH_O, NULL},
+      {"CCornersUnit_RemoveCorner", _wrap_CCornersUnit_RemoveCorner, METH_VARARGS, NULL},
+      {"CCornersUnit_AddCorner", _wrap_CCornersUnit_AddCorner, METH_VARARGS, NULL},
+      {"CCornersUnit_SetCorner", _wrap_CCornersUnit_SetCorner, METH_VARARGS, NULL},
+      {"CCornersUnit_register", CCornersUnit_swigregister, METH_O, NULL},
+      {"CCandidateQuadEdgesUnit_GetCount", _wrap_CCandidateQuadEdgesUnit_GetCount, METH_O, NULL},
+      {"CCandidateQuadEdgesUnit_GetCandidateQuadEdge", _wrap_CCandidateQuadEdgesUnit_GetCandidateQuadEdge, METH_VARARGS, NULL},
+      {"CCandidateQuadEdgesUnit_RemoveAllCandidateQuadEdges", _wrap_CCandidateQuadEdgesUnit_RemoveAllCandidateQuadEdges, METH_O, NULL},
+      {"CCandidateQuadEdgesUnit_RemoveCandidateQuadEdge", _wrap_CCandidateQuadEdgesUnit_RemoveCandidateQuadEdge, METH_VARARGS, NULL},
+      {"CCandidateQuadEdgesUnit_AddCandidateQuadEdge", _wrap_CCandidateQuadEdgesUnit_AddCandidateQuadEdge, METH_VARARGS, NULL},
+      {"CCandidateQuadEdgesUnit_SetCandidateQuadEdge", _wrap_CCandidateQuadEdgesUnit_SetCandidateQuadEdge, METH_VARARGS, NULL},
+      {"CCandidateQuadEdgesUnit_register", CCandidateQuadEdgesUnit_swigregister, METH_O, NULL},
+      {"CDetectedQuadsUnit_GetCount", _wrap_CDetectedQuadsUnit_GetCount, METH_O, NULL},
+      {"CDetectedQuadsUnit_GetDetectedQuad", _wrap_CDetectedQuadsUnit_GetDetectedQuad, METH_VARARGS, NULL},
+      {"CDetectedQuadsUnit_RemoveAllDetectedQuads", _wrap_CDetectedQuadsUnit_RemoveAllDetectedQuads, METH_O, NULL},
+      {"CDetectedQuadsUnit_RemoveDetectedQuad", _wrap_CDetectedQuadsUnit_RemoveDetectedQuad, METH_VARARGS, NULL},
+      {"CDetectedQuadsUnit_AddDetectedQuad", _wrap_CDetectedQuadsUnit_AddDetectedQuad, METH_VARARGS, NULL},
+      {"CDetectedQuadsUnit_SetDetectedQuad", _wrap_CDetectedQuadsUnit_SetDetectedQuad, METH_VARARGS, NULL},
+      {"CDetectedQuadsUnit_register", CDetectedQuadsUnit_swigregister, METH_O, NULL},
+      {"CNormalizedImagesUnit_GetCount", _wrap_CNormalizedImagesUnit_GetCount, METH_O, NULL},
+      {"CNormalizedImagesUnit_GetNormalizedImage", _wrap_CNormalizedImagesUnit_GetNormalizedImage, METH_VARARGS, NULL},
+      {"CNormalizedImagesUnit_RemoveAllNormalizedImages", _wrap_CNormalizedImagesUnit_RemoveAllNormalizedImages, METH_O, NULL},
+      {"CNormalizedImagesUnit_SetNormalizedImage", _wrap_CNormalizedImagesUnit_SetNormalizedImage, METH_VARARGS, NULL},
+      {"CNormalizedImagesUnit_register", CNormalizedImagesUnit_swigregister, METH_O, NULL},
       {"CDetectedQuadResultItem_GetLocation", _wrap_CDetectedQuadResultItem_GetLocation, METH_O, NULL},
       {"CDetectedQuadResultItem_GetConfidenceAsDocumentBoundary", _wrap_CDetectedQuadResultItem_GetConfidenceAsDocumentBoundary, METH_O, NULL},
       {"CDetectedQuadResultItem_register", CDetectedQuadResultItem_swigregister, METH_O, NULL},
@@ -8819,7 +8593,7 @@ extern "C"
       {"new_CDocumentNormalizerModule", _wrap_new_CDocumentNormalizerModule, METH_NOARGS, NULL},
       {"delete_CDocumentNormalizerModule", _wrap_delete_CDocumentNormalizerModule, METH_O, NULL},
       {"CDocumentNormalizerModule_register", CDocumentNormalizerModule_swigregister, METH_O, NULL},
-      {"CDocumentNormalizerModule_init", CDocumentNormalizerModule_swiginit, METH_VARARGS, NULL},
+      // {"CDocumentNormalizerModule_init", CDocumentNormalizerModule_swiginit, METH_VARARGS, NULL},
       {NULL, NULL, 0, NULL}};
 
   /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
@@ -9609,7 +9383,7 @@ void
       SwigPyObject_own,
       SwigPyObject_own};
   static PyGetSetDef thisown_getset_def = {
-      (char *)"thisown", SwigPyBuiltin_GetterClosure, SwigPyBuiltin_SetterClosure, NULL, &thisown_getset_closure};
+      (char *)"_thisown", SwigPyBuiltin_GetterClosure, SwigPyBuiltin_SetterClosure, NULL, &thisown_getset_closure};
   PyTypeObject *builtin_pytype;
   int builtin_base_count;
   swig_type_info *builtin_basetype;

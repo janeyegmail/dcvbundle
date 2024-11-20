@@ -1,4 +1,4 @@
-__version__ = "2.4.20.4995"
+__version__ = "2.5.20.5521"
 
 if __package__ or "." in __name__:
     from . import _DynamsoftCodeParser
@@ -38,7 +38,7 @@ class ParsedResultItem(CapturedResultItem):
         get_field_validation_status(self, field_name: str) -> int: Gets the validation status of a specified field from the parsed result.
         get_json_string(self) -> str: Gets the parsed result as a JSON formatted string.
     """
-    thisown = property(
+    _thisown = property(
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
     )
 
@@ -107,7 +107,7 @@ class ParsedResultItem(CapturedResultItem):
 _DynamsoftCodeParser.CParsedResultItem_register(ParsedResultItem)
 
 
-class ParsedResult(object):
+class ParsedResult:
     """
     The ParsedResult class represents the results of a code parser process.
 
@@ -118,7 +118,7 @@ class ParsedResult(object):
         get_error_code(self) -> int: Gets the error code of the parsed result, if an error occurred.
         get_error_string(self) -> str: Gets the error message of the parsed result, if an error occurred.
     """
-    thisown = property(
+    _thisown = property(
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
     )
     __destroy__ = _DynamsoftCodeParser.CParsedResult_Release
@@ -179,14 +179,14 @@ class ParsedResult(object):
 _DynamsoftCodeParser.CParsedResult_register(ParsedResult)
 
 
-class CodeParserModule(object):
+class CodeParserModule:
     """
     The CodeParserModule class defines general functions in the code parser module.
 
     Methods:
         get_version() -> str: Returns a string representing the version of the code parser module.
     """
-    thisown = property(
+    _thisown = property(
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
     )
 
@@ -201,7 +201,7 @@ class CodeParserModule(object):
         return __version__ + " (Algotithm " + _DynamsoftCodeParser.CCodeParserModule_GetVersion() + ")"
 
     def __init__(self):
-        _DynamsoftCodeParser.CCodeParserModule_init(
+        _DynamsoftCodeParser.Class_init(
             self, _DynamsoftCodeParser.new_CCodeParserModule()
         )
 
