@@ -8820,8 +8820,11 @@ extern "C"
     }
     arg1 = static_cast<unsigned long long>(val1);
     // res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_unsigned_char, 0 | 0);
-    res2 = PyBytes_AsStringAndSize(swig_obj[1], (char**)&arg2, (Py_ssize_t *)&arg1);
-    if (!SWIG_IsOK(res2))
+    // res2 = PyBytes_AsStringAndSize(swig_obj[1], (char**)&arg2, (Py_ssize_t *)&arg1);
+    // if (!SWIG_IsOK(res2))
+    arg2 = PyBytes_AsString(swig_obj[0]);
+    arg1 = PyBytes_Size(swig_obj[0]);
+    if (!arg2 || arg1 == 0)
     {
       SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
                                                "new_CImageData"
@@ -8966,8 +8969,11 @@ extern "C"
     }
     arg1 = static_cast<unsigned long long>(val1);
     // res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_unsigned_char, 0 | 0);
-    res2 = PyBytes_AsStringAndSize(swig_obj[1], (char**)&arg2, (Py_ssize_t *)&arg1);
-    if (!SWIG_IsOK(res2))
+    // res2 = PyBytes_AsStringAndSize(swig_obj[1], (char**)&arg2, (Py_ssize_t *)&arg1);
+    // if (!SWIG_IsOK(res2))
+    arg2 = PyBytes_AsString(swig_obj[0]);
+    arg1 = PyBytes_Size(swig_obj[0]);
+    if (!arg2 || arg1 == 0)
     {
       SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
                                                "new_CImageData"
@@ -9097,8 +9103,11 @@ extern "C"
     }
     arg1 = static_cast<unsigned long long>(val1);
     // res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_unsigned_char, 0 | 0);
-    res2 = PyBytes_AsStringAndSize(swig_obj[1], (char**)&arg2, (Py_ssize_t *)&arg1);
-    if (!SWIG_IsOK(res2))
+    // res2 = PyBytes_AsStringAndSize(swig_obj[1], (char**)&arg2, (Py_ssize_t *)&arg1);
+    // if (!SWIG_IsOK(res2))
+    arg2 = PyBytes_AsString(swig_obj[0]);
+    arg1 = PyBytes_Size(swig_obj[0]);
+    if (!arg2 || arg1 == 0)
     {
       SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
                                                "new_CImageData"

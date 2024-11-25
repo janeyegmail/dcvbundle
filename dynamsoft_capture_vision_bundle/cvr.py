@@ -1,4 +1,4 @@
-__version__ = "2.5.21.5521"
+__version__ = "2.5.21.5626"
 
 if __package__ or "." in __name__:
     from .core import *
@@ -13,7 +13,6 @@ else:
 from abc import ABC, abstractmethod
 from enum import Enum, IntEnum
 from typing import Tuple, List
-import numpy
 
 class EnumPresetTemplate(str, Enum):
     PT_DEFAULT = _DynamsoftCaptureVisionRouter.getPT_DEFAULT()
@@ -982,7 +981,7 @@ class CaptureVisionRouter:
             raise ValueError("Method capture only accepts 1 to 3 arguments")
         image = args[0]
         template_name = ""
-        if isinstance(image, numpy.ndarray):
+        if not isinstance(image, str) and not isinstance(image, bytes) and not isinstance(image, ImageData) and image is not None:
             pixel_format = EnumImagePixelFormat.IPF_RGB_888
             if len(args) > 1:
                 for arg in args[1:]:
