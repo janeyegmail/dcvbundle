@@ -1,4 +1,4 @@
-__version__ = "1.0.20.5626"
+__version__ = "1.0.20.5628"
 
 if __package__ or "." in __name__:
     from . import _DynamsoftNeuralNetwork

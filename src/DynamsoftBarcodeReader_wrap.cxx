@@ -11570,7 +11570,7 @@ extern "C"
   {
     PyObject *resultobj = 0;
     dynamsoft::dbr::intermediate_results::CDecodedBarcodeElement *arg1 = (dynamsoft::dbr::intermediate_results::CDecodedBarcodeElement *)0;
-    unsigned char *arg2 = (unsigned char *)0;
+    char *arg2 = (char *)0;
     int arg3;
     void *argp1 = 0;
     int res1 = 0;
@@ -11597,8 +11597,8 @@ extern "C"
     // res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_unsigned_char, 0 | 0);
     // res2 = PyBytes_AsStringAndSize(swig_obj[1], (char**)&arg2, (Py_ssize_t *)&arg3);
     // if (!SWIG_IsOK(res2))
-    arg2 = PyBytes_AsString(swig_obj[0]);
-    arg3 = PyBytes_Size(swig_obj[0]);
+    arg2 = PyBytes_AsString(swig_obj[1]);
+    arg3 = PyBytes_Size(swig_obj[1]);
     if (!arg2 || arg3 == 0)
     {
       SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
@@ -11622,7 +11622,7 @@ extern "C"
     //                                              "'");
     // }
     // arg3 = static_cast<int>(val3);
-    (arg1)->SetBytes(arg2, arg3);
+    (arg1)->SetBytes((unsigned char*)arg2, arg3);
     resultobj = SWIG_Py_Void();
     return resultobj;
   fail:
