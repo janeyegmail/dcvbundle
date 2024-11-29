@@ -3,7 +3,7 @@ Dynamsoft Capture Vision Bundle for Python
 |version| |python| |pypi| 
 
 .. |version| image:: https://img.shields.io/pypi/v/dynamsoft_capture_vision_bundle?color=orange
-.. |python| image:: https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10%20%7C%203.11%20%7C%203.12-blue
+.. |python| image:: https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue
 .. |pypi| image:: https://img.shields.io/pypi/dm/dynamsoft_capture_vision_bundle
 
 
@@ -42,6 +42,8 @@ Supported Platforms
 
 Supported Python Versions
 -------------------------
+-  Python3.13
+
 -  Python3.12
 
 -  Python3.11

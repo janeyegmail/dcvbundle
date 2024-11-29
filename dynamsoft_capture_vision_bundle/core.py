@@ -1,4 +1,4 @@
-__version__ = "3.5.21.5628"
+__version__ = "3.5.21.5753"
 
 if __package__ or "." in __name__:
     from . import _DynamsoftCore
@@ -1251,7 +1251,7 @@ _DynamsoftCore.CPDFReadingParameter_register(PDFReadingParameter)
 
 #new 
 
-class Contour(object):
+class Contour:
     _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     
     __destroy__ = _DynamsoftCore.delete_CContour
@@ -1269,7 +1269,7 @@ class Contour(object):
 
 # Register CContour in _DynamsoftCore:
 _DynamsoftCore.CContour_register(Contour)
-class Vector4(object):
+class Vector4:
     _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     
     value = property(_DynamsoftCore.CVector4_value_get, _DynamsoftCore.CVector4_value_set)
@@ -1292,7 +1292,7 @@ class Vector4(object):
         _DynamsoftCore.CVector4_SetItem(self, index, value)
 # Register CVector4 in _DynamsoftCore:
 _DynamsoftCore.CVector4_register(Vector4)
-class LineSegment(object):
+class LineSegment:
     _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     
     start_point: Point = property(_DynamsoftCore.CLineSegment_GetStartPoint, _DynamsoftCore.CLineSegment_SetStartPoint)
@@ -1303,7 +1303,7 @@ class LineSegment(object):
 
 # Register CLineSegment in _DynamsoftCore:
 _DynamsoftCore.CLineSegment_register(LineSegment)
-class Corner(object):
+class Corner:
     _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     
     type: int = property(_DynamsoftCore.CCorner_type_get, _DynamsoftCore.CCorner_type_set)
@@ -1317,7 +1317,7 @@ class Corner(object):
 
 # Register CCorner in _DynamsoftCore:
 _DynamsoftCore.CCorner_register(Corner)
-class Edge(object):
+class Edge:
     _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     
     start_corner: Corner = property(_DynamsoftCore.CEdge_startCorner_get, _DynamsoftCore.CEdge_startCorner_set)

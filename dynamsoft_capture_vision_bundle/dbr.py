@@ -1,4 +1,4 @@
-__version__ = "10.5.21.5628"
+__version__ = "10.5.21.5753"
 
 if __package__ or "." in __name__:
     from .core import *
@@ -981,7 +981,7 @@ class ExtendedBarcodeResult(DecodedBarcodeElement):
 
 # Register CExtendedBarcodeResult in _DynamsoftBarcodeReader:
 _DynamsoftBarcodeReader.CExtendedBarcodeResult_register(ExtendedBarcodeResult)
-class CandidateBarcodeZone(object):
+class CandidateBarcodeZone:
     _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     
     def __init__(self, location: Quadrilateral=None, possibleFormats: int=None):
@@ -1073,7 +1073,7 @@ class ScaledUpBarcodeImageUnit(IntermediateResultUnit):
 
 # Register CScaledUpBarcodeImageUnit in _DynamsoftBarcodeReader:
 _DynamsoftBarcodeReader.CScaledUpBarcodeImageUnit_register(ScaledUpBarcodeImageUnit)
-class DeformationResistedBarcode(object):
+class DeformationResistedBarcode:
     _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     
     __destroy__ = _DynamsoftBarcodeReader.delete_CDeformationResistedBarcode

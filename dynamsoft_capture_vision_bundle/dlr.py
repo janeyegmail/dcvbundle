@@ -1,4 +1,4 @@
-__version__ = "3.5.21.5628"
+__version__ = "3.5.21.5753"
 
 if __package__ or "." in __name__:
     from .core import *
@@ -654,7 +654,7 @@ class RecognizedTextLinesUnit(IntermediateResultUnit):
 
 # Register CRecognizedTextLinesUnit in _DynamsoftLabelRecognizer:
 _DynamsoftLabelRecognizer.CRecognizedTextLinesUnit_register(RecognizedTextLinesUnit)
-class RawTextLine(object):
+class RawTextLine:
     _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
     def __init__(self, *args, **kwargs):
