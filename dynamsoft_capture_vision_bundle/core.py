@@ -1,4 +1,4 @@
-__version__ = "3.5.21.5753"
+__version__ = "3.5.21.5764"
 
 if __package__ or "." in __name__:
     from . import _DynamsoftCore
@@ -1261,8 +1261,6 @@ class Contour:
 
     def set_points(self, points: List[Point]) -> None:
         _DynamsoftCore.CContour_SetPoints(self, points)
-    def get_points_count(self) -> int:
-        return _DynamsoftCore.CContour_GetPointsCount(self)
 
     def get_points(self) -> List[Point]:
         return _DynamsoftCore.CContour_GetPoints(self)
