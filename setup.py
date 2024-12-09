@@ -146,7 +146,7 @@ class CustomInstall(install):
         install.run(self)
 
 setup (name = 'dynamsoft_capture_vision_bundle',
-            version = '2.5.2100',
+            version = '2.4.2001',
             description = 'Dynamsoft Capture Vision Bundle',
             long_description=long_description,
             long_description_content_type="text/x-rst",
