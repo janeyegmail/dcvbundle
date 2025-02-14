@@ -78,22 +78,22 @@
     "TextLineSpecificationOptions": [
         {
             "Name": "tls-letter",
-            "CharacterModelName": "Letter",
+            "CharacterModelName": "LetterCharRecognition",
             "OutputResults": 1
         },
         {
             "Name": "tls-number",
-            "CharacterModelName": "Number",
+            "CharacterModelName": "NumberCharRecognition",
             "OutputResults": 1
         },
         {
             "Name": "tls-number-letter",
-            "CharacterModelName": "NumberLetter",
+            "CharacterModelName": "NumberLetterCharRecognition",
             "OutputResults": 1
         },
         {
             "Name": "tls-number-uppercase",
-            "CharacterModelName": "NumberUppercase",
+            "CharacterModelName": "NumberUppercaseCharRecognition",
             "OutputResults": 1
         },
         {
@@ -102,7 +102,7 @@
         },
         {
             "Name": "tls-uppercase",
-            "CharacterModelName": "Uppercase",
+            "CharacterModelName": "UppercaseCharRecognition",
             "OutputResults": 1
         }
     ],
@@ -112,18 +112,36 @@
             "TextLineSpecificationNameArray": [
                 "tls-letter"
             ],
-            "SectionImageParameterArray": [
+            "SectionArray": [
                 {
                     "Section": "ST_REGION_PREDETECTION",
-                    "ImageParameterName": "ip-recognize-letter"
+                    "ImageParameterName": "ip-recognize-letter",
+                    "StageArray": [
+                        {
+                            "Stage": "SST_PREDETECT_REGIONS"
+                        }
+                    ]
                 },
                 {
                     "Section": "ST_TEXT_LINE_LOCALIZATION",
-                    "ImageParameterName": "ip-recognize-letter"
+                    "ImageParameterName": "ip-recognize-letter",
+                    "StageArray": [
+                        {
+                            "Stage": "SST_LOCALIZE_TEXT_LINES"
+                        }
+                    ]
                 },
                 {
                     "Section": "ST_TEXT_LINE_RECOGNITION",
-                    "ImageParameterName": "ip-recognize-letter"
+                    "ImageParameterName": "ip-recognize-letter",
+                    "StageArray": [
+                        {
+                            "Stage": "SST_RECOGNIZE_RAW_TEXT_LINES"
+                        },
+                        {
+                            "Stage": "SST_ASSEMBLE_TEXT_LINES"
+                        }
+                    ]
                 }
             ]
         },
@@ -132,18 +150,36 @@
             "TextLineSpecificationNameArray": [
                 "tls-number"
             ],
-            "SectionImageParameterArray": [
+            "SectionArray": [
                 {
                     "Section": "ST_REGION_PREDETECTION",
-                    "ImageParameterName": "ip-recognize-textline-number"
+                    "ImageParameterName": "ip-recognize-textline-number",
+                    "StageArray": [
+                        {
+                            "Stage": "SST_PREDETECT_REGIONS"
+                        }
+                    ]
                 },
                 {
                     "Section": "ST_TEXT_LINE_LOCALIZATION",
-                    "ImageParameterName": "ip-recognize-textline-number"
+                    "ImageParameterName": "ip-recognize-textline-number",
+                    "StageArray": [
+                        {
+                            "Stage": "SST_LOCALIZE_TEXT_LINES"
+                        }
+                    ]
                 },
                 {
                     "Section": "ST_TEXT_LINE_RECOGNITION",
-                    "ImageParameterName": "ip-recognize-textline-number"
+                    "ImageParameterName": "ip-recognize-textline-number",
+                    "StageArray": [
+                        {
+                            "Stage": "SST_RECOGNIZE_RAW_TEXT_LINES"
+                        },
+                        {
+                            "Stage": "SST_ASSEMBLE_TEXT_LINES"
+                        }
+                    ]
                 }
             ]
         },
@@ -152,18 +188,36 @@
             "TextLineSpecificationNameArray": [
                 "tls-number-letter"
             ],
-            "SectionImageParameterArray": [
+            "SectionArray": [
                 {
                     "Section": "ST_REGION_PREDETECTION",
-                    "ImageParameterName": "ip-recognize-number-letter"
+                    "ImageParameterName": "ip-recognize-number-letter",
+                    "StageArray": [
+                        {
+                            "Stage": "SST_PREDETECT_REGIONS"
+                        }
+                    ]
                 },
                 {
                     "Section": "ST_TEXT_LINE_LOCALIZATION",
-                    "ImageParameterName": "ip-recognize-number-letter"
+                    "ImageParameterName": "ip-recognize-number-letter",
+                    "StageArray": [
+                        {
+                            "Stage": "SST_LOCALIZE_TEXT_LINES"
+                        }
+                    ]
                 },
                 {
                     "Section": "ST_TEXT_LINE_RECOGNITION",
-                    "ImageParameterName": "ip-recognize-number-letter"
+                    "ImageParameterName": "ip-recognize-number-letter",
+                    "StageArray": [
+                        {
+                            "Stage": "SST_RECOGNIZE_RAW_TEXT_LINES"
+                        },
+                        {
+                            "Stage": "SST_ASSEMBLE_TEXT_LINES"
+                        }
+                    ]
                 }
             ]
         },
@@ -172,18 +226,36 @@
             "TextLineSpecificationNameArray": [
                 "tls-number-uppercase"
             ],
-            "SectionImageParameterArray": [
+            "SectionArray": [
                 {
                     "Section": "ST_REGION_PREDETECTION",
-                    "ImageParameterName": "ip-recognize-number-uppercase"
+                    "ImageParameterName": "ip-recognize-number-uppercase",
+                    "StageArray": [
+                        {
+                            "Stage": "SST_PREDETECT_REGIONS"
+                        }
+                    ]
                 },
                 {
                     "Section": "ST_TEXT_LINE_LOCALIZATION",
-                    "ImageParameterName": "ip-recognize-number-uppercase"
+                    "ImageParameterName": "ip-recognize-number-uppercase",
+                    "StageArray": [
+                        {
+                            "Stage": "SST_LOCALIZE_TEXT_LINES"
+                        }
+                    ]
                 },
                 {
                     "Section": "ST_TEXT_LINE_RECOGNITION",
-                    "ImageParameterName": "ip-recognize-number-uppercase"
+                    "ImageParameterName": "ip-recognize-number-uppercase",
+                    "StageArray": [
+                        {
+                            "Stage": "SST_RECOGNIZE_RAW_TEXT_LINES"
+                        },
+                        {
+                            "Stage": "SST_ASSEMBLE_TEXT_LINES"
+                        }
+                    ]
                 }
             ]
         },
@@ -192,18 +264,36 @@
             "TextLineSpecificationNameArray": [
                 "tls-textlines"
             ],
-            "SectionImageParameterArray": [
+            "SectionArray": [
                 {
                     "Section": "ST_REGION_PREDETECTION",
-                    "ImageParameterName": "ip-recognize-textlines"
+                    "ImageParameterName": "ip-recognize-textlines",
+                    "StageArray": [
+                        {
+                            "Stage": "SST_PREDETECT_REGIONS"
+                        }
+                    ]
                 },
                 {
                     "Section": "ST_TEXT_LINE_LOCALIZATION",
-                    "ImageParameterName": "ip-recognize-textlines"
+                    "ImageParameterName": "ip-recognize-textlines",
+                    "StageArray": [
+                        {
+                            "Stage": "SST_LOCALIZE_TEXT_LINES"
+                        }
+                    ]
                 },
                 {
                     "Section": "ST_TEXT_LINE_RECOGNITION",
-                    "ImageParameterName": "ip-recognize-textlines"
+                    "ImageParameterName": "ip-recognize-textlines",
+                    "StageArray": [
+                        {
+                            "Stage": "SST_RECOGNIZE_RAW_TEXT_LINES"
+                        },
+                        {
+                            "Stage": "SST_ASSEMBLE_TEXT_LINES"
+                        }
+                    ]
                 }
             ]
         },
@@ -212,18 +302,36 @@
             "TextLineSpecificationNameArray": [
                 "tls-uppercase"
             ],
-            "SectionImageParameterArray": [
+            "SectionArray": [
                 {
                     "Section": "ST_REGION_PREDETECTION",
-                    "ImageParameterName": "ip-recognize-uppercase"
+                    "ImageParameterName": "ip-recognize-uppercase",
+                    "StageArray": [
+                        {
+                            "Stage": "SST_PREDETECT_REGIONS"
+                        }
+                    ]
                 },
                 {
                     "Section": "ST_TEXT_LINE_LOCALIZATION",
-                    "ImageParameterName": "ip-recognize-uppercase"
+                    "ImageParameterName": "ip-recognize-uppercase",
+                    "StageArray": [
+                        {
+                            "Stage": "SST_LOCALIZE_TEXT_LINES"
+                        }
+                    ]
                 },
                 {
                     "Section": "ST_TEXT_LINE_RECOGNITION",
-                    "ImageParameterName": "ip-recognize-uppercase"
+                    "ImageParameterName": "ip-recognize-uppercase",
+                    "StageArray": [
+                        {
+                            "Stage": "SST_RECOGNIZE_RAW_TEXT_LINES"
+                        },
+                        {
+                            "Stage": "SST_ASSEMBLE_TEXT_LINES"
+                        }
+                    ]
                 }
             ]
         }
@@ -231,98 +339,133 @@
     "ImageParameterOptions": [
         {
             "Name": "ip-recognize-letter",
-            "TextDetectionMode": {
-                "Mode": "TTDM_LINE",
-                "Direction": "HORIZONTAL",
-                "CharHeightRange": [
-                    20,
-                    1000,
-                    1
-                ],
-                "Sensitivity": 7
-            }
+            "AppliableStages": [
+                {
+                    "Stage": "SST_DETECT_TEXT_ZONES",
+                    "TextDetectionMode": {
+                        "Mode": "TTDM_LINE",
+                        "Direction": "HORIZONTAL",
+                        "CharHeightRange": [
+                            20,
+                            1000,
+                            1
+                        ],
+                        "Sensitivity": 7
+                    }
+                }
+            ]
         },
         {
             "Name": "ip-recognize-textline-number",
-            "TextDetectionMode": {
-                "Mode": "TTDM_LINE",
-                "Direction": "HORIZONTAL",
-                "CharHeightRange": [
-                    20,
-                    1000,
-                    1
-                ],
-                "Sensitivity": 7
-            }
+            "AppliableStages": [
+                {
+                    "Stage": "SST_DETECT_TEXT_ZONES",
+                    "TextDetectionMode": {
+                        "Mode": "TTDM_LINE",
+                        "Direction": "HORIZONTAL",
+                        "CharHeightRange": [
+                            20,
+                            1000,
+                            1
+                        ],
+                        "Sensitivity": 7
+                    }
+                }
+            ]
         },
         {
             "Name": "ip-recognize-number-letter",
-            "TextDetectionMode": {
-                "Mode": "TTDM_LINE",
-                "Direction": "HORIZONTAL",
-                "CharHeightRange": [
-                    20,
-                    1000,
-                    1
-                ],
-                "Sensitivity": 7
-            }
+            "AppliableStages": [
+                {
+                    "Stage": "SST_DETECT_TEXT_ZONES",
+                    "TextDetectionMode": {
+                        "Mode": "TTDM_LINE",
+                        "Direction": "HORIZONTAL",
+                        "CharHeightRange": [
+                            20,
+                            1000,
+                            1
+                        ],
+                        "Sensitivity": 7
+                    }
+                }
+            ]
         },
         {
             "Name": "ip-recognize-number-uppercase",
-            "TextDetectionMode": {
-                "Mode": "TTDM_LINE",
-                "Direction": "HORIZONTAL",
-                "CharHeightRange": [
-                    20,
-                    1000,
-                    1
-                ],
-                "Sensitivity": 7
-            }
+            "AppliableStages": [
+                {
+                    "Stage": "SST_DETECT_TEXT_ZONES",
+                    "TextDetectionMode": {
+                        "Mode": "TTDM_LINE",
+                        "Direction": "HORIZONTAL",
+                        "CharHeightRange": [
+                            20,
+                            1000,
+                            1
+                        ],
+                        "Sensitivity": 7
+                    }
+                }
+            ]
         },
         {
             "Name": "ip-recognize-textlines",
-            "TextDetectionMode": {
-                "Mode": "TTDM_LINE",
-                "Direction": "HORIZONTAL",
-                "CharHeightRange": [
-                    20,
-                    1000,
-                    1
-                ],
-                "Sensitivity": 7
-            }
+            "AppliableStages": [
+                {
+                    "Stage": "SST_DETECT_TEXT_ZONES",
+                    "TextDetectionMode": {
+                        "Mode": "TTDM_LINE",
+                        "Direction": "HORIZONTAL",
+                        "CharHeightRange": [
+                            20,
+                            1000,
+                            1
+                        ],
+                        "Sensitivity": 7
+                    }
+                }
+            ]
         },
         {
             "Name": "ip-recognize-uppercase",
-            "TextDetectionMode": {
-                "Mode": "TTDM_LINE",
-                "Direction": "HORIZONTAL",
-                "CharHeightRange": [
-                    20,
-                    1000,
-                    1
-                ],
-                "Sensitivity": 7
-            }
+            "AppliableStages": [
+                {
+                    "Stage": "SST_DETECT_TEXT_ZONES",
+                    "TextDetectionMode": {
+                        "Mode": "TTDM_LINE",
+                        "Direction": "HORIZONTAL",
+                        "CharHeightRange": [
+                            20,
+                            1000,
+                            1
+                        ],
+                        "Sensitivity": 7
+                    }
+                }
+            ]
         }
     ],
-    "CharacterModelOptions": [
+    "CaptureVisionModelOptions": [
         {
-            "Name": "Letter"
+            "Name": "LetterCharRecognition",
+            "MaxModelInstances": 4
         },
         {
-            "Name": "Number"
+            "Name": "NumberCharRecognition",
+            "MaxModelInstances": 4
         },
         {
-            "Name": "NumberLetter"
+            "Name": "NumberLetterCharRecognition",
+            "MaxModelInstances": 4
         },
         {
-            "Name": "NumberUppercase"
+            "Name": "NumberUppercaseCharRecognition",
+            "MaxModelInstances": 4
         },
         {
-            "Name": "Uppercase"
+            "Name": "UppercaseCharRecognition",
+            "MaxModelInstances": 4
         }
     ]
 }

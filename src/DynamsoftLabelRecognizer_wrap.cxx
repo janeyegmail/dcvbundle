@@ -3427,7 +3427,7 @@ SwigPyObject_type(void)
 #define SWIGTYPE_p_dynamsoft__intermediate_results__CPredetectedRegionElement swig_types[48]
 #define SWIGTYPE_p_dynamsoft__intermediate_results__CPredetectedRegionsUnit swig_types[49]
 #define SWIGTYPE_p_dynamsoft__intermediate_results__CRegionObjectElement swig_types[50]
-#define SWIGTYPE_p_dynamsoft__intermediate_results__CScaledDownColourImageUnit swig_types[51]
+#define SWIGTYPE_p_dynamsoft__intermediate_results__CScaledColourImageUnit swig_types[51]
 #define SWIGTYPE_p_dynamsoft__intermediate_results__CShortLinesUnit swig_types[52]
 #define SWIGTYPE_p_dynamsoft__intermediate_results__CTextRemovedBinaryImageUnit swig_types[53]
 #define SWIGTYPE_p_dynamsoft__intermediate_results__CTextZonesUnit swig_types[54]
@@ -3438,8 +3438,10 @@ SwigPyObject_type(void)
 #define SWIGTYPE_p_float swig_types[59]
 #define SWIGTYPE_p_int swig_types[60]
 #define SWIGTYPE_p_tagSimplifiedLabelRecognizerSettings swig_types[61]
-static swig_type_info *swig_types[63];
-static swig_module_info swig_module = {swig_types, 62, 0, 0, 0, 0};
+#define SWIGTYPE_p_dynamsoft_basic_structures_CCapturedResultBase swig_types[62]
+
+static swig_type_info *swig_types[64];
+static swig_module_info swig_module = {swig_types, 63, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -5552,6 +5554,63 @@ extern "C"
     return NULL;
   }
 
+  SWIGINTERN PyObject *_wrap_CLocalizedTextLineElement_SetLocation(PyObject *self, PyObject *args)
+  {
+    PyObject *resultobj = 0;
+    dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement *arg1 = (dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement *)0;
+    dynamsoft::basic_structures::CQuadrilateral *arg2 = 0;
+    void *argp1 = 0;
+    int res1 = 0;
+    void *argp2 = 0;
+    int res2 = 0;
+    PyObject *swig_obj[2];
+    int result;
+
+    if (!SWIG_Python_UnpackTuple(args, "CLocalizedTextLineElement_SetLocation", 2, 2, swig_obj))
+      SWIG_fail;
+    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CLocalizedTextLineElement, 0 | 0);
+    if (!SWIG_IsOK(res1))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+                                               "CLocalizedTextLineElement_SetLocation"
+                                               "', argument "
+                                               "1"
+                                               " of type '"
+                                               "dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement *"
+                                               "'");
+    }
+    arg1 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CLocalizedTextLineElement *>(argp1);
+    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_dynamsoft__basic_structures__CQuadrilateral, 0 | 0);
+    if (!SWIG_IsOK(res2))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
+                                               "CLocalizedTextLineElement_SetLocation"
+                                               "', argument "
+                                               "2"
+                                               " of type '"
+                                               "dynamsoft::basic_structures::CQuadrilateral const &"
+                                               "'");
+    }
+    if (!argp2)
+    {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference "
+                                           "in method '"
+                                           "CLocalizedTextLineElement_SetLocation"
+                                           "', argument "
+                                           "2"
+                                           " of type '"
+                                           "dynamsoft::basic_structures::CQuadrilateral const &"
+                                           "'");
+    }
+    arg2 = reinterpret_cast<dynamsoft::basic_structures::CQuadrilateral *>(argp2);
+    UpdateCQuadrilateralPointsFromPythonObject(arg2, swig_obj[1]);
+    result = (int)(arg1)->SetLocation((dynamsoft::basic_structures::CQuadrilateral const &)*arg2);
+    resultobj = SWIG_From_int(static_cast<int>(result));
+    return resultobj;
+  fail:
+    return NULL;
+  }
+
   SWIGINTERN PyObject *CLocalizedTextLineElement_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args)
   {
     PyObject *obj;
@@ -5836,6 +5895,63 @@ extern "C"
     arg1 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement *>(argp1);
     result = (char *)((dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement const *)arg1)->GetRawText();
     resultobj = SWIG_FromCharPtr((const char *)result);
+    return resultobj;
+  fail:
+    return NULL;
+  }
+
+  SWIGINTERN PyObject *_wrap_CRecognizedTextLineElement_SetLocation(PyObject *self, PyObject *args)
+  {
+    PyObject *resultobj = 0;
+    dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement *arg1 = (dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement *)0;
+    dynamsoft::basic_structures::CQuadrilateral *arg2 = 0;
+    void *argp1 = 0;
+    int res1 = 0;
+    void *argp2 = 0;
+    int res2 = 0;
+    PyObject *swig_obj[2];
+    int result;
+
+    if (!SWIG_Python_UnpackTuple(args, "CRecognizedTextLineElement_SetLocation", 2, 2, swig_obj))
+      SWIG_fail;
+    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRecognizedTextLineElement, 0 | 0);
+    if (!SWIG_IsOK(res1))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+                                               "CRecognizedTextLineElement_SetLocation"
+                                               "', argument "
+                                               "1"
+                                               " of type '"
+                                               "dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement *"
+                                               "'");
+    }
+    arg1 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CRecognizedTextLineElement *>(argp1);
+    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_dynamsoft__basic_structures__CQuadrilateral, 0 | 0);
+    if (!SWIG_IsOK(res2))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
+                                               "CRecognizedTextLineElement_SetLocation"
+                                               "', argument "
+                                               "2"
+                                               " of type '"
+                                               "dynamsoft::basic_structures::CQuadrilateral const &"
+                                               "'");
+    }
+    if (!argp2)
+    {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference "
+                                           "in method '"
+                                           "CRecognizedTextLineElement_SetLocation"
+                                           "', argument "
+                                           "2"
+                                           " of type '"
+                                           "dynamsoft::basic_structures::CQuadrilateral const &"
+                                           "'");
+    }
+    arg2 = reinterpret_cast<dynamsoft::basic_structures::CQuadrilateral *>(argp2);
+    UpdateCQuadrilateralPointsFromPythonObject(arg2, swig_obj[1]);
+    result = (int)(arg1)->SetLocation((dynamsoft::basic_structures::CQuadrilateral const &)*arg2);
+    resultobj = SWIG_From_int(static_cast<int>(result));
     return resultobj;
   fail:
     return NULL;
@@ -7313,6 +7429,91 @@ extern "C"
     }
     arg2 = reinterpret_cast<char *>(buf2);
     result = (int)(arg1)->SetSpecificationName((char const *)arg2);
+    resultobj = SWIG_From_int(static_cast<int>(result));
+    if (alloc2 == SWIG_NEWOBJ)
+      delete[] buf2;
+    return resultobj;
+  fail:
+    if (alloc2 == SWIG_NEWOBJ)
+      delete[] buf2;
+    return NULL;
+  }
+
+  static bool getCCharacterResultArraryFromPyList(PyObject *list, dynamsoft::dlr::CCharacterResult **array, int *length)
+  {
+    (*length) = 0;
+    Py_ssize_t list_size;
+    if (!PyList_Check(list))
+    {
+      return false;
+    }
+    list_size = PyList_Size(list);
+    (*array) = new dynamsoft::dlr::CCharacterResult[list_size];
+    for (Py_ssize_t i = 0; i < list_size; ++i)
+    {
+      PyObject *item = PyList_GetItem(list, i);
+      if (item == NULL)
+      {
+        delete[] (*array);
+        return false;
+      }
+      dynamsoft::dlr::CCharacterResult *p = 0;
+      int res3 = SWIG_ConvertPtr(item, (void **)&p, SWIGTYPE_p_dynamsoft__dlr__CCharacterResult, 0 | 0);
+      if (!SWIG_IsOK(res3))
+      {
+        delete[] (*array);
+        return false;
+      }
+      (*array)[i] = (*p);
+    }
+    (*length) = (int)list_size;
+    return true;
+  }
+
+  SWIGINTERN PyObject *_wrap_CRawTextLine_SetCharacterResults(PyObject *self, PyObject *args)
+  {
+    PyObject *resultobj = 0;
+    dynamsoft::dlr::intermediate_results::CRawTextLine *arg1 = (dynamsoft::dlr::intermediate_results::CRawTextLine *)0;
+    dynamsoft::dlr::CCharacterResult *arg2 = (dynamsoft::dlr::CCharacterResult *)0;
+    int arrayLength = 0;
+    void *argp1 = 0;
+    int res1 = 0;
+    int res2;
+    char *buf2 = 0;
+    int alloc2 = 0;
+    PyObject *swig_obj[2];
+    int result;
+
+    if (!SWIG_Python_UnpackTuple(args, "CRawTextLine_SetCharacterResults", 2, 2, swig_obj))
+      SWIG_fail;
+    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__dlr__intermediate_results__CRawTextLine, 0 | 0);
+    if (!SWIG_IsOK(res1))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+                                               "CRawTextLine_SetCharacterResults"
+                                               "', argument "
+                                               "1"
+                                               " of type '"
+                                               "dynamsoft::dlr::intermediate_results::CRawTextLine *"
+                                               "'");
+    }
+    arg1 = reinterpret_cast<dynamsoft::dlr::intermediate_results::CRawTextLine *>(argp1);
+    if (!getCCharacterResultArraryFromPyList(swig_obj[1],&arg2, &arrayLength))
+    {
+      SWIG_exception_fail(SWIG_ArgError(-1), "in method '"
+                                               "CRawTextLine_SetCharacterResults"
+                                               "', argument "
+                                               "2"
+                                               " of type '"
+                                               "dynamsoft::dlr::CCharacterResult *"
+                                               "'");
+    }
+    result = (int)(arg1)->SetCharacterResults(arg2, arrayLength);
+    if(arg2)
+    {
+      delete[] arg2;
+      arg2 = nullptr;
+    }
     resultobj = SWIG_From_int(static_cast<int>(result));
     if (alloc2 == SWIG_NEWOBJ)
       delete[] buf2;
@@ -9222,6 +9423,7 @@ extern "C"
       {"CLocalizedTextLineElement_GetCharacterQuadsCount", _wrap_CLocalizedTextLineElement_GetCharacterQuadsCount, METH_O, NULL},
       {"CLocalizedTextLineElement_GetCharacterQuad", _wrap_CLocalizedTextLineElement_GetCharacterQuad, METH_VARARGS, NULL},
       {"CLocalizedTextLineElement_GetRowNumber", _wrap_CLocalizedTextLineElement_GetRowNumber, METH_O, NULL},
+      {"CLocalizedTextLineElement_SetLocation", _wrap_CLocalizedTextLineElement_SetLocation, METH_VARARGS, NULL},
       {"CLocalizedTextLineElement_register", CLocalizedTextLineElement_swigregister, METH_O, NULL},
       {"CRecognizedTextLineElement_GetText", _wrap_CRecognizedTextLineElement_GetText, METH_O, NULL},
       {"CRecognizedTextLineElement_GetConfidence", _wrap_CRecognizedTextLineElement_GetConfidence, METH_O, NULL},
@@ -9231,6 +9433,7 @@ extern "C"
       {"CRecognizedTextLineElement_SetText", _wrap_CRecognizedTextLineElement_SetText, METH_VARARGS, NULL},
       {"CRecognizedTextLineElement_GetSpecificationName", _wrap_CRecognizedTextLineElement_GetSpecificationName, METH_O, NULL},
       {"CRecognizedTextLineElement_GetRawText", _wrap_CRecognizedTextLineElement_GetRawText, METH_O, NULL},
+      {"CRecognizedTextLineElement_SetLocation", _wrap_CRecognizedTextLineElement_SetLocation, METH_VARARGS, NULL},
       {"CRecognizedTextLineElement_register", CRecognizedTextLineElement_swigregister, METH_O, NULL},
       {"CLocalizedTextLinesUnit_GetCount", _wrap_CLocalizedTextLinesUnit_GetCount, METH_O, NULL},
       {"CLocalizedTextLinesUnit_GetLocalizedTextLine", _wrap_CLocalizedTextLinesUnit_GetLocalizedTextLine, METH_VARARGS, NULL},
@@ -9260,6 +9463,7 @@ extern "C"
       {"CRawTextLine_Clone", _wrap_CRawTextLine_Clone, METH_O, NULL},
       {"CRawTextLine_SetRowNumber", _wrap_CRawTextLine_SetRowNumber, METH_VARARGS, NULL},
       {"CRawTextLine_SetSpecificationName", _wrap_CRawTextLine_SetSpecificationName, METH_VARARGS, NULL},
+      {"CRawTextLine_SetCharacterResults", _wrap_CRawTextLine_SetCharacterResults, METH_VARARGS, NULL},
       {"CRawTextLine_register", CRawTextLine_swigregister, METH_O, NULL},
       {"CRawTextLinesUnit_GetCount", _wrap_CRawTextLinesUnit_GetCount, METH_O, NULL},
       {"CRawTextLinesUnit_GetRawTextLine", _wrap_CRawTextLinesUnit_GetRawTextLine, METH_VARARGS, NULL},
@@ -9375,9 +9579,9 @@ extern "C"
   {
     return (void *)((dynamsoft::intermediate_results::CIntermediateResultUnit *)((dynamsoft::intermediate_results::CPredetectedRegionsUnit *)x));
   }
-  static void *_p_dynamsoft__intermediate_results__CScaledDownColourImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit(void *x, int *SWIGUNUSEDPARM(newmemory))
+  static void *_p_dynamsoft__intermediate_results__CScaledColourImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit(void *x, int *SWIGUNUSEDPARM(newmemory))
   {
-    return (void *)((dynamsoft::intermediate_results::CIntermediateResultUnit *)((dynamsoft::intermediate_results::CScaledDownColourImageUnit *)x));
+    return (void *)((dynamsoft::intermediate_results::CIntermediateResultUnit *)((dynamsoft::intermediate_results::CScaledColourImageUnit *)x));
   }
   static void *_p_dynamsoft__intermediate_results__CShortLinesUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit(void *x, int *SWIGUNUSEDPARM(newmemory))
   {
@@ -9419,6 +9623,11 @@ extern "C"
   {
     return (void *)((dynamsoft::intermediate_results::CRegionObjectElement *)((dynamsoft::intermediate_results::CPredetectedRegionElement *)x));
   }
+  static void *_p_dynamsoft__dlr__CRecognizedTextLinesResultTo_p_dynamsoft_basic_structures_CCapturedResultBase(void *x, int *SWIGUNUSEDPARM(newmemory))
+  {
+    return (void *)((dynamsoft::basic_structures::CCapturedResultBase *)((dynamsoft::dlr::CRecognizedTextLinesResult *)x));
+  }
+
   static swig_type_info _swigt__p_BufferOverflowProtectionMode = {"_p_BufferOverflowProtectionMode", "BufferOverflowProtectionMode *|enum BufferOverflowProtectionMode *", 0, 0, (void *)0, 0};
   static swig_type_info _swigt__p_CapturedResultItemType = {"_p_CapturedResultItemType", "CapturedResultItemType *|enum CapturedResultItemType *", 0, 0, (void *)0, 0};
   static swig_type_info _swigt__p_ColourChannelUsageType = {"_p_ColourChannelUsageType", "ColourChannelUsageType *|enum ColourChannelUsageType *", 0, 0, (void *)0, 0};
@@ -9468,7 +9677,7 @@ extern "C"
   static swig_type_info _swigt__p_dynamsoft__intermediate_results__CGrayscaleImageUnit = {"_p_dynamsoft__intermediate_results__CGrayscaleImageUnit", 0, 0, 0, 0, 0};
   static swig_type_info _swigt__p_dynamsoft__intermediate_results__CLineSegmentsUnit = {"_p_dynamsoft__intermediate_results__CLineSegmentsUnit", 0, 0, 0, 0, 0};
   static swig_type_info _swigt__p_dynamsoft__intermediate_results__CPredetectedRegionsUnit = {"_p_dynamsoft__intermediate_results__CPredetectedRegionsUnit", 0, 0, 0, 0, 0};
-  static swig_type_info _swigt__p_dynamsoft__intermediate_results__CScaledDownColourImageUnit = {"_p_dynamsoft__intermediate_results__CScaledDownColourImageUnit", 0, 0, 0, 0, 0};
+  static swig_type_info _swigt__p_dynamsoft__intermediate_results__CScaledColourImageUnit = {"_p_dynamsoft__intermediate_results__CScaledColourImageUnit", 0, 0, 0, 0, 0};
   static swig_type_info _swigt__p_dynamsoft__intermediate_results__CShortLinesUnit = {"_p_dynamsoft__intermediate_results__CShortLinesUnit", 0, 0, 0, 0, 0};
   static swig_type_info _swigt__p_dynamsoft__intermediate_results__CTextRemovedBinaryImageUnit = {"_p_dynamsoft__intermediate_results__CTextRemovedBinaryImageUnit", 0, 0, 0, 0, 0};
   static swig_type_info _swigt__p_dynamsoft__intermediate_results__CTextZonesUnit = {"_p_dynamsoft__intermediate_results__CTextZonesUnit", 0, 0, 0, 0, 0};
@@ -9481,6 +9690,7 @@ extern "C"
   static swig_type_info _swigt__p_float = {"_p_float", "float *", 0, 0, (void *)0, 0};
   static swig_type_info _swigt__p_int = {"_p_int", "int *", 0, 0, (void *)0, 0};
   static swig_type_info _swigt__p_tagSimplifiedLabelRecognizerSettings = {"_p_tagSimplifiedLabelRecognizerSettings", "SimplifiedLabelRecognizerSettings *|tagSimplifiedLabelRecognizerSettings *", 0, 0, (void *)0, 0};
+  static swig_type_info _swigt__p_dynamsoft_basic_structures_CCapturedResultBase = {"_p_dynamsoft_basic_structures_CCapturedResultBase", "dynamsoft::basic_structures::CCapturedResultBase *", 0, 0, (void *)0, 0};
 
   static swig_type_info *swig_type_initial[] = {
       &_swigt__p_BufferOverflowProtectionMode,
@@ -9534,7 +9744,7 @@ extern "C"
       &_swigt__p_dynamsoft__intermediate_results__CPredetectedRegionElement,
       &_swigt__p_dynamsoft__intermediate_results__CPredetectedRegionsUnit,
       &_swigt__p_dynamsoft__intermediate_results__CRegionObjectElement,
-      &_swigt__p_dynamsoft__intermediate_results__CScaledDownColourImageUnit,
+      &_swigt__p_dynamsoft__intermediate_results__CScaledColourImageUnit,
       &_swigt__p_dynamsoft__intermediate_results__CShortLinesUnit,
       &_swigt__p_dynamsoft__intermediate_results__CTextRemovedBinaryImageUnit,
       &_swigt__p_dynamsoft__intermediate_results__CTextZonesUnit,
@@ -9545,6 +9755,7 @@ extern "C"
       &_swigt__p_float,
       &_swigt__p_int,
       &_swigt__p_tagSimplifiedLabelRecognizerSettings,
+      &_swigt__p_dynamsoft_basic_structures_CCapturedResultBase,
   };
 
   static swig_cast_info _swigc__p_BufferOverflowProtectionMode[] = {{&_swigt__p_BufferOverflowProtectionMode, 0, 0, 0}, {0, 0, 0, 0}};
@@ -9595,7 +9806,7 @@ extern "C"
   static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CGrayscaleImageUnit[] = {{&_swigt__p_dynamsoft__intermediate_results__CGrayscaleImageUnit, 0, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CLineSegmentsUnit[] = {{&_swigt__p_dynamsoft__intermediate_results__CLineSegmentsUnit, 0, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CPredetectedRegionsUnit[] = {{&_swigt__p_dynamsoft__intermediate_results__CPredetectedRegionsUnit, 0, 0, 0}, {0, 0, 0, 0}};
-  static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CScaledDownColourImageUnit[] = {{&_swigt__p_dynamsoft__intermediate_results__CScaledDownColourImageUnit, 0, 0, 0}, {0, 0, 0, 0}};
+  static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CScaledColourImageUnit[] = {{&_swigt__p_dynamsoft__intermediate_results__CScaledColourImageUnit, 0, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CShortLinesUnit[] = {{&_swigt__p_dynamsoft__intermediate_results__CShortLinesUnit, 0, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CTextRemovedBinaryImageUnit[] = {{&_swigt__p_dynamsoft__intermediate_results__CTextRemovedBinaryImageUnit, 0, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CTextZonesUnit[] = {{&_swigt__p_dynamsoft__intermediate_results__CTextZonesUnit, 0, 0, 0}, {0, 0, 0, 0}};
@@ -9603,12 +9814,13 @@ extern "C"
   static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CTextureRemovedBinaryImageUnit[] = {{&_swigt__p_dynamsoft__intermediate_results__CTextureRemovedBinaryImageUnit, 0, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CTextureRemovedGrayscaleImageUnit[] = {{&_swigt__p_dynamsoft__intermediate_results__CTextureRemovedGrayscaleImageUnit, 0, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CTransformedGrayscaleImageUnit[] = {{&_swigt__p_dynamsoft__intermediate_results__CTransformedGrayscaleImageUnit, 0, 0, 0}, {0, 0, 0, 0}};
-  static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CIntermediateResultUnit[] = {{&_swigt__p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0, 0}, {&_swigt__p_dynamsoft__dlr__intermediate_results__CLocalizedTextLinesUnit, _p_dynamsoft__dlr__intermediate_results__CLocalizedTextLinesUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__dlr__intermediate_results__CRawTextLinesUnit, _p_dynamsoft__dlr__intermediate_results__CRawTextLinesUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__dlr__intermediate_results__CRecognizedTextLinesUnit, _p_dynamsoft__dlr__intermediate_results__CRecognizedTextLinesUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CBinaryImageUnit, _p_dynamsoft__intermediate_results__CBinaryImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CColourImageUnit, _p_dynamsoft__intermediate_results__CColourImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CContoursUnit, _p_dynamsoft__intermediate_results__CContoursUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CEnhancedGrayscaleImageUnit, _p_dynamsoft__intermediate_results__CEnhancedGrayscaleImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CGrayscaleImageUnit, _p_dynamsoft__intermediate_results__CGrayscaleImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CLineSegmentsUnit, _p_dynamsoft__intermediate_results__CLineSegmentsUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CPredetectedRegionsUnit, _p_dynamsoft__intermediate_results__CPredetectedRegionsUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CScaledDownColourImageUnit, _p_dynamsoft__intermediate_results__CScaledDownColourImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CShortLinesUnit, _p_dynamsoft__intermediate_results__CShortLinesUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CTextRemovedBinaryImageUnit, _p_dynamsoft__intermediate_results__CTextRemovedBinaryImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CTextZonesUnit, _p_dynamsoft__intermediate_results__CTextZonesUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CTextureDetectionResultUnit, _p_dynamsoft__intermediate_results__CTextureDetectionResultUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CTextureRemovedBinaryImageUnit, _p_dynamsoft__intermediate_results__CTextureRemovedBinaryImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CTextureRemovedGrayscaleImageUnit, _p_dynamsoft__intermediate_results__CTextureRemovedGrayscaleImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CTransformedGrayscaleImageUnit, _p_dynamsoft__intermediate_results__CTransformedGrayscaleImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {0, 0, 0, 0}};
+  static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CIntermediateResultUnit[] = {{&_swigt__p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0, 0}, {&_swigt__p_dynamsoft__dlr__intermediate_results__CLocalizedTextLinesUnit, _p_dynamsoft__dlr__intermediate_results__CLocalizedTextLinesUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__dlr__intermediate_results__CRawTextLinesUnit, _p_dynamsoft__dlr__intermediate_results__CRawTextLinesUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__dlr__intermediate_results__CRecognizedTextLinesUnit, _p_dynamsoft__dlr__intermediate_results__CRecognizedTextLinesUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CBinaryImageUnit, _p_dynamsoft__intermediate_results__CBinaryImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CColourImageUnit, _p_dynamsoft__intermediate_results__CColourImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CContoursUnit, _p_dynamsoft__intermediate_results__CContoursUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CEnhancedGrayscaleImageUnit, _p_dynamsoft__intermediate_results__CEnhancedGrayscaleImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CGrayscaleImageUnit, _p_dynamsoft__intermediate_results__CGrayscaleImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CLineSegmentsUnit, _p_dynamsoft__intermediate_results__CLineSegmentsUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CPredetectedRegionsUnit, _p_dynamsoft__intermediate_results__CPredetectedRegionsUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CScaledColourImageUnit, _p_dynamsoft__intermediate_results__CScaledColourImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CShortLinesUnit, _p_dynamsoft__intermediate_results__CShortLinesUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CTextRemovedBinaryImageUnit, _p_dynamsoft__intermediate_results__CTextRemovedBinaryImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CTextZonesUnit, _p_dynamsoft__intermediate_results__CTextZonesUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CTextureDetectionResultUnit, _p_dynamsoft__intermediate_results__CTextureDetectionResultUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CTextureRemovedBinaryImageUnit, _p_dynamsoft__intermediate_results__CTextureRemovedBinaryImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CTextureRemovedGrayscaleImageUnit, _p_dynamsoft__intermediate_results__CTextureRemovedGrayscaleImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CTransformedGrayscaleImageUnit, _p_dynamsoft__intermediate_results__CTransformedGrayscaleImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CPredetectedRegionElement[] = {{&_swigt__p_dynamsoft__intermediate_results__CPredetectedRegionElement, 0, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CRegionObjectElement[] = {{&_swigt__p_dynamsoft__intermediate_results__CRegionObjectElement, 0, 0, 0}, {&_swigt__p_dynamsoft__dlr__intermediate_results__CLocalizedTextLineElement, _p_dynamsoft__dlr__intermediate_results__CLocalizedTextLineElementTo_p_dynamsoft__intermediate_results__CRegionObjectElement, 0, 0}, {&_swigt__p_dynamsoft__dlr__intermediate_results__CRecognizedTextLineElement, _p_dynamsoft__dlr__intermediate_results__CRecognizedTextLineElementTo_p_dynamsoft__intermediate_results__CRegionObjectElement, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CPredetectedRegionElement, _p_dynamsoft__intermediate_results__CPredetectedRegionElementTo_p_dynamsoft__intermediate_results__CRegionObjectElement, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_float[] = {{&_swigt__p_float, 0, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_int[] = {{&_swigt__p_int, 0, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_tagSimplifiedLabelRecognizerSettings[] = {{&_swigt__p_tagSimplifiedLabelRecognizerSettings, 0, 0, 0}, {0, 0, 0, 0}};
+  static swig_cast_info _swigc__p_dynamsoft_basic_structures_CCapturedResultBase[] = {{&_swigt__p_dynamsoft_basic_structures_CCapturedResultBase, 0, 0, 0}, {&_swigt__p_dynamsoft__dlr__CRecognizedTextLinesResult, _p_dynamsoft__dlr__CRecognizedTextLinesResultTo_p_dynamsoft_basic_structures_CCapturedResultBase, 0, 0}, {0, 0, 0, 0}};
 
   static swig_cast_info *swig_cast_initial[] = {
       _swigc__p_BufferOverflowProtectionMode,
@@ -9662,7 +9874,7 @@ extern "C"
       _swigc__p_dynamsoft__intermediate_results__CPredetectedRegionElement,
       _swigc__p_dynamsoft__intermediate_results__CPredetectedRegionsUnit,
       _swigc__p_dynamsoft__intermediate_results__CRegionObjectElement,
-      _swigc__p_dynamsoft__intermediate_results__CScaledDownColourImageUnit,
+      _swigc__p_dynamsoft__intermediate_results__CScaledColourImageUnit,
       _swigc__p_dynamsoft__intermediate_results__CShortLinesUnit,
       _swigc__p_dynamsoft__intermediate_results__CTextRemovedBinaryImageUnit,
       _swigc__p_dynamsoft__intermediate_results__CTextZonesUnit,
@@ -9673,6 +9885,7 @@ extern "C"
       _swigc__p_float,
       _swigc__p_int,
       _swigc__p_tagSimplifiedLabelRecognizerSettings,
+      _swigc__p_dynamsoft_basic_structures_CCapturedResultBase,
   };
 
   /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (END) -------- */
@@ -10182,7 +10395,6 @@ void
 
   SWIG_InstallConstants(d, swig_const_table);
 
-  SWIG_Python_SetConstant(d, "DLR_VERSION", SWIG_FromCharPtr("3.4.10.1139"));
   SWIG_Python_SetConstant(d, "RTLS_LOCALIZED", SWIG_From_int(static_cast<int>(RTLS_LOCALIZED)));
   SWIG_Python_SetConstant(d, "RTLS_RECOGNITION_FAILED", SWIG_From_int(static_cast<int>(RTLS_RECOGNITION_FAILED)));
   SWIG_Python_SetConstant(d, "RTLS_RECOGNITION_SUCCEEDED", SWIG_From_int(static_cast<int>(RTLS_RECOGNITION_SUCCEEDED)));

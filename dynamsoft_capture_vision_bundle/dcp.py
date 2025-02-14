@@ -1,4 +1,4 @@
-__version__ = "2.5.20.5867"
+__version__ = "3.0.10.7501"
 
 if __package__ or "." in __name__:
     from . import _DynamsoftCodeParser
@@ -102,12 +102,23 @@ class ParsedResultItem(CapturedResultItem):
         return _DynamsoftCodeParser.CParsedResultItem_GetFieldValidationStatus(
             self, field_name
         )
+    
+    def get_field_raw_value(self, field_name: str) -> str:
+        """
+        Gets the raw string of a specified field from the parsed result.
 
+        Args:
+            field_name(str): The name of the field.
 
+        Returns:
+            A string representing the specified field raw string.
+        """
+        return _DynamsoftCodeParser.CParsedResultItem_GetFieldRawValue(self, field_name)
+    
 _DynamsoftCodeParser.CParsedResultItem_register(ParsedResultItem)
 
 
-class ParsedResult:
+class ParsedResult(CapturedResultBase):
     """
     The ParsedResult class represents the results of a code parser process.
 
@@ -126,24 +137,6 @@ class ParsedResult:
     def __init__(self):
         raise AttributeError("No constructor defined - class is abstract")
 
-    def get_original_image_hash_id(self) -> str:
-        """
-        Gets the hash ID of the source image.
-
-        Returns:
-            A string containing the hash ID of the source image.
-        """
-        return _DynamsoftCodeParser.CParsedResult_GetOriginalImageHashId(self)
-
-    def get_original_image_tag(self) -> ImageTag:
-        """
-        Gets the tag of the source image.
-
-        Returns:
-            An ImageTag object representing the tag of the source image.
-        """
-        return _DynamsoftCodeParser.CParsedResult_GetOriginalImageTag(self)
-
     def get_items(self) -> List[ParsedResultItem]:
         """
         Gets all the parsed result items.
@@ -156,25 +149,6 @@ class ParsedResult:
         for i in range(count):
             list.append(_DynamsoftCodeParser.CParsedResult_GetItem(self, i))
         return list
-
-    def get_error_code(self) -> int:
-        """
-        Gets the error code of the parsed result, if an error occurred.
-
-        Returns:
-            The error code of the parsed result, or 0 if no error occurred.
-        """
-        return _DynamsoftCodeParser.CParsedResult_GetErrorCode(self)
-
-    def get_error_string(self) -> str:
-        """
-        Gets the error message of the parsed result, if an error occurred.
-
-        Returns:
-            A string containing the error message of the parsed result, or an empty string if no error occurred.
-        """
-        return _DynamsoftCodeParser.CParsedResult_GetErrorString(self)
-
 
 _DynamsoftCodeParser.CParsedResult_register(ParsedResult)
 

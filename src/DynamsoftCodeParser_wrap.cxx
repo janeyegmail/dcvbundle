@@ -3407,8 +3407,9 @@ SwigPyObject_type(void)
 #define SWIGTYPE_p_dynamsoft__dcp__CParsedResultItem swig_types[29]
 #define SWIGTYPE_p_int swig_types[30]
 #define SWIGTYPE_p_unsigned_char swig_types[31]
-static swig_type_info *swig_types[33];
-static swig_module_info swig_module = {swig_types, 32, 0, 0, 0, 0};
+#define SWIGTYPE_p_dynamsoft_basic_structures_CCapturedResultBase swig_types[31]
+static swig_type_info *swig_types[34];
+static swig_module_info swig_module = {swig_types, 33, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -4202,6 +4203,56 @@ extern "C"
     return NULL;
   }
 
+  SWIGINTERN PyObject *_wrap_CParsedResultItem_GetFieldRawValue(PyObject *self, PyObject *args)
+  {
+    PyObject *resultobj = 0;
+    dynamsoft::dcp::CParsedResultItem *arg1 = (dynamsoft::dcp::CParsedResultItem *)0;
+    char *arg2 = (char *)0;
+    void *argp1 = 0;
+    int res1 = 0;
+    int res2;
+    char *buf2 = 0;
+    int alloc2 = 0;
+    PyObject *swig_obj[2];
+    char *result = 0;
+
+    if (!SWIG_Python_UnpackTuple(args, "CParsedResultItem_GetFieldRawValue", 2, 2, swig_obj))
+      SWIG_fail;
+    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__dcp__CParsedResultItem, 0 | 0);
+    if (!SWIG_IsOK(res1))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+                                               "CParsedResultItem_GetFieldRawValue"
+                                               "', argument "
+                                               "1"
+                                               " of type '"
+                                               "dynamsoft::dcp::CParsedResultItem const *"
+                                               "'");
+    }
+    arg1 = reinterpret_cast<dynamsoft::dcp::CParsedResultItem *>(argp1);
+    res2 = SWIG_AsCharPtrAndSize(swig_obj[1], &buf2, NULL, &alloc2);
+    if (!SWIG_IsOK(res2))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
+                                               "CParsedResultItem_GetFieldRawValue"
+                                               "', argument "
+                                               "2"
+                                               " of type '"
+                                               "char const *"
+                                               "'");
+    }
+    arg2 = reinterpret_cast<char *>(buf2);
+    result = (char *)((dynamsoft::dcp::CParsedResultItem const *)arg1)->GetFieldRawValue((char const *)arg2);
+    resultobj = SWIG_FromCharPtr((const char *)result);
+    if (alloc2 == SWIG_NEWOBJ)
+      delete[] buf2;
+    return resultobj;
+  fail:
+    if (alloc2 == SWIG_NEWOBJ)
+      delete[] buf2;
+    return NULL;
+  }
+
   SWIGINTERN PyObject *CParsedResultItem_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args)
   {
     PyObject *obj;
@@ -4211,78 +4262,78 @@ extern "C"
     return SWIG_Py_Void();
   }
 
-  SWIGINTERN PyObject *_wrap_CParsedResult_GetOriginalImageHashId(PyObject *self, PyObject *args)
-  {
-    PyObject *resultobj = 0;
-    dynamsoft::dcp::CParsedResult *arg1 = (dynamsoft::dcp::CParsedResult *)0;
-    void *argp1 = 0;
-    int res1 = 0;
-    PyObject *swig_obj[1];
-    char *result = 0;
+  // SWIGINTERN PyObject *_wrap_CParsedResult_GetOriginalImageHashId(PyObject *self, PyObject *args)
+  // {
+  //   PyObject *resultobj = 0;
+  //   dynamsoft::dcp::CParsedResult *arg1 = (dynamsoft::dcp::CParsedResult *)0;
+  //   void *argp1 = 0;
+  //   int res1 = 0;
+  //   PyObject *swig_obj[1];
+  //   char *result = 0;
 
-    if (!args)
-      SWIG_fail;
-    swig_obj[0] = args;
-    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__dcp__CParsedResult, 0 | 0);
-    if (!SWIG_IsOK(res1))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
-                                               "CParsedResult_GetOriginalImageHashId"
-                                               "', argument "
-                                               "1"
-                                               " of type '"
-                                               "dynamsoft::dcp::CParsedResult const *"
-                                               "'");
-    }
-    arg1 = reinterpret_cast<dynamsoft::dcp::CParsedResult *>(argp1);
-    result = (char *)((dynamsoft::dcp::CParsedResult const *)arg1)->GetOriginalImageHashId();
-    resultobj = SWIG_FromCharPtr((const char *)result);
-    return resultobj;
-  fail:
-    return NULL;
-  }
+  //   if (!args)
+  //     SWIG_fail;
+  //   swig_obj[0] = args;
+  //   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__dcp__CParsedResult, 0 | 0);
+  //   if (!SWIG_IsOK(res1))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+  //                                              "CParsedResult_GetOriginalImageHashId"
+  //                                              "', argument "
+  //                                              "1"
+  //                                              " of type '"
+  //                                              "dynamsoft::dcp::CParsedResult const *"
+  //                                              "'");
+  //   }
+  //   arg1 = reinterpret_cast<dynamsoft::dcp::CParsedResult *>(argp1);
+  //   result = (char *)((dynamsoft::dcp::CParsedResult const *)arg1)->GetOriginalImageHashId();
+  //   resultobj = SWIG_FromCharPtr((const char *)result);
+  //   return resultobj;
+  // fail:
+  //   return NULL;
+  // }
 
-  SWIGINTERN PyObject *_wrap_CParsedResult_GetOriginalImageTag(PyObject *self, PyObject *args)
-  {
-    PyObject *resultobj = 0;
-    dynamsoft::dcp::CParsedResult *arg1 = (dynamsoft::dcp::CParsedResult *)0;
-    void *argp1 = 0;
-    int res1 = 0;
-    PyObject *swig_obj[1];
-    dynamsoft::basic_structures::CImageTag *result = 0;
+  // SWIGINTERN PyObject *_wrap_CParsedResult_GetOriginalImageTag(PyObject *self, PyObject *args)
+  // {
+  //   PyObject *resultobj = 0;
+  //   dynamsoft::dcp::CParsedResult *arg1 = (dynamsoft::dcp::CParsedResult *)0;
+  //   void *argp1 = 0;
+  //   int res1 = 0;
+  //   PyObject *swig_obj[1];
+  //   dynamsoft::basic_structures::CImageTag *result = 0;
 
-    if (!args)
-      SWIG_fail;
-    swig_obj[0] = args;
-    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__dcp__CParsedResult, 0 | 0);
-    if (!SWIG_IsOK(res1))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
-                                               "CParsedResult_GetOriginalImageTag"
-                                               "', argument "
-                                               "1"
-                                               " of type '"
-                                               "dynamsoft::dcp::CParsedResult const *"
-                                               "'");
-    }
-    arg1 = reinterpret_cast<dynamsoft::dcp::CParsedResult *>(argp1);
-    result = (dynamsoft::basic_structures::CImageTag *)((dynamsoft::dcp::CParsedResult const *)arg1)->GetOriginalImageTag();
-    switch (result->GetType())
-    {
-    case ITT_FILE_IMAGE:
-      resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__basic_structures__CFileImageTag, 0 | 0);
-      break;
-    case ITT_VIDEO_FRAME:
-      resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__basic_structures__CVideoFrameTag, 0 | 0);
-      break;
-    default:
-      resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__basic_structures__CImageTag, 0 | 0);
-      break;
-    }
-    return resultobj;
-  fail:
-    return NULL;
-  }
+  //   if (!args)
+  //     SWIG_fail;
+  //   swig_obj[0] = args;
+  //   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__dcp__CParsedResult, 0 | 0);
+  //   if (!SWIG_IsOK(res1))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+  //                                              "CParsedResult_GetOriginalImageTag"
+  //                                              "', argument "
+  //                                              "1"
+  //                                              " of type '"
+  //                                              "dynamsoft::dcp::CParsedResult const *"
+  //                                              "'");
+  //   }
+  //   arg1 = reinterpret_cast<dynamsoft::dcp::CParsedResult *>(argp1);
+  //   result = (dynamsoft::basic_structures::CImageTag *)((dynamsoft::dcp::CParsedResult const *)arg1)->GetOriginalImageTag();
+  //   switch (result->GetType())
+  //   {
+  //   case ITT_FILE_IMAGE:
+  //     resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__basic_structures__CFileImageTag, 0 | 0);
+  //     break;
+  //   case ITT_VIDEO_FRAME:
+  //     resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__basic_structures__CVideoFrameTag, 0 | 0);
+  //     break;
+  //   default:
+  //     resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__basic_structures__CImageTag, 0 | 0);
+  //     break;
+  //   }
+  //   return resultobj;
+  // fail:
+  //   return NULL;
+  // }
 
   SWIGINTERN PyObject *_wrap_CParsedResult_GetItemsCount(PyObject *self, PyObject *args)
   {
@@ -4451,67 +4502,67 @@ extern "C"
     return NULL;
   }
 
-  SWIGINTERN PyObject *_wrap_CParsedResult_GetErrorCode(PyObject *self, PyObject *args)
-  {
-    PyObject *resultobj = 0;
-    dynamsoft::dcp::CParsedResult *arg1 = (dynamsoft::dcp::CParsedResult *)0;
-    void *argp1 = 0;
-    int res1 = 0;
-    PyObject *swig_obj[1];
-    int result;
+  // SWIGINTERN PyObject *_wrap_CParsedResult_GetErrorCode(PyObject *self, PyObject *args)
+  // {
+  //   PyObject *resultobj = 0;
+  //   dynamsoft::dcp::CParsedResult *arg1 = (dynamsoft::dcp::CParsedResult *)0;
+  //   void *argp1 = 0;
+  //   int res1 = 0;
+  //   PyObject *swig_obj[1];
+  //   int result;
 
-    if (!args)
-      SWIG_fail;
-    swig_obj[0] = args;
-    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__dcp__CParsedResult, 0 | 0);
-    if (!SWIG_IsOK(res1))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
-                                               "CParsedResult_GetErrorCode"
-                                               "', argument "
-                                               "1"
-                                               " of type '"
-                                               "dynamsoft::dcp::CParsedResult const *"
-                                               "'");
-    }
-    arg1 = reinterpret_cast<dynamsoft::dcp::CParsedResult *>(argp1);
-    result = (int)((dynamsoft::dcp::CParsedResult const *)arg1)->GetErrorCode();
-    resultobj = SWIG_From_int(static_cast<int>(result));
-    return resultobj;
-  fail:
-    return NULL;
-  }
+  //   if (!args)
+  //     SWIG_fail;
+  //   swig_obj[0] = args;
+  //   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__dcp__CParsedResult, 0 | 0);
+  //   if (!SWIG_IsOK(res1))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+  //                                              "CParsedResult_GetErrorCode"
+  //                                              "', argument "
+  //                                              "1"
+  //                                              " of type '"
+  //                                              "dynamsoft::dcp::CParsedResult const *"
+  //                                              "'");
+  //   }
+  //   arg1 = reinterpret_cast<dynamsoft::dcp::CParsedResult *>(argp1);
+  //   result = (int)((dynamsoft::dcp::CParsedResult const *)arg1)->GetErrorCode();
+  //   resultobj = SWIG_From_int(static_cast<int>(result));
+  //   return resultobj;
+  // fail:
+  //   return NULL;
+  // }
 
-  SWIGINTERN PyObject *_wrap_CParsedResult_GetErrorString(PyObject *self, PyObject *args)
-  {
-    PyObject *resultobj = 0;
-    dynamsoft::dcp::CParsedResult *arg1 = (dynamsoft::dcp::CParsedResult *)0;
-    void *argp1 = 0;
-    int res1 = 0;
-    PyObject *swig_obj[1];
-    char *result = 0;
+  // SWIGINTERN PyObject *_wrap_CParsedResult_GetErrorString(PyObject *self, PyObject *args)
+  // {
+  //   PyObject *resultobj = 0;
+  //   dynamsoft::dcp::CParsedResult *arg1 = (dynamsoft::dcp::CParsedResult *)0;
+  //   void *argp1 = 0;
+  //   int res1 = 0;
+  //   PyObject *swig_obj[1];
+  //   char *result = 0;
 
-    if (!args)
-      SWIG_fail;
-    swig_obj[0] = args;
-    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__dcp__CParsedResult, 0 | 0);
-    if (!SWIG_IsOK(res1))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
-                                               "CParsedResult_GetErrorString"
-                                               "', argument "
-                                               "1"
-                                               " of type '"
-                                               "dynamsoft::dcp::CParsedResult const *"
-                                               "'");
-    }
-    arg1 = reinterpret_cast<dynamsoft::dcp::CParsedResult *>(argp1);
-    result = (char *)((dynamsoft::dcp::CParsedResult const *)arg1)->GetErrorString();
-    resultobj = SWIG_FromCharPtr((const char *)result);
-    return resultobj;
-  fail:
-    return NULL;
-  }
+  //   if (!args)
+  //     SWIG_fail;
+  //   swig_obj[0] = args;
+  //   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__dcp__CParsedResult, 0 | 0);
+  //   if (!SWIG_IsOK(res1))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+  //                                              "CParsedResult_GetErrorString"
+  //                                              "', argument "
+  //                                              "1"
+  //                                              " of type '"
+  //                                              "dynamsoft::dcp::CParsedResult const *"
+  //                                              "'");
+  //   }
+  //   arg1 = reinterpret_cast<dynamsoft::dcp::CParsedResult *>(argp1);
+  //   result = (char *)((dynamsoft::dcp::CParsedResult const *)arg1)->GetErrorString();
+  //   resultobj = SWIG_FromCharPtr((const char *)result);
+  //   return resultobj;
+  // fail:
+  //   return NULL;
+  // }
 
   SWIGINTERN PyObject *_wrap_CParsedResult_Retain(PyObject *self, PyObject *args)
   {
@@ -5677,15 +5728,16 @@ extern "C"
       {"CParsedResultItem_GetFieldValue", _wrap_CParsedResultItem_GetFieldValue, METH_VARARGS, NULL},
       {"CParsedResultItem_GetFieldMappingStatus", _wrap_CParsedResultItem_GetFieldMappingStatus, METH_VARARGS, NULL},
       {"CParsedResultItem_GetFieldValidationStatus", _wrap_CParsedResultItem_GetFieldValidationStatus, METH_VARARGS, NULL},
+      {"CParsedResultItem_GetFieldRawValue", _wrap_CParsedResultItem_GetFieldRawValue, METH_VARARGS, NULL},
       {"CParsedResultItem_register", CParsedResultItem_swigregister, METH_O, NULL},
-      {"CParsedResult_GetOriginalImageHashId", _wrap_CParsedResult_GetOriginalImageHashId, METH_O, NULL},
-      {"CParsedResult_GetOriginalImageTag", _wrap_CParsedResult_GetOriginalImageTag, METH_O, NULL},
+      // {"CParsedResult_GetOriginalImageHashId", _wrap_CParsedResult_GetOriginalImageHashId, METH_O, NULL},
+      // {"CParsedResult_GetOriginalImageTag", _wrap_CParsedResult_GetOriginalImageTag, METH_O, NULL},
       {"CParsedResult_GetItemsCount", _wrap_CParsedResult_GetItemsCount, METH_O, NULL},
       {"CParsedResult_GetItem", _wrap_CParsedResult_GetItem, METH_VARARGS, NULL},
       // {"CParsedResult_RemoveItem", _wrap_CParsedResult_RemoveItem, METH_VARARGS, NULL},
       // {"CParsedResult_HasItem", _wrap_CParsedResult_HasItem, METH_VARARGS, NULL},
-      {"CParsedResult_GetErrorCode", _wrap_CParsedResult_GetErrorCode, METH_O, NULL},
-      {"CParsedResult_GetErrorString", _wrap_CParsedResult_GetErrorString, METH_O, NULL},
+      // {"CParsedResult_GetErrorCode", _wrap_CParsedResult_GetErrorCode, METH_O, NULL},
+      // {"CParsedResult_GetErrorString", _wrap_CParsedResult_GetErrorString, METH_O, NULL},
       {"CParsedResult_Retain", _wrap_CParsedResult_Retain, METH_O, NULL},
       {"CParsedResult_Release", _wrap_CParsedResult_Release, METH_O, NULL},
       {"CParsedResult_register", CParsedResult_swigregister, METH_O, NULL},
@@ -5722,6 +5774,11 @@ extern "C"
   {
     return (void *)((dynamsoft::basic_structures::CImageTag *)((dynamsoft::basic_structures::CVideoFrameTag *)x));
   }
+  static void *_p_dynamsoft__dcp__CParsedResultTo_p_dynamsoft_basic_structures_CCapturedResultBase(void *x, int *SWIGUNUSEDPARM(newmemory))
+  {
+    return (void *)((dynamsoft::basic_structures::CCapturedResultBase *)((dynamsoft::dcp::CParsedResult *)x));
+  }
+
   static swig_type_info _swigt__p_BufferOverflowProtectionMode = {"_p_BufferOverflowProtectionMode", "BufferOverflowProtectionMode *|enum BufferOverflowProtectionMode *", 0, 0, (void *)0, 0};
   static swig_type_info _swigt__p_CapturedResultItemType = {"_p_CapturedResultItemType", "CapturedResultItemType *|enum CapturedResultItemType *", 0, 0, (void *)0, 0};
   static swig_type_info _swigt__p_ColourChannelUsageType = {"_p_ColourChannelUsageType", "ColourChannelUsageType *|enum ColourChannelUsageType *", 0, 0, (void *)0, 0};
@@ -5754,6 +5811,7 @@ extern "C"
   static swig_type_info _swigt__p_dynamsoft__dcp__CParsedResultItem = {"_p_dynamsoft__dcp__CParsedResultItem", "dynamsoft::dcp::CParsedResultItem *", 0, 0, (void *)0, 0};
   static swig_type_info _swigt__p_int = {"_p_int", "int *", 0, 0, (void *)0, 0};
   static swig_type_info _swigt__p_unsigned_char = {"_p_unsigned_char", "unsigned char *", 0, 0, (void *)0, 0};
+  static swig_type_info _swigt__p_dynamsoft_basic_structures_CCapturedResultBase = {"_p_dynamsoft_basic_structures_CCapturedResultBase", "dynamsoft::basic_structures::CCapturedResultBase *", 0, 0, (void *)0, 0};
 
   static swig_type_info *swig_type_initial[] = {
       &_swigt__p_BufferOverflowProtectionMode,
@@ -5788,6 +5846,7 @@ extern "C"
       &_swigt__p_dynamsoft__dcp__CParsedResultItem,
       &_swigt__p_int,
       &_swigt__p_unsigned_char,
+      &_swigt__p_dynamsoft_basic_structures_CCapturedResultBase,
   };
 
   static swig_cast_info _swigc__p_BufferOverflowProtectionMode[] = {{&_swigt__p_BufferOverflowProtectionMode, 0, 0, 0}, {0, 0, 0, 0}};
@@ -5822,6 +5881,7 @@ extern "C"
   static swig_cast_info _swigc__p_dynamsoft__dcp__CParsedResultItem[] = {{&_swigt__p_dynamsoft__dcp__CParsedResultItem, 0, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_int[] = {{&_swigt__p_int, 0, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_unsigned_char[] = {{&_swigt__p_unsigned_char, 0, 0, 0}, {0, 0, 0, 0}};
+  static swig_cast_info _swigc__p_dynamsoft_basic_structures_CCapturedResultBase[] = {{&_swigt__p_dynamsoft_basic_structures_CCapturedResultBase, 0, 0, 0}, {&_swigt__p_dynamsoft__dcp__CParsedResult, _p_dynamsoft__dcp__CParsedResultTo_p_dynamsoft_basic_structures_CCapturedResultBase, 0, 0}, {0, 0, 0, 0}};
 
   static swig_cast_info *swig_cast_initial[] = {
       _swigc__p_BufferOverflowProtectionMode,
@@ -5856,6 +5916,7 @@ extern "C"
       _swigc__p_dynamsoft__dcp__CParsedResultItem,
       _swigc__p_int,
       _swigc__p_unsigned_char,
+      _swigc__p_dynamsoft_basic_structures_CCapturedResultBase,
   };
 
   /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (END) -------- */
@@ -6365,7 +6426,6 @@ void
 
   SWIG_InstallConstants(d, swig_const_table);
 
-  SWIG_Python_SetConstant(d, "DCP_VERSION", SWIG_FromCharPtr("2.2.20.0836"));
   SWIG_Python_SetConstant(d, "MS_NONE", SWIG_From_int(static_cast<int>(MS_NONE)));
   SWIG_Python_SetConstant(d, "MS_SUCCEEDED", SWIG_From_int(static_cast<int>(MS_SUCCEEDED)));
   SWIG_Python_SetConstant(d, "MS_FAILED", SWIG_From_int(static_cast<int>(MS_FAILED)));

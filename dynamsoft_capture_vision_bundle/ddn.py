@@ -1,4 +1,4 @@
-__version__ = "2.5.21.5867"
+__version__ = "3.0.10.7501"
 
 if __package__ or "." in __name__:
     from .core import *
@@ -9,7 +9,7 @@ if __package__ or "." in __name__:
     from . import _DynamsoftDocumentNormalizer
 else:
     import _DynamsoftDocumentNormalizer
-from typing import List, Tuple
+from typing import List, Tuple, Union
 
 
 from enum import IntEnum
@@ -40,22 +40,6 @@ class SimplifiedDocumentNormalizerSettings:
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
     )
 
-    # grayscale_transformation_modes: List[int] = property(
-    #     _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_grayscaleTransformationModes_get,
-    #     _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_grayscaleTransformationModes_set,
-    #     doc="""
-    #         Specifies how grayscale transformations should be applied, including whether to process inverted grayscale images and the specific transformation mode to use.
-    #         It is a list of 8 integers, where each integer represents a mode specified by the EnumGrayscaleTransformationMode enumeration.
-    #         """
-    # )
-    # grayscale_enhancement_modes: List[int] = property(
-    #     _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_grayscaleEnhancementModes_get,
-    #     _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_grayscaleEnhancementModes_set,
-    #     doc="""
-    #         Specifies how to enhance the quality of the grayscale image.
-    #         It is a list of 8 integers, where each integer represents a mode specified by the EnumGrayscaleEnhancementMode enumeration.
-    #         """
-    # )
     @property
     def grayscale_transformation_modes(self) -> List[int]:
         if not hasattr(self, '_grayscale_transformation_modes') or self._grayscale_transformation_modes is None:
@@ -100,11 +84,7 @@ class SimplifiedDocumentNormalizerSettings:
             self._page_size = _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_pageSize_get(self)
         _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_pageSize_set(self, value)
         self._page_size = value
-    # page_size:List[int] = property(
-    #     _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_pageSize_get,
-    #     _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_pageSize_set,
-    #     doc="Specifies the page size (width by height in pixels) of the normalized image."
-    # )
+
     brightness: int = property(
         _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_brightness_get,
         _DynamsoftDocumentNormalizer.SimplifiedDocumentNormalizerSettings_brightness_set,
@@ -183,6 +163,9 @@ class DetectedQuadResultItem(CapturedResultItem):
     Methods:
         get_location(self) -> Quadrilateral: Gets the location of current object.
         get_confidence_as_document_boundary(self) -> int: Gets the confidence of current object as a document boundary.
+        get_cross_verification_status(self) -> EnumCrossVerificationStatus: Gets the status of current object as a verified document boundary.
+        set_cross_verification_status(self, status: EnumCrossVerificationStatus) -> Sets the status of current object.
+        get_local_to_original_matrix(self) -> List[float]: Gets the transformation matrix from the local coordinate system to the original image coordinate system.
     """
     _thisown = property(
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
@@ -210,18 +193,37 @@ class DetectedQuadResultItem(CapturedResultItem):
         return _DynamsoftDocumentNormalizer.CDetectedQuadResultItem_GetConfidenceAsDocumentBoundary(
             self
         )
+    def get_cross_verification_status(self) -> EnumCrossVerificationStatus:
+        """
+        Gets the status of current object as a verified document boundary.
+        
+        Returns:
+            Return the CrossVerificationStatus of the detected quad result.
+        """
+        return _DynamsoftDocumentNormalizer.CDetectedQuadResultItem_GetCrossVerificationStatus(self)
 
+    def set_cross_verification_status(self, status: EnumCrossVerificationStatus) -> None:
+        """
+        Sets the status of current object.
+
+        Args:
+            status(EnumCrossVerificationStatus): The CrossVerificationStatus to be set.
+        """
+        _DynamsoftDocumentNormalizer.CDetectedQuadResultItem_SetCrossVerificationStatus(self, status)    
 
 _DynamsoftDocumentNormalizer.CDetectedQuadResultItem_register(DetectedQuadResultItem)
 
 
-class NormalizedImageResultItem(CapturedResultItem):
+class DeskewedImageResultItem(CapturedResultItem):
     """
-    The NormalizedImageResultItem class stores a captured result item whose type is normalized image.
+    The DeskewedImageResultItem class stores a captured result item whose type is normalized image.
 
     Methods:
         get_image_data(self) -> ImageData: Gets the image data of current object.
-        get_location(self) -> Quadrilateral: Gets the location of current object.
+        get_source_deskew_quad(self) -> Quadrilateral: Gets the quadrilateral used for deskewing the image.
+        get_cross_verification_status(self) -> EnumCrossVerificationStatus: Gets the status of current object as a verified deskewed image.
+        set_cross_verification_status(self, status: EnumCrossVerificationStatus) -> None: Sets the status of current object.
+        get_local_to_original_matrix(self) -> List[float]: Gets the transformation matrix from the local coordinate system to the original image coordinate system.
     """
     _thisown = property(
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
@@ -237,125 +239,98 @@ class NormalizedImageResultItem(CapturedResultItem):
         Returns:
             The image data.
         """
-        return _DynamsoftDocumentNormalizer.CNormalizedImageResultItem_GetImageData(
+        return _DynamsoftDocumentNormalizer.CDeskewedImageResultItem_GetImageData(
             self
         )
 
-    def get_location(self) -> Quadrilateral:
+    def get_source_deskew_quad(self) -> Quadrilateral:
         """
-        Gets the location of current object.
+        Gets the quadrilateral used for deskewing the image.
 
         Returns:
-            The location of current object.
+            A CQuadrilateral object representing the four corners of the quadrilateral used to deskew the image.
         """
-        return _DynamsoftDocumentNormalizer.CNormalizedImageResultItem_GetLocation(self)
+        return _DynamsoftDocumentNormalizer.CDeskewedImageResultItem_GetSourceDeskewQuad(self)
 
-
-_DynamsoftDocumentNormalizer.CNormalizedImageResultItem_register(
-    NormalizedImageResultItem
-)
-
-class DetectedQuadsResult:
-    """
-    The DetectedQuadsResult class stores a captured result whose type is detected quads.
-
-    Methods:
-        get_error_code(self) -> int: Gets the error code of the detection operation.
-        get_error_string(self) -> str: Gets the error message of the detection operation.
-        get_items(self) -> List[DetectedQuadResultItem]: Gets all the detected quadrilateral items.
-        get_rotation_transform_matrix(self) -> List[float]: Gets the 3x3 rotation transformation matrix of the original image relative to the rotated image.
-        get_original_image_hash_id(self) -> str: Gets the hash ID of the original image.
-        get_original_image_tag(self) -> ImageTag: Gets the tag of the original image.
-    """
-    _thisown = property(
-        lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
-    )
-
-    def __init__(self):
-        raise AttributeError("No constructor defined - class is abstract")
-
-    __destroy__ = _DynamsoftDocumentNormalizer.CDetectedQuadsResult_Release
-
-    def get_original_image_hash_id(self) -> str:
+    def get_cross_verification_status(self) -> EnumCrossVerificationStatus:
         """
-        Gets the hash ID of the original image.
+        Gets the status of current object as a verified deskewed image.
         
         Returns:
-            The hash ID of the original image as a string.
+            Return the CrossVerificationStatus of the deskewed image result.
         """
-        return _DynamsoftDocumentNormalizer.CDetectedQuadsResult_GetOriginalImageHashId(
-            self
-        )
+        return _DynamsoftDocumentNormalizer.CDeskewedImageResultItem_GetCrossVerificationStatus(self)
 
-    def get_original_image_tag(self) -> ImageTag:
+    def set_cross_verification_status(self, status: EnumCrossVerificationStatus) -> None:
         """
-        Gets the tag of the original image.
+        Sets the status of current object.
 
+        Args:
+            status(EnumCrossVerificationStatus): The CrossVerificationStatus to be set.
+        """
+        _DynamsoftDocumentNormalizer.CDeskewedImageResultItem_SetCrossVerificationStatus(self, status)
+
+    def get_original_to_local_matrix(self) -> List[float]:
+        """
+        Gets the transformation matrix from the local coordinate system to the original image coordinate system.
+        
         Returns:
-            An ImageTag object containing the tag of the original image.
+            A double array of size 9, representing the 3x3 transformation matrix that converts coordinates from the local image to the original image.
         """
-        return _DynamsoftDocumentNormalizer.CDetectedQuadsResult_GetOriginalImageTag(
-            self
-        )
+        return _DynamsoftDocumentNormalizer.CDeskewedImageResultItem_GetOriginalToLocalMatrix(self)
+_DynamsoftDocumentNormalizer.CDeskewedImageResultItem_register(
+    DeskewedImageResultItem
+)
 
-    def get_rotation_transform_matrix(self) -> List[float]:
-        """
-        Gets the 3x3 rotation transformation matrix of the original image relative to the rotated image.
-
-        Returns:
-            A float list of length 9 which represents a 3x3 rotation matrix.
-        """
-        return _DynamsoftDocumentNormalizer.CDetectedQuadsResult_GetRotationTransformMatrix(
-            self
-        )
-
-    def get_items(self) -> List[DetectedQuadResultItem]:
-        """
-        Gets all the detected quadrilateral items.
-
-        Returns:
-            A list of DetectedQuadResultItem objects with all the detected quadrilateral items.
-        """
-        list = []
-        count = _DynamsoftDocumentNormalizer.CDetectedQuadsResult_GetItemsCount(self)
-        for i in range(count):
-            list.append(
-                _DynamsoftDocumentNormalizer.CDetectedQuadsResult_GetItem(self, i)
-            )
-        return list
-
-    def get_error_code(self) -> int:
-        """
-        Gets the error code of the detection operation.
-
-        Returns:
-            The error code.
-        """
-        return _DynamsoftDocumentNormalizer.CDetectedQuadsResult_GetErrorCode(self)
-
-    def get_error_string(self) -> str:
-        """
-        Gets the error message of the detection operation.
-
-        Returns:
-            A string that represents the error message.
-        """
-        return _DynamsoftDocumentNormalizer.CDetectedQuadsResult_GetErrorString(self)
-
-
-_DynamsoftDocumentNormalizer.CDetectedQuadsResult_register(DetectedQuadsResult)
-
-class NormalizedImagesResult:
+class EnhancedImageResultItem(CapturedResultItem):
     """
-    The NormalizedImagesResult class stores a collection of captured result items whose type are normalized images.
+    The `CEnhancedImageResultItem` class stores a captured result item whose type is enhanced image.
+    
+    Methods:
+        get_image_data(self) -> ImageData: Gets the image data of current object.
+        get_local_to_original_matrix(self) -> List[float]: Gets the transformation matrix from the local coordinate system to the original image coordinate system.
+    """
+    _thisown = property(
+        lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
+    )
+    def __init__(self):
+        raise AttributeError("No constructor defined - class is abstract")
+    
+    def get_image_data(self) -> ImageData:
+        """
+        Gets the image data of current object.
+        
+        Returns:
+            The image data.
+        """
+        return _DynamsoftDocumentNormalizer.CEnhancedImageResultItem_GetImageData(
+            self
+        )
+    
+    def get_original_to_local_matrix(self) -> List[float]:
+        """
+        Gets the transformation matrix from the local coordinate system to the original image coordinate system.
+        
+        Returns:
+            A double array of size 9, representing the 3x3 transformation matrix that converts coordinates from the local image to the original image.
+        """
+        return _DynamsoftDocumentNormalizer.CEnhancedImageResultItem_GetOriginalToLocalMatrix(
+            self
+        )
+    
+    
+_DynamsoftDocumentNormalizer.CEnhancedImageResultItem_register(EnhancedImageResultItem)
+
+class ProcessedDocumentResult(CapturedResultBase):
+    """
+    The `CDocumentResult` class stores a collection of captured result items.
 
     Methods:
-        get_error_code(self) -> int: Gets the error code of the operation.
-        get_error_string(self) -> str: Gets the error message of the operation.
-        get_items(self) -> List[NormalizedImageResultItem]: Gets all the normalized images.
-        get_rotation_transform_matrix(self) -> List[float]: Gets the 3x3 rotation transformation matrix of the original image relative to the rotated image.
-        get_original_image_hash_id(self) -> str: Gets the hash ID of the original image that was normalized.
-        get_original_image_tag(self) -> ImageTag: Gets the tag of the original image that was normalized.
+        get_detected_quad_result_items(self, index: int) -> DetectedQuadResultItem: Retrieves the detected quad result items.
+        get_deskewed_image_result_items(self, index: int) -> DeskewedImageResultItem: Retrieves the deskewed image result items.
+        get_enhanced_image_result_items(self, index: int) -> EnhancedImageResultItem: Retrieves the enhanced image result items.
+        has_item(self, item: Union[DetectedQuadResultItem, DeskewedImageResultItem, EnhancedImageResultItem]) -> bool: Checks if the specified item is present in the array.
+        remove_item(self, item: Union[DetectedQuadResultItem, DeskewedImageResultItem, EnhancedImageResultItem]) -> int: Removes the specified item from the array in the recognition result.
     """
     _thisown = property(
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
@@ -363,80 +338,71 @@ class NormalizedImagesResult:
 
     def __init__(self):
         raise AttributeError("No constructor defined - class is abstract")
-
-    __destroy__ = _DynamsoftDocumentNormalizer.CNormalizedImagesResult_Release
-
-    def get_original_image_hash_id(self) -> str:
+    
+    def get_detected_quad_result_items(self) -> List[DetectedQuadResultItem]:
         """
-        Gets the hash ID of the original image that was normalized.
-
+        Retrieves the detected quad result items.
+                
         Returns:
-            The hash ID of the original image that was normalized.
-        """
-        return (
-            _DynamsoftDocumentNormalizer.CNormalizedImagesResult_GetOriginalImageHashId(
-                self
-            )
-        )
-
-    def get_original_image_tag(self) -> ImageTag:
-        """
-        Gets the tag of the original image that was normalized.
-
-        Returns:
-            A tag of the original image that was normalized.
-        """
-        return _DynamsoftDocumentNormalizer.CNormalizedImagesResult_GetOriginalImageTag(
-            self
-        )
-
-    def get_rotation_transform_matrix(self) -> List[float]:
-        """
-        Gets the 3x3 rotation transformation matrix of the original image relative to the rotated image.
-
-        Returns:
-            A float list of length 9 which represents a 3x3 rotation matrix.
-        """
-        return _DynamsoftDocumentNormalizer.CNormalizedImagesResult_GetRotationTransformMatrix(
-            self
-        )
-
-    def get_items(self) -> List[NormalizedImageResultItem]:
-        """
-        Gets all the normalized images.
-
-        Returns:
-            A NormalizedImageResultItem list.
+            A DetectedQuadResultItem object representing the detected quad result items.
         """
         list = []
-        count = _DynamsoftDocumentNormalizer.CNormalizedImagesResult_GetItemsCount(self)
+        count = _DynamsoftDocumentNormalizer.CProcessedDocumentResult_GetDetectedQuadResultItemsCount(self)
         for i in range(count):
-            list.append(
-                _DynamsoftDocumentNormalizer.CNormalizedImagesResult_GetItem(self, i)
-            )
+            list.append(_DynamsoftDocumentNormalizer.CProcessedDocumentResult_GetDetectedQuadResultItem(self, i))
         return list
 
-    def get_error_code(self) -> int:
+    def get_deskewed_image_result_items(self) -> List[DeskewedImageResultItem]:
         """
-        Gets the error code of the operation.
+        Retrieves the deskewed image result items.
 
         Returns:
-            The error code of the operation. A non-zero value indicates an error occurred.
+            A DeskewedImageResultItem object representing the deskewed image result items.
         """
-        return _DynamsoftDocumentNormalizer.CNormalizedImagesResult_GetErrorCode(self)
-
-    def get_error_string(self) -> str:
+        list = []
+        count = _DynamsoftDocumentNormalizer.CProcessedDocumentResult_GetDeskewedImageResultItemsCount(self)
+        for i in range(count):
+            list.append(_DynamsoftDocumentNormalizer.CProcessedDocumentResult_GetDeskewedImageResultItem(self, i))
+        return list
+    
+    def get_enhanced_image_result_items(self) -> List[EnhancedImageResultItem]:
         """
-        Gets the error message of the operation.
-
+        Retrieves the enhanced image result items.
+        
         Returns:
-            The error message of the operation.
+            A EnhancedImageResultItem object representing the enhanced image result items.
         """
-        return _DynamsoftDocumentNormalizer.CNormalizedImagesResult_GetErrorString(self)
+        list = []
+        count = _DynamsoftDocumentNormalizer.CProcessedDocumentResult_GetEnhancedImageResultItemsCount(self)
+        for i in range(count):
+            list.append(_DynamsoftDocumentNormalizer.CProcessedDocumentResult_GetEnhancedImageResultItem(self, i))
+        return list
 
+    def has_item(self, item: Union[DetectedQuadResultItem, DeskewedImageResultItem, EnhancedImageResultItem]) -> bool:
+        """
+        Check if the DetectedQuadResultItem,DeskewedImageResultItem or EnhancedImageResultItem is present in the array.
 
-_DynamsoftDocumentNormalizer.CNormalizedImagesResult_register(NormalizedImagesResult)
+        Args:
+            item (Union[DetectedQuadResultItem, DeskewedImageResultItem, EnhancedImageResultItem]): The specific item to check.
+        
+        Returns:
+            A bool value indicating whether the item is present in the array or not.
+        """
+        return _DynamsoftDocumentNormalizer.CProcessedDocumentResult_HasItem(self, item)
+    
+    def remove_item(self, item: Union[DetectedQuadResultItem, DeskewedImageResultItem, EnhancedImageResultItem]) -> int:
+        """
+        Remove the DetectedQuadResultItem,DeskewedImageResultItem or EnhancedImageResultItem from the array in the recognition result.
 
+        Args:
+            item (Union[DetectedQuadResultItem, DeskewedImageResultItem, EnhancedImageResultItem]): The specific item to remove.
+        
+        Returns:
+            The value indicating whether the deletion was successful or not.
+        """
+        return _DynamsoftDocumentNormalizer.CProcessedDocumentResult_RemoveItem(self, item)
+    
+    __destroy__ = _DynamsoftDocumentNormalizer.CProcessedDocumentResult_Release
 
 class DocumentNormalizerModule:
     """
@@ -471,9 +437,6 @@ _DynamsoftDocumentNormalizer.CDocumentNormalizerModule_register(
     DocumentNormalizerModule
 )
 
-
-#new 
-
 class DetectedQuadElement(RegionObjectElement):
     _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
@@ -484,23 +447,41 @@ class DetectedQuadElement(RegionObjectElement):
 
     def get_confidence_as_document_boundary(self) -> int:
         return _DynamsoftDocumentNormalizer.CDetectedQuadElement_GetConfidenceAsDocumentBoundary(self)
+    def set_location(self, location: Quadrilateral):
+        return _DynamsoftDocumentNormalizer.CDetectedQuadElement_SetLocation(self, location)
 
 # Register CDetectedQuadElement in _DynamsoftDocumentNormalizer:
 _DynamsoftDocumentNormalizer.CDetectedQuadElement_register(DetectedQuadElement)
-class NormalizedImageElement(RegionObjectElement):
+class DeskewedImageElement(RegionObjectElement):
     _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
     def __init__(self, *args, **kwargs):
         _DynamsoftDocumentNormalizer.Class_init(
-            self, _DynamsoftDocumentNormalizer.CDocumentNormalizerModule_CreateNormalizedImageElement()
+            self, _DynamsoftDocumentNormalizer.CDocumentNormalizerModule_CreateDeskewedImageElement()
         )
     
+    def set_image_data(self, image_data: ImageData) -> int:
+        return _DynamsoftDocumentNormalizer.CDeskewedImageElement_SetImageData(self, image_data)
+    
+    def get_source_deskew_quad(self) -> Quadrilateral:
+        return _DynamsoftDocumentNormalizer.CDeskewedImageElement_GetSourceDeskewQuad(self)
 
-    def get_image_data(self) -> ImageData:
-        return _DynamsoftDocumentNormalizer.CNormalizedImageElement_GetImageData(self)
+# Register CDeskewedImageElement in _DynamsoftDocumentNormalizer:
+_DynamsoftDocumentNormalizer.CDeskewedImageElement_register(DeskewedImageElement)
 
-# Register CNormalizedImageElement in _DynamsoftDocumentNormalizer:
-_DynamsoftDocumentNormalizer.CNormalizedImageElement_register(NormalizedImageElement)
+class EnhancedImageElement(RegionObjectElement):
+    _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        _DynamsoftDocumentNormalizer.Class_init(
+            self, _DynamsoftDocumentNormalizer.CDocumentNormalizerModule_CreateEnhancedImageElement()
+        )
+
+    def set_image_data(self, image_data: ImageData) -> int:
+        return _DynamsoftDocumentNormalizer.CEnhancedImageElement_SetImageData(self, image_data)
+    
+_DynamsoftDocumentNormalizer.CEnhancedImageElement_register(EnhancedImageElement)
+
 class LongLinesUnit(IntermediateResultUnit):
     _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
@@ -528,6 +509,35 @@ class LongLinesUnit(IntermediateResultUnit):
 
 # Register CLongLinesUnit in _DynamsoftDocumentNormalizer:
 _DynamsoftDocumentNormalizer.CLongLinesUnit_register(LongLinesUnit)
+
+class LogicLinesUnit(IntermediateResultUnit):
+    _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    
+
+    def get_count(self) -> int:
+        return _DynamsoftDocumentNormalizer.CLogicLinesUnit_GetCount(self)
+
+    def get_logic_line(self, index: int) -> LineSegment:
+        return _DynamsoftDocumentNormalizer.CLogicLinesUnit_GetLogicLine(self, index)
+
+    def remove_all_logic_lines(self) -> None:
+        return _DynamsoftDocumentNormalizer.CLogicLinesUnit_RemoveAllLogicLines(self)
+
+    def remove_logic_line(self, index: int) -> int:
+        return _DynamsoftDocumentNormalizer.CLogicLinesUnit_RemoveLogicLine(self, index)
+
+    def add_logic_line(self, line: LineSegment, matrix_to_original_image: List[float] = IDENTITY_MATRIX) -> int:
+        return _DynamsoftDocumentNormalizer.CLogicLinesUnit_AddLogicLine(self, line, matrix_to_original_image)
+
+    def set_logic_line(self, index: int, line: LineSegment, matrix_to_original_image: List[float] = IDENTITY_MATRIX) -> int:
+        return _DynamsoftDocumentNormalizer.CLogicLinesUnit_SetLogicLine(self, index, line, matrix_to_original_image)
+
+# Register CLogicLinesUnit in _DynamsoftDocumentNormalizer:
+_DynamsoftDocumentNormalizer.CLogicLinesUnit_register(LogicLinesUnit)
+
 class CornersUnit(IntermediateResultUnit):
     _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
@@ -609,24 +619,30 @@ class DetectedQuadsUnit(IntermediateResultUnit):
 
 # Register CDetectedQuadsUnit in _DynamsoftDocumentNormalizer:
 _DynamsoftDocumentNormalizer.CDetectedQuadsUnit_register(DetectedQuadsUnit)
-class NormalizedImagesUnit(IntermediateResultUnit):
+class DeskewedImageUnit(IntermediateResultUnit):
     _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     
+    def get_deskewed_image(self) -> DeskewedImageElement:
+        return _DynamsoftDocumentNormalizer.CDeskewedImageUnit_GetDeskewedImage(self)
 
-    def get_count(self) -> int:
-        return _DynamsoftDocumentNormalizer.CNormalizedImagesUnit_GetCount(self)
+    def set_deskewed_image(self, element: DeskewedImageElement, matrix_to_original_image: List[float] = IDENTITY_MATRIX) -> int:
+        return _DynamsoftDocumentNormalizer.CDeskewedImageUnit_SetDeskewedImage(self, element, matrix_to_original_image)
 
-    def get_normalized_image(self, index: int) -> NormalizedImageElement:
-        return _DynamsoftDocumentNormalizer.CNormalizedImagesUnit_GetNormalizedImage(self, index)
+# Register CDeskewedImageUnit in _DynamsoftDocumentNormalizer:
+_DynamsoftDocumentNormalizer.CDeskewedImageUnit_register(DeskewedImageUnit)
 
-    def remove_all_normalized_images(self) -> None:
-        return _DynamsoftDocumentNormalizer.CNormalizedImagesUnit_RemoveAllNormalizedImages(self)
+class EnhancedImageUnit(IntermediateResultUnit):
+    _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
-    def set_normalized_image(self, element: NormalizedImageElement, matrix_to_original_image: List[float] = IDENTITY_MATRIX) -> int:
-        return _DynamsoftDocumentNormalizer.CNormalizedImagesUnit_SetNormalizedImage(self, element, matrix_to_original_image)
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
 
-# Register CNormalizedImagesUnit in _DynamsoftDocumentNormalizer:
-_DynamsoftDocumentNormalizer.CNormalizedImagesUnit_register(NormalizedImagesUnit)
+    def get_enhanced_image(self) -> EnhancedImageElement:
+        return _DynamsoftDocumentNormalizer.CEnhancedImageUnit_GetEnhancedImage(self)
+
+    def set_enhanced_image(self, element: EnhancedImageElement) -> int:
+        return _DynamsoftDocumentNormalizer.CEnhancedImageUnit_SetEnhancedImage(self, element)
+    

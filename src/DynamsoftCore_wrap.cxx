@@ -3425,7 +3425,7 @@ SwigPyObject_type(void)
 #define SWIGTYPE_p_dynamsoft__intermediate_results__CPredetectedRegionElement swig_types[47]
 #define SWIGTYPE_p_dynamsoft__intermediate_results__CPredetectedRegionsUnit swig_types[48]
 #define SWIGTYPE_p_dynamsoft__intermediate_results__CRegionObjectElement swig_types[49]
-#define SWIGTYPE_p_dynamsoft__intermediate_results__CScaledDownColourImageUnit swig_types[50]
+#define SWIGTYPE_p_dynamsoft__intermediate_results__ScaledColourImageUnit swig_types[50]
 #define SWIGTYPE_p_dynamsoft__intermediate_results__CShortLinesUnit swig_types[51]
 #define SWIGTYPE_p_dynamsoft__intermediate_results__CTextRemovedBinaryImageUnit swig_types[52]
 #define SWIGTYPE_p_dynamsoft__intermediate_results__CTextZone swig_types[53]
@@ -3441,8 +3441,9 @@ SwigPyObject_type(void)
 #define SWIGTYPE_p_p_dynamsoft__basic_structures__CVector4 swig_types[63]
 #define SWIGTYPE_p_p_int swig_types[64]
 #define SWIGTYPE_p_unsigned_char swig_types[65]
-static swig_type_info *swig_types[67];
-static swig_module_info swig_module = {swig_types, 66, 0, 0, 0, 0};
+#define SWIGTYPE_p_dynamsoft_basic_structures_CCapturedResultBase swig_types[66]
+static swig_type_info *swig_types[68];
+static swig_module_info swig_module = {swig_types, 67, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -5186,6 +5187,7 @@ extern "C"
     return NULL;
   }
 
+
   SWIGINTERN PyObject *CContour_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args)
   {
     PyObject *obj;
@@ -5797,13 +5799,16 @@ extern "C"
     PyObject *resultobj = 0;
     dynamsoft::basic_structures::CPoint *arg1 = 0;
     dynamsoft::basic_structures::CPoint *arg2 = 0;
+    int arg3{0};
     void *argp1 = 0;
     int res1 = 0;
     void *argp2 = 0;
     int res2 = 0;
+    int ecode3;
+    int val3;
     dynamsoft::basic_structures::CLineSegment *result = 0;
 
-    if ((nobjs < 2) || (nobjs > 2))
+    if ((nobjs < 3) || (nobjs > 3))
       SWIG_fail;
     res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__basic_structures__DMPoint_T_int_t, 0 | 0);
     if (!SWIG_IsOK(res1))
@@ -5851,7 +5856,19 @@ extern "C"
                                            "'");
     }
     arg2 = reinterpret_cast<dynamsoft::basic_structures::CPoint *>(argp2);
-    result = (dynamsoft::basic_structures::CLineSegment *)new dynamsoft::basic_structures::CLineSegment((dynamsoft::basic_structures::CPoint const &)*arg1, (dynamsoft::basic_structures::CPoint const &)*arg2);
+    ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
+    if (!SWIG_IsOK(ecode3))
+    {
+      SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '"
+                                                 "new_CLineSegment"
+                                                 "', argument "
+                                                 "3"
+                                                 " of type '"
+                                                 "int"
+                                                 "'");
+    }
+    arg3 = static_cast<int>(val3);
+    result = (dynamsoft::basic_structures::CLineSegment *)new dynamsoft::basic_structures::CLineSegment((dynamsoft::basic_structures::CPoint const &)*arg1, (dynamsoft::basic_structures::CPoint const &)*arg2,arg3);
     resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__basic_structures__CLineSegment, SWIG_POINTER_NEW | 0);
     return resultobj;
   fail:
@@ -5864,14 +5881,14 @@ extern "C"
     PyObject *argv[3] = {
         0};
 
-    if (!(argc = SWIG_Python_UnpackTuple(args, "new_CLineSegment", 0, 2, argv)))
+    if (!(argc = SWIG_Python_UnpackTuple(args, "new_CLineSegment", 0, 3, argv)))
       SWIG_fail;
     --argc;
     if (argc == 0)
     {
       return _wrap_new_CLineSegment__SWIG_0(self, argc, argv);
     }
-    if (argc == 2)
+    if (argc == 3)
     {
       int _v = 0;
       int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_dynamsoft__basic_structures__DMPoint_T_int_t, SWIG_POINTER_NO_NULL | 0);
@@ -5882,7 +5899,14 @@ extern "C"
         _v = SWIG_CheckState(res);
         if (_v)
         {
-          return _wrap_new_CLineSegment__SWIG_1(self, argc, argv);
+          {
+            int res = SWIG_AsVal_int(argv[2], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v)
+          {
+            return _wrap_new_CLineSegment__SWIG_1(self, argc, argv);
+          }
         }
       }
     }
@@ -5891,7 +5915,7 @@ extern "C"
     SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_CLineSegment'.\n"
                                        "  Possible C/C++ prototypes are:\n"
                                        "    dynamsoft::basic_structures::CLineSegment::CLineSegment()\n"
-                                       "    dynamsoft::basic_structures::CLineSegment::CLineSegment(dynamsoft::basic_structures::CPoint const &,dynamsoft::basic_structures::CPoint const &)\n");
+                                       "    dynamsoft::basic_structures::CLineSegment::CLineSegment(dynamsoft::basic_structures::CPoint const &,dynamsoft::basic_structures::CPoint const &,int)\n");
     return 0;
   }
 
@@ -5982,6 +6006,36 @@ extern "C"
     arg1 = reinterpret_cast<dynamsoft::basic_structures::CLineSegment *>(argp1);
     result = (dynamsoft::basic_structures::CPoint *)&((dynamsoft::basic_structures::CLineSegment const *)arg1)->GetEndPoint();
     resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__basic_structures__DMPoint_T_int_t, 0 | 0);
+    return resultobj;
+  fail:
+    return NULL;
+  }
+  SWIGINTERN PyObject *_wrap_CLineSegment_GetId(PyObject *self, PyObject *args)
+  {
+    PyObject *resultobj = 0;
+    dynamsoft::basic_structures::CLineSegment *arg1 = (dynamsoft::basic_structures::CLineSegment *)0;
+    void *argp1 = 0;
+    int res1 = 0;
+    PyObject *swig_obj[1];
+    int result = 0;
+
+    if (!args)
+      SWIG_fail;
+    swig_obj[0] = args;
+    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__basic_structures__CLineSegment, 0 | 0);
+    if (!SWIG_IsOK(res1))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+                                               "CLineSegment_GetId"
+                                               "', argument "
+                                               "1"
+                                               " of type '"
+                                               "dynamsoft::basic_structures::CLineSegment const *"
+                                               "'");
+    }
+    arg1 = reinterpret_cast<dynamsoft::basic_structures::CLineSegment *>(argp1);
+    result = arg1->GetId();
+    resultobj = SWIG_From_int(static_cast<int>(result));
     return resultobj;
   fail:
     return NULL;
@@ -6093,6 +6147,50 @@ extern "C"
     (arg1)->SetEndPoint((dynamsoft::basic_structures::CPoint const &)*arg2);
     resultobj = SWIG_Py_Void();
     return resultobj;
+  fail:
+    return NULL;
+  }
+  SWIGINTERN PyObject *_wrap_CLineSegment_SetId(PyObject *self, PyObject *args)
+  {
+    PyObject *resultobj = 0;
+    dynamsoft::basic_structures::CLineSegment *arg1 = (dynamsoft::basic_structures::CLineSegment *)0;
+    int arg2;
+    void *argp1 = 0;
+    int res1 = 0;
+    int val2;
+    int ecode2 = 0;
+    PyObject *swig_obj[2];
+
+    if (!SWIG_Python_UnpackTuple(args, "CLineSegment_SetEndPoint", 2, 2, swig_obj))
+      SWIG_fail;
+    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__basic_structures__CLineSegment, 0 | 0);
+    if (!SWIG_IsOK(res1))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+                                               "CLineSegment_SetId"
+                                               "', argument "
+                                               "1"
+                                               " of type '"
+                                               "dynamsoft::basic_structures::CLineSegment *"
+                                               "'");
+    }
+    arg1 = reinterpret_cast<dynamsoft::basic_structures::CLineSegment *>(argp1);
+    ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+    if (!SWIG_IsOK(ecode2))
+    {
+      SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '"
+                                                 "CLineSegment_SetId"
+                                                 "', argument "
+                                                 "2"
+                                                 " of type '"
+                                                 "int"
+                                                 "'");
+    }
+    arg2 = static_cast<int>(val2);
+    arg1->SetId(arg2);
+    resultobj = SWIG_Py_Void();
+    return resultobj;
+
   fail:
     return NULL;
   }
@@ -6778,6 +6876,77 @@ extern "C"
   fail:
     return NULL;
   }
+  SWIGINTERN PyObject *_wrap_CQuadrilateral_id_get(PyObject *self, PyObject *args)
+  {
+    dynamsoft::basic_structures::CQuadrilateral *arg1 = (dynamsoft::basic_structures::CQuadrilateral *)0;
+    PyObject *resultobj = 0;
+    void *argp1 = 0;
+    int res1 = 0;
+    int result;
+    PyObject *swig_obj[1];
+    if (!SWIG_Python_UnpackTuple(args, "CQuadrilateral_id_get", 1, 1, swig_obj))
+      SWIG_fail;
+    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__basic_structures__CQuadrilateral, 0 | 0);
+    if (!SWIG_IsOK(res1))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+                                               "CQuadrilateral_GetId"
+                                               "', argument "
+                                               "1"
+                                               " of type '"
+                                               "dynamsoft::basic_structures::CQuadrilateral const *"
+                                               "'");
+    }
+    arg1 = reinterpret_cast<dynamsoft::basic_structures::CQuadrilateral *>(argp1);
+    result = arg1->id;
+    resultobj = SWIG_From_int(static_cast<int>(result));
+    return resultobj;
+  fail:
+    return NULL;
+  }
+
+  SWIGINTERN PyObject *_wrap_CQuadrilateral_id_set(PyObject *self, PyObject *args)
+  {
+    PyObject *resultobj = 0;
+    dynamsoft::basic_structures::CQuadrilateral *arg1 = (dynamsoft::basic_structures::CQuadrilateral *)0;
+    int arg2;
+    void *argp1 = 0;
+    int res1 = 0;
+    int val2;
+    int ecode2 = 0;
+    PyObject *swig_obj[2];
+    if (!SWIG_Python_UnpackTuple(args, "CQuadrilateral_id_set", 2, 2, swig_obj))
+      SWIG_fail;
+    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__basic_structures__CQuadrilateral, 0 | 0);
+    if (!SWIG_IsOK(res1))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+                                               "CQuadrilateral_SetId"
+                                               "', argument "
+                                               "1"
+                                               " of type '"
+                                               "dynamsoft::basic_structures::CQuadrilateral *"
+                                               "'");
+    }
+    arg1 = reinterpret_cast<dynamsoft::basic_structures::CQuadrilateral *>(argp1);
+    ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+    if (!SWIG_IsOK(ecode2))
+    {
+      SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '"
+                                                 "CQuadrilateral_SetId"
+                                                 "', argument "
+                                                 "2"
+                                                 " of type '"
+                                                 "int"
+                                                 "'");
+    }
+    arg2 = static_cast<int>(val2);
+    arg1->id = arg2;
+    resultobj = SWIG_Py_Void();
+    return resultobj;
+  fail:
+    return NULL;
+  }
 
   SWIGINTERN PyObject *_wrap_CQuadrilateral_Contains(PyObject *self, PyObject *args)
   {
@@ -6850,6 +7019,37 @@ extern "C"
     arg1 = reinterpret_cast<dynamsoft::basic_structures::CQuadrilateral *>(argp1);
     result = (int)((dynamsoft::basic_structures::CQuadrilateral const *)arg1)->GetArea();
     resultobj = SWIG_From_int(static_cast<int>(result));
+    return resultobj;
+  fail:
+    return NULL;
+  }
+  SWIGINTERN PyObject *_wrap_CQuadrilateral_GetBoundingRect(PyObject *self, PyObject *args)
+  {
+    PyObject *resultobj = 0;
+    dynamsoft::basic_structures::CQuadrilateral *arg1 = (dynamsoft::basic_structures::CQuadrilateral *)0;
+    void *argp1 = 0;
+    int res1 = 0;
+    PyObject *swig_obj[1];
+    dynamsoft::basic_structures::CRect result;
+    dynamsoft::basic_structures::CRect *newResult{nullptr};
+    if (!args)
+      SWIG_fail;
+    swig_obj[0] = args;
+    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__basic_structures__CQuadrilateral, 0 | 0);
+    if (!SWIG_IsOK(res1))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+                                               "CQuadrilateral_GetBoundingRect"
+                                               "', argument "
+                                               "1"
+                                               " of type '"
+                                               "dynamsoft::basic_structures::CQuadrilateral const *"
+                                               "'");
+    }
+    arg1 = reinterpret_cast<dynamsoft::basic_structures::CQuadrilateral *>(argp1);
+    result = ((dynamsoft::basic_structures::CQuadrilateral const *)arg1)->GetBoundingRect();
+    newResult = new dynamsoft::basic_structures::CRect(result);
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(newResult), SWIGTYPE_p_dynamsoft__basic_structures__CRect, SWIG_POINTER_OWN | 0);
     return resultobj;
   fail:
     return NULL;
@@ -7211,6 +7411,82 @@ extern "C"
     }
     arg1 = reinterpret_cast<dynamsoft::basic_structures::CRect *>(argp1);
     result = (int)((arg1)->bottom);
+    resultobj = SWIG_From_int(static_cast<int>(result));
+    return resultobj;
+  fail:
+    return NULL;
+  }
+
+  SWIGINTERN PyObject *_wrap_CRect_id_set(PyObject *self, PyObject *args)
+  {
+    PyObject *resultobj = 0;
+    dynamsoft::basic_structures::CRect *arg1 = (dynamsoft::basic_structures::CRect *)0;
+    int arg2;
+    void *argp1 = 0;
+    int res1 = 0;
+    int val2;
+    int ecode2 = 0;
+    PyObject *swig_obj[2];
+
+    if (!SWIG_Python_UnpackTuple(args, "CRect_id_set", 2, 2, swig_obj))
+      SWIG_fail;
+    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__basic_structures__CRect, 0 | 0);
+    if (!SWIG_IsOK(res1))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+                                               "CRect_id_set"
+                                               "', argument "
+                                               "1"
+                                               " of type '"
+                                               "dynamsoft::basic_structures::CRect *"
+                                               "'");
+    }
+    arg1 = reinterpret_cast<dynamsoft::basic_structures::CRect *>(argp1);
+    ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+    if (!SWIG_IsOK(ecode2))
+    {
+      SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '"
+                                                 "CRect_id_set"
+                                                 "', argument "
+                                                 "2"
+                                                 " of type '"
+                                                 "int"
+                                                 "'");
+    }
+    arg2 = static_cast<int>(val2);
+    if (arg1)
+      (arg1)->id = arg2;
+    resultobj = SWIG_Py_Void();
+    return resultobj;
+  fail:
+    return NULL;
+  }
+
+  SWIGINTERN PyObject *_wrap_CRect_id_get(PyObject *self, PyObject *args)
+  {
+    PyObject *resultobj = 0;
+    dynamsoft::basic_structures::CRect *arg1 = (dynamsoft::basic_structures::CRect *)0;
+    void *argp1 = 0;
+    int res1 = 0;
+    PyObject *swig_obj[1];
+    int result;
+
+    if (!args)
+      SWIG_fail;
+    swig_obj[0] = args;
+    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__basic_structures__CRect, 0 | 0);
+    if (!SWIG_IsOK(res1))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+                                               "CRect_bottom_get"
+                                               "', argument "
+                                               "1"
+                                               " of type '"
+                                               "dynamsoft::basic_structures::CRect *"
+                                               "'");
+    }
+    arg1 = reinterpret_cast<dynamsoft::basic_structures::CRect *>(argp1);
+    result = (int)((arg1)->id);
     resultobj = SWIG_From_int(static_cast<int>(result));
     return resultobj;
   fail:
@@ -11649,6 +11925,37 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
   fail:
     return NULL;
   }
+  SWIGINTERN PyObject *_wrap_CRegionObjectElement_GetImageData(PyObject *self, PyObject *args)
+  {
+    PyObject *resultobj = 0;
+    dynamsoft::intermediate_results::CRegionObjectElement *arg1 = (dynamsoft::intermediate_results::CRegionObjectElement *)0;
+    void *argp1 = 0;
+    int res1 = 0;
+    PyObject *swig_obj[1];
+    dynamsoft::basic_structures::CImageData *result = 0;
+
+    if (!args)
+      SWIG_fail;
+    swig_obj[0] = args;
+    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__intermediate_results__CRegionObjectElement, 0 | 0);
+    if (!SWIG_IsOK(res1))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+                                               "CRegionObjectElement_GetImageData"
+                                               "', argument "
+                                               "1"
+                                               " of type '"
+                                               "dynamsoft::intermediate_results::CRegionObjectElement const *"
+                                               "'");
+    }
+    arg1 = reinterpret_cast<dynamsoft::intermediate_results::CRegionObjectElement *>(argp1);
+    result = (dynamsoft::basic_structures::CImageData *)((dynamsoft::intermediate_results::CRegionObjectElement const *)arg1)->GetImageData();
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__basic_structures__CImageData, 0 | 0);
+    return resultobj;
+  fail:
+    return NULL;
+  }
+
   PyObject* PyObject_GetAttrString_withNoException(PyObject* obj, const char* attr)
   {
     PyObject* attr_value = PyObject_GetAttrString(obj, attr);
@@ -11680,62 +11987,62 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
     }
     Py_DECREF(attr_value);
   }
-  SWIGINTERN PyObject *_wrap_CRegionObjectElement_SetLocation(PyObject *self, PyObject *args)
-  {
-    PyObject *resultobj = 0;
-    dynamsoft::intermediate_results::CRegionObjectElement *arg1 = (dynamsoft::intermediate_results::CRegionObjectElement *)0;
-    dynamsoft::basic_structures::CQuadrilateral *arg2 = 0;
-    void *argp1 = 0;
-    int res1 = 0;
-    void *argp2 = 0;
-    int res2 = 0;
-    PyObject *swig_obj[2];
-    int result;
+  // SWIGINTERN PyObject *_wrap_CRegionObjectElement_SetLocation(PyObject *self, PyObject *args)
+  // {
+  //   PyObject *resultobj = 0;
+  //   dynamsoft::intermediate_results::CRegionObjectElement *arg1 = (dynamsoft::intermediate_results::CRegionObjectElement *)0;
+  //   dynamsoft::basic_structures::CQuadrilateral *arg2 = 0;
+  //   void *argp1 = 0;
+  //   int res1 = 0;
+  //   void *argp2 = 0;
+  //   int res2 = 0;
+  //   PyObject *swig_obj[2];
+  //   int result;
 
-    if (!SWIG_Python_UnpackTuple(args, "CRegionObjectElement_SetLocation", 2, 2, swig_obj))
-      SWIG_fail;
-    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__intermediate_results__CRegionObjectElement, 0 | 0);
-    if (!SWIG_IsOK(res1))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
-                                               "CRegionObjectElement_SetLocation"
-                                               "', argument "
-                                               "1"
-                                               " of type '"
-                                               "dynamsoft::intermediate_results::CRegionObjectElement *"
-                                               "'");
-    }
-    arg1 = reinterpret_cast<dynamsoft::intermediate_results::CRegionObjectElement *>(argp1);
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_dynamsoft__basic_structures__CQuadrilateral, 0 | 0);
-    if (!SWIG_IsOK(res2))
-    {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
-                                               "CRegionObjectElement_SetLocation"
-                                               "', argument "
-                                               "2"
-                                               " of type '"
-                                               "dynamsoft::basic_structures::CQuadrilateral const &"
-                                               "'");
-    }
-    if (!argp2)
-    {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference "
-                                           "in method '"
-                                           "CRegionObjectElement_SetLocation"
-                                           "', argument "
-                                           "2"
-                                           " of type '"
-                                           "dynamsoft::basic_structures::CQuadrilateral const &"
-                                           "'");
-    }
-    arg2 = reinterpret_cast<dynamsoft::basic_structures::CQuadrilateral *>(argp2);
-    UpdateCQuadrilateralPointsFromPythonObject(arg2, swig_obj[1]);
-    result = (int)(arg1)->SetLocation((dynamsoft::basic_structures::CQuadrilateral const &)*arg2);
-    resultobj = SWIG_From_int(static_cast<int>(result));
-    return resultobj;
-  fail:
-    return NULL;
-  }
+  //   if (!SWIG_Python_UnpackTuple(args, "CRegionObjectElement_SetLocation", 2, 2, swig_obj))
+  //     SWIG_fail;
+  //   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__intermediate_results__CRegionObjectElement, 0 | 0);
+  //   if (!SWIG_IsOK(res1))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+  //                                              "CRegionObjectElement_SetLocation"
+  //                                              "', argument "
+  //                                              "1"
+  //                                              " of type '"
+  //                                              "dynamsoft::intermediate_results::CRegionObjectElement *"
+  //                                              "'");
+  //   }
+  //   arg1 = reinterpret_cast<dynamsoft::intermediate_results::CRegionObjectElement *>(argp1);
+  //   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_dynamsoft__basic_structures__CQuadrilateral, 0 | 0);
+  //   if (!SWIG_IsOK(res2))
+  //   {
+  //     SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
+  //                                              "CRegionObjectElement_SetLocation"
+  //                                              "', argument "
+  //                                              "2"
+  //                                              " of type '"
+  //                                              "dynamsoft::basic_structures::CQuadrilateral const &"
+  //                                              "'");
+  //   }
+  //   if (!argp2)
+  //   {
+  //     SWIG_exception_fail(SWIG_ValueError, "invalid null reference "
+  //                                          "in method '"
+  //                                          "CRegionObjectElement_SetLocation"
+  //                                          "', argument "
+  //                                          "2"
+  //                                          " of type '"
+  //                                          "dynamsoft::basic_structures::CQuadrilateral const &"
+  //                                          "'");
+  //   }
+  //   arg2 = reinterpret_cast<dynamsoft::basic_structures::CQuadrilateral *>(argp2);
+  //   UpdateCQuadrilateralPointsFromPythonObject(arg2, swig_obj[1]);
+  //   result = (int)(arg1)->SetLocation((dynamsoft::basic_structures::CQuadrilateral const &)*arg2);
+  //   resultobj = SWIG_From_int(static_cast<int>(result));
+  //   return resultobj;
+  // fail:
+  //   return NULL;
+  // }
 
   SWIGINTERN PyObject *_wrap_CRegionObjectElement_Clone(PyObject *self, PyObject *args)
   {
@@ -11863,6 +12170,124 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
     }
     arg1 = reinterpret_cast<dynamsoft::intermediate_results::CPredetectedRegionElement *>(argp1);
     result = (char *)((dynamsoft::intermediate_results::CPredetectedRegionElement const *)arg1)->GetModeName();
+    resultobj = SWIG_FromCharPtr((const char *)result);
+    return resultobj;
+  fail:
+    return NULL;
+  }
+  SWIGINTERN PyObject *_wrap_CPredetectedRegionElement_SetLocation(PyObject *self, PyObject *args)
+  {
+    PyObject *resultobj = 0;
+    dynamsoft::intermediate_results::CPredetectedRegionElement *arg1 = (dynamsoft::intermediate_results::CPredetectedRegionElement *)0;
+    dynamsoft::basic_structures::CQuadrilateral *arg2 = 0;
+    void *argp1 = 0;
+    int res1 = 0;
+    void *argp2 = 0;
+    int res2 = 0;
+    PyObject *swig_obj[2];
+    int result;
+
+    if (!SWIG_Python_UnpackTuple(args, "CPredetectedRegionElement_SetLocation", 2, 2, swig_obj))
+      SWIG_fail;
+    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__intermediate_results__CPredetectedRegionElement, 0 | 0);
+    if (!SWIG_IsOK(res1))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+                                               "CPredetectedRegionElement_SetLocation"
+                                               "', argument "
+                                               "1"
+                                               " of type '"
+                                               "dynamsoft::intermediate_results::CPredetectedRegionElement *"
+                                               "'");
+    }
+    arg1 = reinterpret_cast<dynamsoft::intermediate_results::CPredetectedRegionElement *>(argp1);
+    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_dynamsoft__basic_structures__CQuadrilateral, 0 | 0);
+    if (!SWIG_IsOK(res2))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
+                                               "CPredetectedRegionElement_SetLocation"
+                                               "', argument "
+                                               "2"
+                                               " of type '"
+                                               "dynamsoft::basic_structures::CQuadrilateral const &"
+                                               "'");
+    }
+    if (!argp2)
+    {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference "
+                                           "in method '"
+                                           "CPredetectedRegionElement_SetLocation"
+                                           "', argument "
+                                           "2"
+                                           " of type '"
+                                           "dynamsoft::basic_structures::CQuadrilateral const &"
+                                           "'");
+    }
+    arg2 = reinterpret_cast<dynamsoft::basic_structures::CQuadrilateral *>(argp2);
+    UpdateCQuadrilateralPointsFromPythonObject(arg2, swig_obj[1]);
+    result = (int)(arg1)->SetLocation((dynamsoft::basic_structures::CQuadrilateral const &)*arg2);
+    resultobj = SWIG_From_int(static_cast<int>(result));
+    return resultobj;
+  fail:
+    return NULL;
+  }
+
+  SWIGINTERN PyObject *_wrap_CPredetectedRegionElement_GetLabelId(PyObject *self, PyObject *args)
+  {
+    PyObject *resultobj = 0;
+    dynamsoft::intermediate_results::CPredetectedRegionElement *arg1 = (dynamsoft::intermediate_results::CPredetectedRegionElement *)0;
+    void *argp1 = 0;
+    int res1 = 0;
+    PyObject *swig_obj[1];
+    int result = 0;
+
+    if (!args)
+      SWIG_fail;
+    swig_obj[0] = args;
+    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__intermediate_results__CPredetectedRegionElement, 0 | 0);
+    if (!SWIG_IsOK(res1))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+                                               "CPredetectedRegionElement_GetLabelId"
+                                               "', argument "
+                                               "1"
+                                               " of type '"
+                                               "dynamsoft::intermediate_results::CPredetectedRegionElement const *"
+                                               "'");
+    }
+    arg1 = reinterpret_cast<dynamsoft::intermediate_results::CPredetectedRegionElement *>(argp1);
+    result = (int)((dynamsoft::intermediate_results::CPredetectedRegionElement const *)arg1)->GetLabelId();
+    resultobj = SWIG_From_int(static_cast<int>(result));
+    return resultobj;
+  fail:
+    return NULL;
+  }
+
+  SWIGINTERN PyObject *_wrap_CPredetectedRegionElement_GetLabelName(PyObject *self, PyObject *args)
+  {
+    PyObject *resultobj = 0;
+    dynamsoft::intermediate_results::CPredetectedRegionElement *arg1 = (dynamsoft::intermediate_results::CPredetectedRegionElement *)0;
+    void *argp1 = 0;
+    int res1 = 0;
+    PyObject *swig_obj[1];
+    char *result = 0;
+
+    if (!args)
+      SWIG_fail;
+    swig_obj[0] = args;
+    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__intermediate_results__CPredetectedRegionElement, 0 | 0);
+    if (!SWIG_IsOK(res1))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+                                               "CPredetectedRegionElement_GetLabelName"
+                                               "', argument "
+                                               "1"
+                                               " of type '"
+                                               "dynamsoft::intermediate_results::CPredetectedRegionElement const *"
+                                               "'");
+    }
+    arg1 = reinterpret_cast<dynamsoft::intermediate_results::CPredetectedRegionElement *>(argp1);
+    result = (char *)((dynamsoft::intermediate_results::CPredetectedRegionElement const *)arg1)->GetLabelName();
     resultobj = SWIG_FromCharPtr((const char *)result);
     return resultobj;
   fail:
@@ -12194,8 +12619,8 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
     case IRUT_COLOUR_IMAGE:
       result_info = SWIGTYPE_p_dynamsoft__intermediate_results__CColourImageUnit;
       break;
-    case IRUT_SCALED_DOWN_COLOUR_IMAGE:
-      result_info = SWIGTYPE_p_dynamsoft__intermediate_results__CScaledDownColourImageUnit;
+    case IRUT_SCALED_COLOUR_IMAGE:
+      result_info = SWIGTYPE_p_dynamsoft__intermediate_results__ScaledColourImageUnit;
       break;
     case IRUT_GRAYSCALE_IMAGE:
       result_info = SWIGTYPE_p_dynamsoft__intermediate_results__CGrayscaleImageUnit;
@@ -12239,7 +12664,7 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
     case IRUT_LOCALIZED_BARCODES:
       result_info = SWIG_TypeQuery("_p_dynamsoft__dbr__intermediate_results__CLocalizedBarcodesUnit");
       break;
-    case IRUT_SCALED_UP_BARCODE_IMAGE:
+    case IRUT_SCALED_BARCODE_IMAGE:
       result_info = SWIG_TypeQuery("_p_dynamsoft__dbr__intermediate_results__CScaledUpBarcodeImageUnit");
       break;
     case IRUT_DEFORMATION_RESISTED_BARCODE_IMAGE:
@@ -12269,7 +12694,7 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
     case IRUT_RECOGNIZED_TEXT_LINES:
       result_info = SWIG_TypeQuery("_p_dynamsoft__dlr__intermediate_results__CRecognizedTextLinesUnit");
       break;
-    case IRUT_NORMALIZED_IMAGES:
+    case IRUT_DESKEWED_IMAGE:
       result_info = SWIG_TypeQuery("_p_dynamsoft__ddn__intermediate_results__CNormalizedImagesUnit");
       break;
     case IRUT_SHORT_LINES:
@@ -12278,6 +12703,8 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
     case IRUT_RAW_TEXT_LINES:
       result_info = SWIG_TypeQuery("_p_dynamsoft__dlr__intermediate_results__CRawTextLinesUnit");
       break;
+    case IRUT_LOGIC_LINES:
+    case IRUT_ENHANCED_IMAGE:
     case IRUT_ALL:
       break;
     default:
@@ -12567,6 +12994,80 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
   fail:
     return NULL;
   }
+  SWIGINTERN PyObject *_wrap_CIntermediateResultUnit_GetUsageCount(PyObject *self, PyObject *args)
+  {
+    PyObject *resultobj = 0;
+    dynamsoft::intermediate_results::CIntermediateResultUnit *arg1 = (dynamsoft::intermediate_results::CIntermediateResultUnit *)0;
+    void *argp1 = 0;
+    int res1 = 0;
+    PyObject *swig_obj[1];
+    int result = 0;
+
+    if (!args)
+      SWIG_fail;
+    swig_obj[0] = args;
+    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0 | 0);
+    if (!SWIG_IsOK(res1))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+                                               "CIntermediateResultUnit_GetUsageCount"
+                                               "', argument "
+                                               "1"
+                                               " of type '"
+                                               "dynamsoft::intermediate_results::CIntermediateResultUnit const *"
+                                               "'");
+    }
+    arg1 = reinterpret_cast<dynamsoft::intermediate_results::CIntermediateResultUnit *>(argp1);
+    result = arg1->GetUsageCount();
+    resultobj = SWIG_From_int(static_cast<int>(result));
+    return resultobj;
+  fail:
+    return NULL;
+
+  }
+  SWIGINTERN PyObject *_wrap_CIntermediateResultUnit_SetUsageCount(PyObject *self, PyObject *args)
+  {
+    PyObject *resultobj = 0;
+    dynamsoft::intermediate_results::CIntermediateResultUnit *arg1 = (dynamsoft::intermediate_results::CIntermediateResultUnit *)0;
+    int arg2;
+    void *argp1 = 0;
+    int res1 = 0;
+    int val2;
+    int ecode2 = 0;
+    PyObject *swig_obj[2];
+
+    if (!SWIG_Python_UnpackTuple(args, "CIntermediateResultUnit_SetUsageCount", 2, 2, swig_obj))
+      SWIG_fail;
+    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__basic_structures__CLineSegment, 0 | 0);
+    if (!SWIG_IsOK(res1))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+                                               "CIntermediateResultUnit_SetUsageCount"
+                                               "', argument "
+                                               "1"
+                                               " of type '"
+                                               "dynamsoft::intermediate_results::CIntermediateResultUnit *"
+                                               "'");
+    }
+    arg1 = reinterpret_cast<dynamsoft::intermediate_results::CIntermediateResultUnit *>(argp1);
+    ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+    if (!SWIG_IsOK(ecode2))
+    {
+      SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '"
+                                                 "CIntermediateResultUnit_SetUsageCount"
+                                                 "', argument "
+                                                 "2"
+                                                 " of type '"
+                                                 "int"
+                                                 "'");
+    }
+    arg2 = static_cast<int>(val2);
+    arg1->SetUsageCount(arg2);
+    resultobj = SWIG_Py_Void();
+    return resultobj;
+  fail:
+    return NULL;
+  }
 
   SWIGINTERN PyObject *CIntermediateResultUnit_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args)
   {
@@ -12752,10 +13253,10 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
     return SWIG_Py_Void();
   }
 
-  SWIGINTERN PyObject *_wrap_CScaledDownColourImageUnit_GetImageData(PyObject *self, PyObject *args)
+  SWIGINTERN PyObject *_wrap_CScaledColourImageUnit_GetImageData(PyObject *self, PyObject *args)
   {
     PyObject *resultobj = 0;
-    dynamsoft::intermediate_results::CScaledDownColourImageUnit *arg1 = (dynamsoft::intermediate_results::CScaledDownColourImageUnit *)0;
+    dynamsoft::intermediate_results::CScaledColourImageUnit *arg1 = (dynamsoft::intermediate_results::CScaledColourImageUnit *)0;
     void *argp1 = 0;
     int res1 = 0;
     PyObject *swig_obj[1];
@@ -12764,29 +13265,29 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
     if (!args)
       SWIG_fail;
     swig_obj[0] = args;
-    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__intermediate_results__CScaledDownColourImageUnit, 0 | 0);
+    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__intermediate_results__ScaledColourImageUnit, 0 | 0);
     if (!SWIG_IsOK(res1))
     {
       SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
-                                               "CScaledDownColourImageUnit_GetImageData"
+                                               "CScaledColourImageUnit_GetImageData"
                                                "', argument "
                                                "1"
                                                " of type '"
-                                               "dynamsoft::intermediate_results::CScaledDownColourImageUnit const *"
+                                               "dynamsoft::intermediate_results::CScaledColourImageUnit const *"
                                                "'");
     }
-    arg1 = reinterpret_cast<dynamsoft::intermediate_results::CScaledDownColourImageUnit *>(argp1);
-    result = (dynamsoft::basic_structures::CImageData *)((dynamsoft::intermediate_results::CScaledDownColourImageUnit const *)arg1)->GetImageData();
+    arg1 = reinterpret_cast<dynamsoft::intermediate_results::CScaledColourImageUnit *>(argp1);
+    result = (dynamsoft::basic_structures::CImageData *)((dynamsoft::intermediate_results::CScaledColourImageUnit const *)arg1)->GetImageData();
     resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__basic_structures__CImageData, 0 | 0);
     return resultobj;
   fail:
     return NULL;
   }
 
-  SWIGINTERN PyObject *_wrap_CScaledDownColourImageUnit_SetImageData(PyObject *self, PyObject *args)
+  SWIGINTERN PyObject *_wrap_CScaledColourImageUnit_SetImageData(PyObject *self, PyObject *args)
   {
     PyObject *resultobj = 0;
-    dynamsoft::intermediate_results::CScaledDownColourImageUnit *arg1 = (dynamsoft::intermediate_results::CScaledDownColourImageUnit *)0;
+    dynamsoft::intermediate_results::CScaledColourImageUnit *arg1 = (dynamsoft::intermediate_results::CScaledColourImageUnit *)0;
     dynamsoft::basic_structures::CImageData *arg2 = (dynamsoft::basic_structures::CImageData *)0;
     void *argp1 = 0;
     int res1 = 0;
@@ -12795,25 +13296,25 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
     PyObject *swig_obj[2];
     int result;
 
-    if (!SWIG_Python_UnpackTuple(args, "CScaledDownColourImageUnit_SetImageData", 2, 2, swig_obj))
+    if (!SWIG_Python_UnpackTuple(args, "CScaledColourImageUnit_SetImageData", 2, 2, swig_obj))
       SWIG_fail;
-    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__intermediate_results__CScaledDownColourImageUnit, 0 | 0);
+    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft__intermediate_results__ScaledColourImageUnit, 0 | 0);
     if (!SWIG_IsOK(res1))
     {
       SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
-                                               "CScaledDownColourImageUnit_SetImageData"
+                                               "CScaledColourImageUnit_SetImageData"
                                                "', argument "
                                                "1"
                                                " of type '"
-                                               "dynamsoft::intermediate_results::CScaledDownColourImageUnit *"
+                                               "dynamsoft::intermediate_results::CScaledColourImageUnit *"
                                                "'");
     }
-    arg1 = reinterpret_cast<dynamsoft::intermediate_results::CScaledDownColourImageUnit *>(argp1);
+    arg1 = reinterpret_cast<dynamsoft::intermediate_results::CScaledColourImageUnit *>(argp1);
     res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_dynamsoft__basic_structures__CImageData, 0 | 0);
     if (!SWIG_IsOK(res2))
     {
       SWIG_exception_fail(SWIG_ArgError(res2), "in method '"
-                                               "CScaledDownColourImageUnit_SetImageData"
+                                               "CScaledColourImageUnit_SetImageData"
                                                "', argument "
                                                "2"
                                                " of type '"
@@ -12828,12 +13329,12 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
     return NULL;
   }
 
-  SWIGINTERN PyObject *CScaledDownColourImageUnit_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args)
+  SWIGINTERN PyObject *CScaledColourImageUnit_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args)
   {
     PyObject *obj;
     if (!SWIG_Python_UnpackTuple(args, "dynamsoftregister", 1, 1, &obj))
       return NULL;
-    SWIG_TypeNewClientData(SWIGTYPE_p_dynamsoft__intermediate_results__CScaledDownColourImageUnit, SWIG_NewClientData(obj));
+    SWIG_TypeNewClientData(SWIGTYPE_p_dynamsoft__intermediate_results__ScaledColourImageUnit, SWIG_NewClientData(obj));
     return SWIG_Py_Void();
   }
 
@@ -17421,7 +17922,7 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
     if (!SWIG_IsOK(res1))
     {
       SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
-                                               "CPoint_DistanceTo"
+                                               "CPoint_Getx"
                                                "', argument "
                                                "1"
                                                " of type '"
@@ -17449,7 +17950,7 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
     if (!SWIG_IsOK(res1))
     {
       SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
-                                               "CPoint_DistanceTo"
+                                               "CPoint_Gety"
                                                "', argument "
                                                "1"
                                                " of type '"
@@ -17480,7 +17981,7 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
     if (!SWIG_IsOK(res1))
     {
       SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
-                                               "CPoint_DistanceTo"
+                                               "CPoint_Setx"
                                                "', argument "
                                                "1"
                                                " of type '"
@@ -17523,7 +18024,7 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
     if (!SWIG_IsOK(res1))
     {
       SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
-                                               "CPoint_DistanceTo"
+                                               "CPoint_Sety"
                                                "', argument "
                                                "1"
                                                " of type '"
@@ -17738,6 +18239,198 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
     return NULL;
   }
 
+  SWIGINTERN PyObject *_wrap_CCapturedResultBase_GetOriginalImageHashId(PyObject *self, PyObject *args)
+  {
+    PyObject *resultobj = 0;
+    dynamsoft::basic_structures::CCapturedResultBase *arg1 = (dynamsoft::basic_structures::CCapturedResultBase *)0;
+    void *argp1 = 0;
+    int res1 = 0;
+    PyObject *swig_obj[1];
+    char *result = 0;
+
+    if (!args)
+      SWIG_fail;
+    swig_obj[0] = args;
+    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft_basic_structures_CCapturedResultBase, 0 | 0);
+    if (!SWIG_IsOK(res1))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+                                               "CCapturedResultBase_GetOriginalImageHashId"
+                                               "', argument "
+                                               "1"
+                                               " of type '"
+                                               "dynamsoft::basic_structures::CCapturedResultBase const *"
+                                               "'");
+    }
+    arg1 = reinterpret_cast<dynamsoft::basic_structures::CCapturedResultBase *>(argp1);
+    result = (char *)((dynamsoft::basic_structures::CCapturedResultBase const *)arg1)->GetOriginalImageHashId();
+    resultobj = SWIG_FromCharPtr((const char *)result);
+    return resultobj;
+  fail:
+    return NULL;
+  }
+
+  SWIGINTERN PyObject *_wrap_CCapturedResultBase_GetOriginalImageTag(PyObject *self, PyObject *args)
+  {
+    PyObject *resultobj = 0;
+    dynamsoft::basic_structures::CCapturedResultBase *arg1 = (dynamsoft::basic_structures::CCapturedResultBase *)0;
+    void *argp1 = 0;
+    int res1 = 0;
+    PyObject *swig_obj[1];
+    dynamsoft::basic_structures::CImageTag *result = 0;
+
+    if (!args)
+      SWIG_fail;
+    swig_obj[0] = args;
+    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft_basic_structures_CCapturedResultBase, 0 | 0);
+    if (!SWIG_IsOK(res1))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+                                               "CCapturedResultBase_GetOriginalImageTag"
+                                               "', argument "
+                                               "1"
+                                               " of type '"
+                                               "dynamsoft::basic_structures::CCapturedResultBase const *"
+                                               "'");
+    }
+    arg1 = reinterpret_cast<dynamsoft::basic_structures::CCapturedResultBase *>(argp1);
+    result = (dynamsoft::basic_structures::CImageTag *)((dynamsoft::basic_structures::CCapturedResultBase const *)arg1)->GetOriginalImageTag();
+    switch (result->GetType())
+    {
+    case ITT_FILE_IMAGE:
+      resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__basic_structures__CFileImageTag, 0 | 0);
+      break;
+    case ITT_VIDEO_FRAME:
+      resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__basic_structures__CVideoFrameTag, 0 | 0);
+      break;
+    default:
+      resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_dynamsoft__basic_structures__CImageTag, 0 | 0);
+      break;
+    }
+    return resultobj;
+  fail:
+    return NULL;
+  }
+  SWIGINTERN PyObject *_wrap_CCapturedResultBase_GetRotationTransformMatrix(PyObject *self, PyObject *args)
+  {
+    PyObject *resultobj = 0;
+    dynamsoft::basic_structures::CCapturedResultBase *arg1 = (dynamsoft::basic_structures::CCapturedResultBase *)0;
+    double *arg2;
+    void *argp1 = 0;
+    int res1 = 0;
+    void *argp2 = 0;
+    int res2 = 0;
+    PyObject *swig_obj[1];
+    PyObject *py_list;
+    if (!SWIG_Python_UnpackTuple(args, "CCapturedResultBase_GetRotationTransformMatrix", 1, 1, swig_obj))
+      SWIG_fail;
+    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft_basic_structures_CCapturedResultBase, 0 | 0);
+    if (!SWIG_IsOK(res1))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+                                               "CCapturedResultBase_GetRotationTransformMatrix"
+                                               "', argument "
+                                               "1"
+                                               " of type '"
+                                               "dynamsoft::basic_structures::CCapturedResultBase const *"
+                                               "'");
+    }
+    arg1 = reinterpret_cast<dynamsoft::basic_structures::CCapturedResultBase *>(argp1);
+    double ret[9];
+    (arg1)->GetRotationTransformMatrix(ret);
+    py_list = PyList_New(9);
+    if (!py_list)
+    {
+      PyErr_SetString(PyExc_RuntimeError, "Failed to create Python list");
+      return NULL;
+    }
+
+    for (int i = 0; i < 9; ++i)
+    {
+      PyObject *py_value = PyFloat_FromDouble(ret[i]);
+      if (!py_value)
+      {
+        Py_DECREF(py_list);
+        PyErr_SetString(PyExc_RuntimeError, "Failed to convert double to Python float");
+        return NULL;
+      }
+      PyList_SET_ITEM(py_list, i, py_value); 
+    }
+    // resultobj = SWIG_Py_Void();
+    return py_list;
+  fail:
+    return NULL;
+  }
+  SWIGINTERN PyObject *_wrap_CCapturedResultBase_GetErrorCode(PyObject *self, PyObject *args)
+  {
+    PyObject *resultobj = 0;
+    dynamsoft::basic_structures::CCapturedResultBase *arg1 = (dynamsoft::basic_structures::CCapturedResultBase *)0;
+    void *argp1 = 0;
+    int res1 = 0;
+    PyObject *swig_obj[1];
+    int result;
+
+    if (!args)
+      SWIG_fail;
+    swig_obj[0] = args;
+    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft_basic_structures_CCapturedResultBase, 0 | 0);
+    if (!SWIG_IsOK(res1))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+                                               "CCapturedResultBase_GetErrorCode"
+                                               "', argument "
+                                               "1"
+                                               " of type '"
+                                               "dynamsoft::basic_structures::CCapturedResultBase const *"
+                                               "'");
+    }
+    arg1 = reinterpret_cast<dynamsoft::basic_structures::CCapturedResultBase *>(argp1);
+    result = (int)((dynamsoft::basic_structures::CCapturedResultBase const *)arg1)->GetErrorCode();
+    resultobj = SWIG_From_int(static_cast<int>(result));
+    return resultobj;
+  fail:
+    return NULL;
+  }
+
+  SWIGINTERN PyObject *_wrap_CCapturedResultBase_GetErrorString(PyObject *self, PyObject *args)
+  {
+    PyObject *resultobj = 0;
+    dynamsoft::basic_structures::CCapturedResultBase *arg1 = (dynamsoft::basic_structures::CCapturedResultBase *)0;
+    void *argp1 = 0;
+    int res1 = 0;
+    PyObject *swig_obj[1];
+    char *result = 0;
+
+    if (!args)
+      SWIG_fail;
+    swig_obj[0] = args;
+    res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_dynamsoft_basic_structures_CCapturedResultBase, 0 | 0);
+    if (!SWIG_IsOK(res1))
+    {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '"
+                                               "CCapturedResultBase_GetErrorString"
+                                               "', argument "
+                                               "1"
+                                               " of type '"
+                                               "dynamsoft::basic_structures::CCapturedResultBase const *"
+                                               "'");
+    }
+    arg1 = reinterpret_cast<dynamsoft::basic_structures::CCapturedResultBase *>(argp1);
+    result = (char *)((dynamsoft::basic_structures::CCapturedResultBase const *)arg1)->GetErrorString();
+    resultobj = SWIG_FromCharPtr((const char *)result);
+    return resultobj;
+  fail:
+    return NULL;
+  }
+  SWIGINTERN PyObject *CCapturedResultBase_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args)
+  {
+    PyObject *obj;
+    if (!SWIG_Python_UnpackTuple(args, "dynamsoftregister", 1, 1, &obj))
+      return NULL;
+    SWIG_TypeNewClientData(SWIGTYPE_p_dynamsoft_basic_structures_CCapturedResultBase, SWIG_NewClientData(obj));
+    return SWIG_Py_Void();
+  }
+
   static PyMethodDef SwigMethods[] = {
       {"Class_init", Class_init, METH_VARARGS, NULL},
       {"IntermediateResultExtraInfo_targetROIDefName_set", _wrap_IntermediateResultExtraInfo_targetROIDefName_set, METH_VARARGS, NULL},
@@ -17781,8 +18474,10 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
       {"delete_CLineSegment", _wrap_delete_CLineSegment, METH_O, NULL},
       {"CLineSegment_GetStartPoint", _wrap_CLineSegment_GetStartPoint, METH_O, NULL},
       {"CLineSegment_GetEndPoint", _wrap_CLineSegment_GetEndPoint, METH_O, NULL},
+      {"CLineSegment_GetId", _wrap_CLineSegment_GetId, METH_O, NULL},
       {"CLineSegment_SetStartPoint", _wrap_CLineSegment_SetStartPoint, METH_VARARGS, NULL},
       {"CLineSegment_SetEndPoint", _wrap_CLineSegment_SetEndPoint, METH_VARARGS, NULL},
+      {"CLineSegment_SetId", _wrap_CLineSegment_SetId, METH_VARARGS, NULL},
       {"CLineSegment_register", CLineSegment_swigregister, METH_O, NULL},
       // {"CLineSegment_init", CLineSegment_swiginit, METH_VARARGS, NULL},
       {"CCorner_type_set", _wrap_CCorner_type_set, METH_VARARGS, NULL},
@@ -17807,8 +18502,11 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
       // {"CEdge_init", CEdge_swiginit, METH_VARARGS, NULL},
       {"CQuadrilateral_points_set", _wrap_CQuadrilateral_points_set, METH_VARARGS, NULL},
       {"CQuadrilateral_points_get", _wrap_CQuadrilateral_points_get, METH_O, NULL},
+      {"CQuadrilateral_id_set", _wrap_CQuadrilateral_id_set, METH_VARARGS, NULL},
+      {"CQuadrilateral_id_get", _wrap_CQuadrilateral_id_get, METH_O, NULL},
       {"CQuadrilateral_Contains", _wrap_CQuadrilateral_Contains, METH_VARARGS, NULL},
       {"CQuadrilateral_GetArea", _wrap_CQuadrilateral_GetArea, METH_O, NULL},
+      {"CQuadrilateral_GetBoundingRect", _wrap_CQuadrilateral_GetBoundingRect, METH_O, NULL},
       {"new_CQuadrilateral", _wrap_new_CQuadrilateral, METH_NOARGS, NULL},
       {"delete_CQuadrilateral", _wrap_delete_CQuadrilateral, METH_O, NULL},
       {"CQuadrilateral_register", CQuadrilateral_swigregister, METH_O, NULL},
@@ -17821,6 +18519,8 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
       {"CRect_right_get", _wrap_CRect_right_get, METH_O, NULL},
       {"CRect_bottom_set", _wrap_CRect_bottom_set, METH_VARARGS, NULL},
       {"CRect_bottom_get", _wrap_CRect_bottom_get, METH_O, NULL},
+      {"CRect_id_set", _wrap_CRect_id_set, METH_VARARGS, NULL},
+      {"CRect_id_get", _wrap_CRect_id_get, METH_O, NULL},
       {"new_CRect", _wrap_new_CRect, METH_NOARGS, NULL},
       {"delete_CRect", _wrap_delete_CRect, METH_O, NULL},
       {"CRect_register", CRect_swigregister, METH_O, NULL},
@@ -17915,12 +18615,16 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
       {"CRegionObjectElement_GetLocation", _wrap_CRegionObjectElement_GetLocation, METH_O, NULL},
       {"CRegionObjectElement_GetReferencedElement", _wrap_CRegionObjectElement_GetReferencedElement, METH_O, NULL},
       {"CRegionObjectElement_GetElementType", _wrap_CRegionObjectElement_GetElementType, METH_O, NULL},
-      {"CRegionObjectElement_SetLocation", _wrap_CRegionObjectElement_SetLocation, METH_VARARGS, NULL},
+      {"CRegionObjectElement_GetImageData", _wrap_CRegionObjectElement_GetImageData, METH_O, NULL},
+      // {"CRegionObjectElement_SetLocation", _wrap_CRegionObjectElement_SetLocation, METH_VARARGS, NULL},
       {"CRegionObjectElement_Clone", _wrap_CRegionObjectElement_Clone, METH_O, NULL},
       {"CRegionObjectElement_Retain", _wrap_CRegionObjectElement_Retain, METH_O, NULL},
       {"CRegionObjectElement_Release", _wrap_CRegionObjectElement_Release, METH_O, NULL},
       {"CRegionObjectElement_register", CRegionObjectElement_swigregister, METH_O, NULL},
       {"CPredetectedRegionElement_GetModeName", _wrap_CPredetectedRegionElement_GetModeName, METH_O, NULL},
+      {"CPredetectedRegionElement_SetLocation", _wrap_CPredetectedRegionElement_SetLocation, METH_VARARGS, NULL},
+      {"CPredetectedRegionElement_GetLabelId", _wrap_CPredetectedRegionElement_GetLabelId, METH_O, NULL},
+      {"CPredetectedRegionElement_GetLabelName", _wrap_CPredetectedRegionElement_GetLabelName, METH_O, NULL},
       {"CPredetectedRegionElement_register", CPredetectedRegionElement_swigregister, METH_O, NULL},
       {"CIntermediateResultUnit_GetHashId", _wrap_CIntermediateResultUnit_GetHashId, METH_O, NULL},
       {"CIntermediateResultUnit_GetOriginalImageHashId", _wrap_CIntermediateResultUnit_GetOriginalImageHashId, METH_O, NULL},
@@ -17935,6 +18639,8 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
       {"CIntermediateResultUnit_Retain", _wrap_CIntermediateResultUnit_Retain, METH_O, NULL},
       {"CIntermediateResultUnit_Release", _wrap_CIntermediateResultUnit_Release, METH_O, NULL},
       {"CIntermediateResultUnit_Replace", _wrap_CIntermediateResultUnit_Replace, METH_VARARGS, NULL},
+      {"CIntermediateResultUnit_GetUsageCount", _wrap_CIntermediateResultUnit_GetUsageCount, METH_O, NULL},
+      {"CIntermediateResultUnit_SetUsageCount", _wrap_CIntermediateResultUnit_SetUsageCount, METH_VARARGS, NULL},
       {"CIntermediateResultUnit_register", CIntermediateResultUnit_swigregister, METH_O, NULL},
       {"CIntermediateResult_GetCount", _wrap_CIntermediateResult_GetCount, METH_O, NULL},
       {"CIntermediateResult_GetIntermediateResultUnit", _wrap_CIntermediateResult_GetIntermediateResultUnit, METH_VARARGS, NULL},
@@ -17942,9 +18648,9 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
       {"CColourImageUnit_GetImageData", _wrap_CColourImageUnit_GetImageData, METH_O, NULL},
       {"CColourImageUnit_SetImageData", _wrap_CColourImageUnit_SetImageData, METH_VARARGS, NULL},
       {"CColourImageUnit_register", CColourImageUnit_swigregister, METH_O, NULL},
-      {"CScaledDownColourImageUnit_GetImageData", _wrap_CScaledDownColourImageUnit_GetImageData, METH_O, NULL},
-      {"CScaledDownColourImageUnit_SetImageData", _wrap_CScaledDownColourImageUnit_SetImageData, METH_VARARGS, NULL},
-      {"CScaledDownColourImageUnit_register", CScaledDownColourImageUnit_swigregister, METH_O, NULL},
+      {"CScaledColourImageUnit_GetImageData", _wrap_CScaledColourImageUnit_GetImageData, METH_O, NULL},
+      {"CScaledColourImageUnit_SetImageData", _wrap_CScaledColourImageUnit_SetImageData, METH_VARARGS, NULL},
+      {"CScaledColourImageUnit_register", CScaledColourImageUnit_swigregister, METH_O, NULL},
       {"CGrayscaleImageUnit_GetImageData", _wrap_CGrayscaleImageUnit_GetImageData, METH_O, NULL},
       {"CGrayscaleImageUnit_SetImageData", _wrap_CGrayscaleImageUnit_SetImageData, METH_VARARGS, NULL},
       {"CGrayscaleImageUnit_register", CGrayscaleImageUnit_swigregister, METH_O, NULL},
@@ -18041,6 +18747,12 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
       {"CPoint_register", CPoint_swigregister, METH_O, NULL},
       // {"CPoint_init", CPoint_swiginit, METH_VARARGS, NULL},
       {"CImageProcessingModule_CreatePredetectedRegionElement", _wrap_CImageProcessingModule_CreatePredetectedRegionElement, METH_NOARGS, NULL},
+      {"CCapturedResultBase_register", CCapturedResultBase_swigregister, METH_O, NULL},
+      {"CCapturedResultBase_GetOriginalImageHashId", _wrap_CCapturedResultBase_GetOriginalImageHashId, METH_O, NULL},
+      {"CCapturedResultBase_GetOriginalImageTag", _wrap_CCapturedResultBase_GetOriginalImageTag, METH_O, NULL},
+      {"CCapturedResultBase_GetRotationTransformMatrix", _wrap_CCapturedResultBase_GetRotationTransformMatrix, METH_VARARGS, NULL},
+      {"CCapturedResultBase_GetErrorCode", _wrap_CCapturedResultBase_GetErrorCode, METH_O, NULL},
+      {"CCapturedResultBase_GetErrorString", _wrap_CCapturedResultBase_GetErrorString, METH_O, NULL},
       {NULL, NULL, 0, NULL}};
 
   /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
@@ -18085,9 +18797,9 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
   {
     return (void *)((dynamsoft::intermediate_results::CIntermediateResultUnit *)((dynamsoft::intermediate_results::CPredetectedRegionsUnit *)x));
   }
-  static void *_p_dynamsoft__intermediate_results__CScaledDownColourImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit(void *x, int *SWIGUNUSEDPARM(newmemory))
+  static void *_p_dynamsoft__intermediate_results__ScaledColourImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit(void *x, int *SWIGUNUSEDPARM(newmemory))
   {
-    return (void *)((dynamsoft::intermediate_results::CIntermediateResultUnit *)((dynamsoft::intermediate_results::CScaledDownColourImageUnit *)x));
+    return (void *)((dynamsoft::intermediate_results::CIntermediateResultUnit *)((dynamsoft::intermediate_results::CScaledColourImageUnit *)x));
   }
   static void *_p_dynamsoft__intermediate_results__CShortLinesUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit(void *x, int *SWIGUNUSEDPARM(newmemory))
   {
@@ -18171,7 +18883,7 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
   static swig_type_info _swigt__p_dynamsoft__intermediate_results__CPredetectedRegionElement = {"_p_dynamsoft__intermediate_results__CPredetectedRegionElement", "dynamsoft::intermediate_results::CPredetectedRegionElement *", 0, 0, (void *)0, 0};
   static swig_type_info _swigt__p_dynamsoft__intermediate_results__CPredetectedRegionsUnit = {"_p_dynamsoft__intermediate_results__CPredetectedRegionsUnit", "dynamsoft::intermediate_results::CPredetectedRegionsUnit *", 0, 0, (void *)0, 0};
   static swig_type_info _swigt__p_dynamsoft__intermediate_results__CRegionObjectElement = {"_p_dynamsoft__intermediate_results__CRegionObjectElement", "dynamsoft::intermediate_results::CRegionObjectElement *", 0, 0, (void *)0, 0};
-  static swig_type_info _swigt__p_dynamsoft__intermediate_results__CScaledDownColourImageUnit = {"_p_dynamsoft__intermediate_results__CScaledDownColourImageUnit", "dynamsoft::intermediate_results::CScaledDownColourImageUnit *", 0, 0, (void *)0, 0};
+  static swig_type_info _swigt__p_dynamsoft__intermediate_results__ScaledColourImageUnit = {"_p_dynamsoft__intermediate_results__ScaledColourImageUnit", "dynamsoft::intermediate_results::CScaledColourImageUnit *", 0, 0, (void *)0, 0};
   static swig_type_info _swigt__p_dynamsoft__intermediate_results__CShortLinesUnit = {"_p_dynamsoft__intermediate_results__CShortLinesUnit", "dynamsoft::intermediate_results::CShortLinesUnit *", 0, 0, (void *)0, 0};
   static swig_type_info _swigt__p_dynamsoft__intermediate_results__CTextRemovedBinaryImageUnit = {"_p_dynamsoft__intermediate_results__CTextRemovedBinaryImageUnit", "dynamsoft::intermediate_results::CTextRemovedBinaryImageUnit *", 0, 0, (void *)0, 0};
   static swig_type_info _swigt__p_dynamsoft__intermediate_results__CTextZone = {"_p_dynamsoft__intermediate_results__CTextZone", "dynamsoft::intermediate_results::CTextZone *", 0, 0, (void *)0, 0};
@@ -18187,6 +18899,7 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
   static swig_type_info _swigt__p_p_dynamsoft__basic_structures__CVector4 = {"_p_p_dynamsoft__basic_structures__CVector4", "dynamsoft::basic_structures::CVector4 **", 0, 0, (void *)0, 0};
   static swig_type_info _swigt__p_p_int = {"_p_p_int", "int **", 0, 0, (void *)0, 0};
   static swig_type_info _swigt__p_unsigned_char = {"_p_unsigned_char", "unsigned char *", 0, 0, (void *)0, 0};
+  static swig_type_info _swigt__p_dynamsoft_basic_structures_CCapturedResultBase = {"_p_dynamsoft_basic_structures_CCapturedResultBase", "dynamsoft::basic_structures::CCapturedResultBase *", 0, 0, (void *)0, 0};
 
   static swig_type_info *swig_type_initial[] = {
       &_swigt__p_BufferOverflowProtectionMode,
@@ -18239,7 +18952,7 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
       &_swigt__p_dynamsoft__intermediate_results__CPredetectedRegionElement,
       &_swigt__p_dynamsoft__intermediate_results__CPredetectedRegionsUnit,
       &_swigt__p_dynamsoft__intermediate_results__CRegionObjectElement,
-      &_swigt__p_dynamsoft__intermediate_results__CScaledDownColourImageUnit,
+      &_swigt__p_dynamsoft__intermediate_results__ScaledColourImageUnit,
       &_swigt__p_dynamsoft__intermediate_results__CShortLinesUnit,
       &_swigt__p_dynamsoft__intermediate_results__CTextRemovedBinaryImageUnit,
       &_swigt__p_dynamsoft__intermediate_results__CTextZone,
@@ -18255,6 +18968,7 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
       &_swigt__p_p_dynamsoft__basic_structures__CVector4,
       &_swigt__p_p_int,
       &_swigt__p_unsigned_char,
+      &_swigt__p_dynamsoft_basic_structures_CCapturedResultBase,
   };
 
   static swig_cast_info _swigc__p_BufferOverflowProtectionMode[] = {{&_swigt__p_BufferOverflowProtectionMode, 0, 0, 0}, {0, 0, 0, 0}};
@@ -18301,13 +19015,13 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
   static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CEnhancedGrayscaleImageUnit[] = {{&_swigt__p_dynamsoft__intermediate_results__CEnhancedGrayscaleImageUnit, 0, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CGrayscaleImageUnit[] = {{&_swigt__p_dynamsoft__intermediate_results__CGrayscaleImageUnit, 0, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CIntermediateResult[] = {{&_swigt__p_dynamsoft__intermediate_results__CIntermediateResult, 0, 0, 0}, {0, 0, 0, 0}};
-  static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CIntermediateResultUnit[] = {{&_swigt__p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CBinaryImageUnit, _p_dynamsoft__intermediate_results__CBinaryImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CColourImageUnit, _p_dynamsoft__intermediate_results__CColourImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CContoursUnit, _p_dynamsoft__intermediate_results__CContoursUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CEnhancedGrayscaleImageUnit, _p_dynamsoft__intermediate_results__CEnhancedGrayscaleImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CGrayscaleImageUnit, _p_dynamsoft__intermediate_results__CGrayscaleImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CLineSegmentsUnit, _p_dynamsoft__intermediate_results__CLineSegmentsUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CPredetectedRegionsUnit, _p_dynamsoft__intermediate_results__CPredetectedRegionsUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CScaledDownColourImageUnit, _p_dynamsoft__intermediate_results__CScaledDownColourImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CShortLinesUnit, _p_dynamsoft__intermediate_results__CShortLinesUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CTextRemovedBinaryImageUnit, _p_dynamsoft__intermediate_results__CTextRemovedBinaryImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CTextZonesUnit, _p_dynamsoft__intermediate_results__CTextZonesUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CTextureDetectionResultUnit, _p_dynamsoft__intermediate_results__CTextureDetectionResultUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CTextureRemovedBinaryImageUnit, _p_dynamsoft__intermediate_results__CTextureRemovedBinaryImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CTextureRemovedGrayscaleImageUnit, _p_dynamsoft__intermediate_results__CTextureRemovedGrayscaleImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CTransformedGrayscaleImageUnit, _p_dynamsoft__intermediate_results__CTransformedGrayscaleImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {0, 0, 0, 0}};
+  static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CIntermediateResultUnit[] = {{&_swigt__p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CBinaryImageUnit, _p_dynamsoft__intermediate_results__CBinaryImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CColourImageUnit, _p_dynamsoft__intermediate_results__CColourImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CContoursUnit, _p_dynamsoft__intermediate_results__CContoursUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CEnhancedGrayscaleImageUnit, _p_dynamsoft__intermediate_results__CEnhancedGrayscaleImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CGrayscaleImageUnit, _p_dynamsoft__intermediate_results__CGrayscaleImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CLineSegmentsUnit, _p_dynamsoft__intermediate_results__CLineSegmentsUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CPredetectedRegionsUnit, _p_dynamsoft__intermediate_results__CPredetectedRegionsUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__ScaledColourImageUnit, _p_dynamsoft__intermediate_results__ScaledColourImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CShortLinesUnit, _p_dynamsoft__intermediate_results__CShortLinesUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CTextRemovedBinaryImageUnit, _p_dynamsoft__intermediate_results__CTextRemovedBinaryImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CTextZonesUnit, _p_dynamsoft__intermediate_results__CTextZonesUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CTextureDetectionResultUnit, _p_dynamsoft__intermediate_results__CTextureDetectionResultUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CTextureRemovedBinaryImageUnit, _p_dynamsoft__intermediate_results__CTextureRemovedBinaryImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CTextureRemovedGrayscaleImageUnit, _p_dynamsoft__intermediate_results__CTextureRemovedGrayscaleImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CTransformedGrayscaleImageUnit, _p_dynamsoft__intermediate_results__CTransformedGrayscaleImageUnitTo_p_dynamsoft__intermediate_results__CIntermediateResultUnit, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CLineSegmentsUnit[] = {{&_swigt__p_dynamsoft__intermediate_results__CLineSegmentsUnit, 0, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CObservationParameters[] = {{&_swigt__p_dynamsoft__intermediate_results__CObservationParameters, 0, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CPredetectedRegionElement[] = {{&_swigt__p_dynamsoft__intermediate_results__CPredetectedRegionElement, 0, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CPredetectedRegionsUnit[] = {{&_swigt__p_dynamsoft__intermediate_results__CPredetectedRegionsUnit, 0, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CRegionObjectElement[] = {{&_swigt__p_dynamsoft__intermediate_results__CRegionObjectElement, 0, 0, 0}, {&_swigt__p_dynamsoft__intermediate_results__CPredetectedRegionElement, _p_dynamsoft__intermediate_results__CPredetectedRegionElementTo_p_dynamsoft__intermediate_results__CRegionObjectElement, 0, 0}, {0, 0, 0, 0}};
-  static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CScaledDownColourImageUnit[] = {{&_swigt__p_dynamsoft__intermediate_results__CScaledDownColourImageUnit, 0, 0, 0}, {0, 0, 0, 0}};
+  static swig_cast_info _swigc__p_dynamsoft__intermediate_results__ScaledColourImageUnit[] = {{&_swigt__p_dynamsoft__intermediate_results__ScaledColourImageUnit, 0, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CShortLinesUnit[] = {{&_swigt__p_dynamsoft__intermediate_results__CShortLinesUnit, 0, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CTextRemovedBinaryImageUnit[] = {{&_swigt__p_dynamsoft__intermediate_results__CTextRemovedBinaryImageUnit, 0, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_dynamsoft__intermediate_results__CTextZone[] = {{&_swigt__p_dynamsoft__intermediate_results__CTextZone, 0, 0, 0}, {0, 0, 0, 0}};
@@ -18323,6 +19037,7 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
   static swig_cast_info _swigc__p_p_dynamsoft__basic_structures__CVector4[] = {{&_swigt__p_p_dynamsoft__basic_structures__CVector4, 0, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_p_int[] = {{&_swigt__p_p_int, 0, 0, 0}, {0, 0, 0, 0}};
   static swig_cast_info _swigc__p_unsigned_char[] = {{&_swigt__p_unsigned_char, 0, 0, 0}, {0, 0, 0, 0}};
+  static swig_cast_info _swigc__p_dynamsoft_basic_structures_CCapturedResultBase[] = {{&_swigt__p_dynamsoft_basic_structures_CCapturedResultBase, 0, 0, 0}, {0, 0, 0, 0}};
 
   static swig_cast_info *swig_cast_initial[] = {
       _swigc__p_BufferOverflowProtectionMode,
@@ -18375,7 +19090,7 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
       _swigc__p_dynamsoft__intermediate_results__CPredetectedRegionElement,
       _swigc__p_dynamsoft__intermediate_results__CPredetectedRegionsUnit,
       _swigc__p_dynamsoft__intermediate_results__CRegionObjectElement,
-      _swigc__p_dynamsoft__intermediate_results__CScaledDownColourImageUnit,
+      _swigc__p_dynamsoft__intermediate_results__ScaledColourImageUnit,
       _swigc__p_dynamsoft__intermediate_results__CShortLinesUnit,
       _swigc__p_dynamsoft__intermediate_results__CTextRemovedBinaryImageUnit,
       _swigc__p_dynamsoft__intermediate_results__CTextZone,
@@ -18391,6 +19106,7 @@ SWIGINTERN PyObject *_wrap_COriginalImageResultItem_Release(PyObject *self, PyOb
       _swigc__p_p_dynamsoft__basic_structures__CVector4,
       _swigc__p_p_int,
       _swigc__p_unsigned_char,
+      _swigc__p_dynamsoft_basic_structures_CCapturedResultBase,
   };
 
   /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (END) -------- */
@@ -18900,7 +19616,6 @@ void
 
   SWIG_InstallConstants(d, swig_const_table);
 
-  SWIG_Python_SetConstant(d, "DYNAMSOFT_CORE_VERSION", SWIG_FromCharPtr("3.2.40.1028"));
   SWIG_Python_SetConstant(d, "EC_OK", SWIG_From_int(static_cast<int>(EC_OK)));
   SWIG_Python_SetConstant(d, "EC_UNKNOWN", SWIG_From_int(static_cast<int>(EC_UNKNOWN)));
   SWIG_Python_SetConstant(d, "EC_NO_MEMORY", SWIG_From_int(static_cast<int>(EC_NO_MEMORY)));
@@ -18959,6 +19674,10 @@ void
   SWIG_Python_SetConstant(d, "EC_RESULT_TYPE_MISMATCH_IRREPLACEABLE", SWIG_From_int(static_cast<int>(EC_RESULT_TYPE_MISMATCH_IRREPLACEABLE)));
   SWIG_Python_SetConstant(d, "EC_PDF_LIBRARY_LOAD_FAILED", SWIG_From_int(static_cast<int>(EC_PDF_LIBRARY_LOAD_FAILED)));
   SWIG_Python_SetConstant(d, "EC_LICENSE_WARNING", SWIG_From_int(static_cast<int>(EC_LICENSE_WARNING)));
+  SWIG_Python_SetConstant(d, "EC_UNSUPPORTED_JSON_KEY_WARNING", SWIG_From_int(static_cast<int>(EC_UNSUPPORTED_JSON_KEY_WARNING)));
+  SWIG_Python_SetConstant(d, "EC_MODEL_FILE_NOT_FOUND", SWIG_From_int(static_cast<int>(EC_MODEL_FILE_NOT_FOUND)));
+  SWIG_Python_SetConstant(d, "EC_PDF_LICENSE_NOT_FOUND", SWIG_From_int(static_cast<int>(EC_PDF_LICENSE_NOT_FOUND)));
+  SWIG_Python_SetConstant(d, "EC_RECT_INVALID", SWIG_From_int(static_cast<int>(EC_RECT_INVALID)));
   SWIG_Python_SetConstant(d, "EC_NO_LICENSE", SWIG_From_int(static_cast<int>(EC_NO_LICENSE)));
   SWIG_Python_SetConstant(d, "EC_HANDSHAKE_CODE_INVALID", SWIG_From_int(static_cast<int>(EC_HANDSHAKE_CODE_INVALID)));
   SWIG_Python_SetConstant(d, "EC_LICENSE_BUFFER_FAILED", SWIG_From_int(static_cast<int>(EC_LICENSE_BUFFER_FAILED)));
@@ -19029,6 +19748,7 @@ void
   SWIG_Python_SetConstant(d, "GTM_ORIGINAL", SWIG_From_int(static_cast<int>(GTM_ORIGINAL)));
   SWIG_Python_SetConstant(d, "GTM_AUTO", SWIG_From_int(static_cast<int>(GTM_AUTO)));
   SWIG_Python_SetConstant(d, "GTM_REV", SWIG_From_int(static_cast<int>(GTM_REV)));
+  SWIG_Python_SetConstant(d, "GTM_END", SWIG_From_int(static_cast<int>(GTM_END)));
   SWIG_Python_SetConstant(d, "GTM_SKIP", SWIG_From_int(static_cast<int>(GTM_SKIP)));
   SWIG_Python_SetConstant(d, "GEM_AUTO", SWIG_From_int(static_cast<int>(GEM_AUTO)));
   SWIG_Python_SetConstant(d, "GEM_GENERAL", SWIG_From_int(static_cast<int>(GEM_GENERAL)));
@@ -19036,6 +19756,7 @@ void
   SWIG_Python_SetConstant(d, "GEM_GRAY_SMOOTH", SWIG_From_int(static_cast<int>(GEM_GRAY_SMOOTH)));
   SWIG_Python_SetConstant(d, "GEM_SHARPEN_SMOOTH", SWIG_From_int(static_cast<int>(GEM_SHARPEN_SMOOTH)));
   SWIG_Python_SetConstant(d, "GEM_REV", SWIG_From_int(static_cast<int>(GEM_REV)));
+  SWIG_Python_SetConstant(d, "GEM_END", SWIG_From_int(static_cast<int>(GEM_END)));
   SWIG_Python_SetConstant(d, "GEM_SKIP", SWIG_From_int(static_cast<int>(GEM_SKIP)));
   SWIG_Python_SetConstant(d, "PDFRM_VECTOR", SWIG_From_int(static_cast<int>(PDFRM_VECTOR)));
   SWIG_Python_SetConstant(d, "PDFRM_RASTER", SWIG_From_int(static_cast<int>(PDFRM_RASTER)));
@@ -19046,8 +19767,9 @@ void
   SWIG_Python_SetConstant(d, "CRIT_BARCODE", SWIG_From_int(static_cast<int>(CRIT_BARCODE)));
   SWIG_Python_SetConstant(d, "CRIT_TEXT_LINE", SWIG_From_int(static_cast<int>(CRIT_TEXT_LINE)));
   SWIG_Python_SetConstant(d, "CRIT_DETECTED_QUAD", SWIG_From_int(static_cast<int>(CRIT_DETECTED_QUAD)));
-  SWIG_Python_SetConstant(d, "CRIT_NORMALIZED_IMAGE", SWIG_From_int(static_cast<int>(CRIT_NORMALIZED_IMAGE)));
+  SWIG_Python_SetConstant(d, "CRIT_DESKEWED_IMAGE", SWIG_From_int(static_cast<int>(CRIT_DESKEWED_IMAGE)));
   SWIG_Python_SetConstant(d, "CRIT_PARSED_RESULT", SWIG_From_int(static_cast<int>(CRIT_PARSED_RESULT)));
+  SWIG_Python_SetConstant(d, "CRIT_ENHANCED_IMAGE", SWIG_From_int(static_cast<int>(CRIT_ENHANCED_IMAGE)));
   SWIG_Python_SetConstant(d, "BOPM_BLOCK", SWIG_From_int(static_cast<int>(BOPM_BLOCK)));
   SWIG_Python_SetConstant(d, "BOPM_UPDATE", SWIG_From_int(static_cast<int>(BOPM_UPDATE)));
   SWIG_Python_SetConstant(d, "ITT_FILE_IMAGE", SWIG_From_int(static_cast<int>(ITT_FILE_IMAGE)));
@@ -19066,10 +19788,11 @@ void
   SWIG_Python_SetConstant(d, "ST_TEXT_LINE_LOCALIZATION", SWIG_From_int(static_cast<int>(ST_TEXT_LINE_LOCALIZATION)));
   SWIG_Python_SetConstant(d, "ST_TEXT_LINE_RECOGNITION", SWIG_From_int(static_cast<int>(ST_TEXT_LINE_RECOGNITION)));
   SWIG_Python_SetConstant(d, "ST_DOCUMENT_DETECTION", SWIG_From_int(static_cast<int>(ST_DOCUMENT_DETECTION)));
-  SWIG_Python_SetConstant(d, "ST_DOCUMENT_NORMALIZATION", SWIG_From_int(static_cast<int>(ST_DOCUMENT_NORMALIZATION)));
+  SWIG_Python_SetConstant(d, "ST_DOCUMENT_DESKEWING", SWIG_From_int(static_cast<int>(ST_DOCUMENT_DESKEWING)));
+  SWIG_Python_SetConstant(d, "ST_IMAGE_ENHANCEMENT", SWIG_From_int(static_cast<int>(ST_IMAGE_ENHANCEMENT)));
   SWIG_Python_SetConstant(d, "IRUT_NULL", PyLong_FromUnsignedLongLong((IRUT_NULL)));
   SWIG_Python_SetConstant(d, "IRUT_COLOUR_IMAGE", PyLong_FromUnsignedLongLong((IRUT_COLOUR_IMAGE)));
-  SWIG_Python_SetConstant(d, "IRUT_SCALED_DOWN_COLOUR_IMAGE", PyLong_FromUnsignedLongLong((IRUT_SCALED_DOWN_COLOUR_IMAGE)));
+  SWIG_Python_SetConstant(d, "IRUT_SCALED_COLOUR_IMAGE", PyLong_FromUnsignedLongLong((IRUT_SCALED_COLOUR_IMAGE)));
   SWIG_Python_SetConstant(d, "IRUT_GRAYSCALE_IMAGE", PyLong_FromUnsignedLongLong((IRUT_GRAYSCALE_IMAGE)));
   SWIG_Python_SetConstant(d, "IRUT_TRANSFORMED_GRAYSCALE_IMAGE", PyLong_FromUnsignedLongLong((IRUT_TRANSFORMED_GRAYSCALE_IMAGE)));
   SWIG_Python_SetConstant(d, "IRUT_ENHANCED_GRAYSCALE_IMAGE", PyLong_FromUnsignedLongLong((IRUT_ENHANCED_GRAYSCALE_IMAGE)));
@@ -19084,7 +19807,7 @@ void
   SWIG_Python_SetConstant(d, "IRUT_TEXT_REMOVED_BINARY_IMAGE", PyLong_FromUnsignedLongLong((IRUT_TEXT_REMOVED_BINARY_IMAGE)));
   SWIG_Python_SetConstant(d, "IRUT_CANDIDATE_BARCODE_ZONES", PyLong_FromUnsignedLongLong((IRUT_CANDIDATE_BARCODE_ZONES)));
   SWIG_Python_SetConstant(d, "IRUT_LOCALIZED_BARCODES", PyLong_FromUnsignedLongLong((IRUT_LOCALIZED_BARCODES)));
-  SWIG_Python_SetConstant(d, "IRUT_SCALED_UP_BARCODE_IMAGE", PyLong_FromUnsignedLongLong((IRUT_SCALED_UP_BARCODE_IMAGE)));
+  SWIG_Python_SetConstant(d, "IRUT_SCALED_BARCODE_IMAGE", PyLong_FromUnsignedLongLong((IRUT_SCALED_BARCODE_IMAGE)));
   SWIG_Python_SetConstant(d, "IRUT_DEFORMATION_RESISTED_BARCODE_IMAGE", PyLong_FromUnsignedLongLong((IRUT_DEFORMATION_RESISTED_BARCODE_IMAGE)));
   SWIG_Python_SetConstant(d, "IRUT_COMPLEMENTED_BARCODE_IMAGE", PyLong_FromUnsignedLongLong((IRUT_COMPLEMENTED_BARCODE_IMAGE)));
   SWIG_Python_SetConstant(d, "IRUT_DECODED_BARCODES", PyLong_FromUnsignedLongLong((IRUT_DECODED_BARCODES)));
@@ -19094,9 +19817,11 @@ void
   SWIG_Python_SetConstant(d, "IRUT_DETECTED_QUADS", PyLong_FromUnsignedLongLong((IRUT_DETECTED_QUADS)));
   SWIG_Python_SetConstant(d, "IRUT_LOCALIZED_TEXT_LINES", PyLong_FromUnsignedLongLong((IRUT_LOCALIZED_TEXT_LINES)));
   SWIG_Python_SetConstant(d, "IRUT_RECOGNIZED_TEXT_LINES", PyLong_FromUnsignedLongLong((IRUT_RECOGNIZED_TEXT_LINES)));
-  SWIG_Python_SetConstant(d, "IRUT_NORMALIZED_IMAGES", PyLong_FromUnsignedLongLong((IRUT_NORMALIZED_IMAGES)));
+  SWIG_Python_SetConstant(d, "IRUT_DESKEWED_IMAGE", PyLong_FromUnsignedLongLong((IRUT_DESKEWED_IMAGE)));
   SWIG_Python_SetConstant(d, "IRUT_SHORT_LINES", PyLong_FromUnsignedLongLong((IRUT_SHORT_LINES)));
   SWIG_Python_SetConstant(d, "IRUT_RAW_TEXT_LINES", PyLong_FromUnsignedLongLong((IRUT_RAW_TEXT_LINES)));
+  SWIG_Python_SetConstant(d, "IRUT_LOGIC_LINES", PyLong_FromUnsignedLongLong((IRUT_LOGIC_LINES)));
+  SWIG_Python_SetConstant(d, "IRUT_ENHANCED_IMAGE", PyLong_FromUnsignedLongLong((IRUT_ENHANCED_IMAGE)));
   SWIG_Python_SetConstant(d, "IRUT_ALL", PyLong_FromUnsignedLongLong((IRUT_ALL)));
   SWIG_Python_SetConstant(d, "ROET_PREDETECTED_REGION", SWIG_From_int(static_cast<int>(ROET_PREDETECTED_REGION)));
   SWIG_Python_SetConstant(d, "ROET_LOCALIZED_BARCODE", SWIG_From_int(static_cast<int>(ROET_LOCALIZED_BARCODE)));
@@ -19104,9 +19829,10 @@ void
   SWIG_Python_SetConstant(d, "ROET_LOCALIZED_TEXT_LINE", SWIG_From_int(static_cast<int>(ROET_LOCALIZED_TEXT_LINE)));
   SWIG_Python_SetConstant(d, "ROET_RECOGNIZED_TEXT_LINE", SWIG_From_int(static_cast<int>(ROET_RECOGNIZED_TEXT_LINE)));
   SWIG_Python_SetConstant(d, "ROET_DETECTED_QUAD", SWIG_From_int(static_cast<int>(ROET_DETECTED_QUAD)));
-  SWIG_Python_SetConstant(d, "ROET_NORMALIZED_IMAGE", SWIG_From_int(static_cast<int>(ROET_NORMALIZED_IMAGE)));
+  SWIG_Python_SetConstant(d, "ROET_DESKEWED_IMAGE", SWIG_From_int(static_cast<int>(ROET_DESKEWED_IMAGE)));
   SWIG_Python_SetConstant(d, "ROET_SOURCE_IMAGE", SWIG_From_int(static_cast<int>(ROET_SOURCE_IMAGE)));
   SWIG_Python_SetConstant(d, "ROET_TARGET_ROI", SWIG_From_int(static_cast<int>(ROET_TARGET_ROI)));
+  SWIG_Python_SetConstant(d, "ROET_ENHANCED_IMAGE", SWIG_From_int(static_cast<int>(ROET_ENHANCED_IMAGE)));
   SWIG_Python_SetConstant(d, "ICDM_NEAR", SWIG_From_int(static_cast<int>(ICDM_NEAR)));
   SWIG_Python_SetConstant(d, "ICDM_FAR", SWIG_From_int(static_cast<int>(ICDM_FAR)));
   SWIG_Python_SetConstant(d, "CCUT_AUTO", SWIG_From_int(static_cast<int>(CCUT_AUTO)));
@@ -19119,6 +19845,15 @@ void
   SWIG_Python_SetConstant(d, "TMT_ORIGINAL_TO_LOCAL_IMAGE", SWIG_From_int(static_cast<int>(TMT_ORIGINAL_TO_LOCAL_IMAGE)));
   SWIG_Python_SetConstant(d, "TMT_ROTATED_TO_ORIGINAL_IMAGE", SWIG_From_int(static_cast<int>(TMT_ROTATED_TO_ORIGINAL_IMAGE)));
   SWIG_Python_SetConstant(d, "TMT_ORIGINAL_TO_ROTATED_IMAGE", SWIG_From_int(static_cast<int>(TMT_ORIGINAL_TO_ROTATED_IMAGE)));
+  SWIG_Python_SetConstant(d, "TMT_LOCAL_TO_SECTION_IMAGE", SWIG_From_int(static_cast<int>(TMT_LOCAL_TO_SECTION_IMAGE)));
+  SWIG_Python_SetConstant(d, "TMT_SECTION_TO_LOCAL_IMAGE", SWIG_From_int(static_cast<int>(TMT_SECTION_TO_LOCAL_IMAGE)));
+  SWIG_Python_SetConstant(d, "CVS_NOT_VERIFIED", SWIG_From_int(static_cast<int>(CVS_NOT_VERIFIED)));
+  SWIG_Python_SetConstant(d, "CVS_PASSED", SWIG_From_int(static_cast<int>(CVS_PASSED)));
+  SWIG_Python_SetConstant(d, "CVS_FAILED", SWIG_From_int(static_cast<int>(CVS_FAILED)));
+  SWIG_Python_SetConstant(d, "IFF_JPEG", SWIG_From_int(static_cast<int>(IFF_JPEG)));
+  SWIG_Python_SetConstant(d, "IFF_PNG", SWIG_From_int(static_cast<int>(IFF_PNG)));
+  SWIG_Python_SetConstant(d, "IFF_BMP", SWIG_From_int(static_cast<int>(IFF_BMP)));
+  SWIG_Python_SetConstant(d, "IFF_PDF", SWIG_From_int(static_cast<int>(IFF_PDF)));
   globals = SWIG_globals();
   if (!globals)
   {

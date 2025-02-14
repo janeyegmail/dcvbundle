@@ -1,4 +1,4 @@
-__version__ = "1.2.30.5867"
+__version__ = "3.0.10.7501"
 
 if __package__ or "." in __name__:
     from . import _DynamsoftCodeParserDedicator

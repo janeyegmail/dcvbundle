@@ -10,4 +10,4 @@ from .dnn import *
 from .license import *
 from .utility import *
 
-__version__ = "2.4.2001"
+__version__ = "3.0.1000"

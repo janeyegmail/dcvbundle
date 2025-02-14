@@ -1,4 +1,4 @@
-__version__ = "10.5.21.5867"
+__version__ = "11.0.10.7501"
 
 if __package__ or "." in __name__:
     from .core import *
@@ -60,6 +60,8 @@ class EnumBarcodeFormat(IntEnum):
     BF_TWO_DIGIT_ADD_ON = _DynamsoftBarcodeReader.BF_TWO_DIGIT_ADD_ON
     BF_FIVE_DIGIT_ADD_ON = _DynamsoftBarcodeReader.BF_FIVE_DIGIT_ADD_ON
     BF_MATRIX_25 = _DynamsoftBarcodeReader.BF_MATRIX_25
+    BF_TELEPEN = _DynamsoftBarcodeReader.BF_TELEPEN
+    BF_TELEPEN_NUMERIC = _DynamsoftBarcodeReader.BF_TELEPEN_NUMERIC
     BF_POSTALCODE = _DynamsoftBarcodeReader.BF_POSTALCODE
     BF_NONSTANDARD_BARCODE = _DynamsoftBarcodeReader.BF_NONSTANDARD_BARCODE
     BF_USPSINTELLIGENTMAIL = _DynamsoftBarcodeReader.BF_USPSINTELLIGENTMAIL
@@ -84,7 +86,9 @@ class EnumLocalizationMode(IntEnum):
     LM_STATISTICS_POSTAL_CODE = _DynamsoftBarcodeReader.LM_STATISTICS_POSTAL_CODE
     LM_CENTRE = _DynamsoftBarcodeReader.LM_CENTRE
     LM_ONED_FAST_SCAN = _DynamsoftBarcodeReader.LM_ONED_FAST_SCAN
+    LM_NEURAL_NETWORK = _DynamsoftBarcodeReader.LM_NEURAL_NETWORK
     LM_REV = _DynamsoftBarcodeReader.LM_REV
+    LM_END = _DynamsoftBarcodeReader.LM_END
     LM_SKIP = _DynamsoftBarcodeReader.LM_SKIP
 
 
@@ -98,7 +102,9 @@ class EnumDeblurMode(IntEnum):
     DM_SHARPENING = _DynamsoftBarcodeReader.DM_SHARPENING
     DM_BASED_ON_LOC_BIN = _DynamsoftBarcodeReader.DM_BASED_ON_LOC_BIN
     DM_SHARPENING_SMOOTHING = _DynamsoftBarcodeReader.DM_SHARPENING_SMOOTHING
+    DM_NEURAL_NETWORK = _DynamsoftBarcodeReader.DM_NEURAL_NETWORK
     DM_REV = _DynamsoftBarcodeReader.DM_REV
+    DM_END = _DynamsoftBarcodeReader.DM_END
     DM_SKIP = _DynamsoftBarcodeReader.DM_SKIP
 
 
@@ -788,7 +794,7 @@ class BarcodeResultItem(CapturedResultItem):
 
 _DynamsoftBarcodeReader.CBarcodeResultItem_register(BarcodeResultItem)
 
-class DecodedBarcodesResult:
+class DecodedBarcodesResult(CapturedResultBase):
     """
     The DecodedBarcodesResult class represents the result of a barcode reading process.
     It provides access to information about the decoded barcodes, the source image, and any errors that occurred during the barcode reading process.
@@ -810,39 +816,6 @@ class DecodedBarcodesResult:
 
     __destroy__ = _DynamsoftBarcodeReader.CDecodedBarcodesResult_Release
 
-    def get_original_image_hash_id(self) -> str:
-        """
-        Gets the hash ID of the source image.
-
-        Returns:
-            The hash ID of the source image as a string.
-        """
-        return _DynamsoftBarcodeReader.CDecodedBarcodesResult_GetOriginalImageHashId(
-            self
-        )
-
-    def get_original_image_tag(self) -> ImageTag:
-        """
-        Gets the tag of the source image.
-
-        Returns:
-            An ImageTag object containing the tag of the source image.
-        """
-        return _DynamsoftBarcodeReader.CDecodedBarcodesResult_GetOriginalImageTag(self)
-
-    def get_rotation_transform_matrix(self) -> List[float]:
-        """
-        Gets the 3x3 rotation transformation matrix of the original image relative to the rotated image.
-
-        Returns:
-            A float list of length 9 which represents a 3x3 rotation matrix.
-        """
-        return (
-            _DynamsoftBarcodeReader.CDecodedBarcodesResult_GetRotationTransformMatrix(
-                self
-            )
-        )
-
     def get_items(self) -> List[BarcodeResultItem]:
         """
         Gets all the decoded barcode result items.
@@ -855,26 +828,7 @@ class DecodedBarcodesResult:
         for i in range(count):
             list.append(_DynamsoftBarcodeReader.CDecodedBarcodesResult_GetItem(self, i))
         return list
-
-    def get_error_code(self) -> int:
-        """
-        Gets the error code of the barcode reading result, if an error occurred.
-
-        Returns:
-            The error code of the barcode reading result, or 0 if no error occurred.
-        """
-        return _DynamsoftBarcodeReader.CDecodedBarcodesResult_GetErrorCode(self)
-
-    def get_error_string(self) -> str:
-        """
-        Gets the error message of the barcode reading result, if an error occurred.
-
-        Returns:
-            A string containing the error message of the barcode reading result, or an empty string if no error occurred.
-        """
-        return _DynamsoftBarcodeReader.CDecodedBarcodesResult_GetErrorString(self)
-
-
+    
 _DynamsoftBarcodeReader.CDecodedBarcodesResult_register(DecodedBarcodesResult)
 
 #new 
@@ -902,6 +856,9 @@ class LocalizedBarcodeElement(RegionObjectElement):
 
     def set_possible_formats(self, possible_formats: int) -> None:
         return _DynamsoftBarcodeReader.CLocalizedBarcodeElement_SetPossibleFormats(self, possible_formats)
+    
+    def set_location(self, location: Quadrilateral) -> int:
+        return _DynamsoftBarcodeReader.CLocalizedBarcodeElement_SetLocation(self, location)
 
 # Register CLocalizedBarcodeElement in _DynamsoftBarcodeReader:
 _DynamsoftBarcodeReader.CLocalizedBarcodeElement_register(LocalizedBarcodeElement)
@@ -957,6 +914,10 @@ class DecodedBarcodeElement(RegionObjectElement):
 
     def set_confidence(self, confidence: int) -> None:
         return _DynamsoftBarcodeReader.CDecodedBarcodeElement_SetConfidence(self, confidence)
+
+    def set_location(self, location: Quadrilateral) -> int:
+        return _DynamsoftBarcodeReader.CDecodedBarcodeElement_SetLocation(self, location)
+
 
 # Register CDecodedBarcodeElement in _DynamsoftBarcodeReader:
 _DynamsoftBarcodeReader.CDecodedBarcodeElement_register(DecodedBarcodeElement)
@@ -1059,20 +1020,20 @@ class LocalizedBarcodesUnit(IntermediateResultUnit):
 # Register CLocalizedBarcodesUnit in _DynamsoftBarcodeReader:
 _DynamsoftBarcodeReader.CLocalizedBarcodesUnit_register(LocalizedBarcodesUnit)
 
-class ScaledUpBarcodeImageUnit(IntermediateResultUnit):
+class ScaledBarcodeImageUnit(IntermediateResultUnit):
     _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     
     def get_image_data(self) -> ImageData:
-        return _DynamsoftBarcodeReader.CScaledUpBarcodeImageUnit_GetImageData(self)
+        return _DynamsoftBarcodeReader.CScaledBarcodeImageUnit_GetImageData(self)
 
     def set_image_data(self, image_data: ImageData) -> int:
-        return _DynamsoftBarcodeReader.CScaledUpBarcodeImageUnit_SetImageData(self, image_data)
+        return _DynamsoftBarcodeReader.CScaledBarcodeImageUnit_SetImageData(self, image_data)
 
-# Register CScaledUpBarcodeImageUnit in _DynamsoftBarcodeReader:
-_DynamsoftBarcodeReader.CScaledUpBarcodeImageUnit_register(ScaledUpBarcodeImageUnit)
+# Register CScaledBarcodeImageUnit in _DynamsoftBarcodeReader:
+_DynamsoftBarcodeReader.CScaledBarcodeImageUnit_register(ScaledBarcodeImageUnit)
 class DeformationResistedBarcode:
     _thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     

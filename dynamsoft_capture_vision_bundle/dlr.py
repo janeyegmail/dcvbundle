@@ -1,4 +1,4 @@
-__version__ = "3.5.21.5867"
+__version__ = "4.0.10.7501"
 
 if __package__ or "." in __name__:
     from .core import *
@@ -36,22 +36,6 @@ class SimplifiedLabelRecognizerSettings:
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
     )
 
-    # grayscale_transformation_modes: List[int] = property(
-    #     _DynamsoftLabelRecognizer.SimplifiedLabelRecognizerSettings_grayscaleTransformationModes_get,
-    #     _DynamsoftLabelRecognizer.SimplifiedLabelRecognizerSettings_grayscaleTransformationModes_set,
-    #     doc="""
-    #         Specifies how grayscale transformations should be applied, including whether to process inverted grayscale images and the specific transformation mode to use.
-    #         It is a list of 8 integers, where each integer represents a mode specified by the EnumGrayscaleTransformationMode enumeration.
-    #         """
-    # )
-    # grayscale_enhancement_modes: List[int] = property(
-    #     _DynamsoftLabelRecognizer.SimplifiedLabelRecognizerSettings_grayscaleEnhancementModes_get,
-    #     _DynamsoftLabelRecognizer.SimplifiedLabelRecognizerSettings_grayscaleEnhancementModes_set,
-    #     doc="""
-    #         Specifies how to enhance the quality of the grayscale image.
-    #         It is a list of 8 integers, where each integer represents a mode specified by the EnumGrayscaleEnhancementMode enumeration.
-    #         """,
-    # )
     @property
     def grayscale_transformation_modes(self) -> List[int]:
         if not hasattr(self, "_grayscale_transformation_modes") or self._grayscale_transformation_modes is None:
@@ -268,18 +252,13 @@ class TextLineResultItem(CapturedResultItem):
 _DynamsoftLabelRecognizer.CTextLineResultItem_register(TextLineResultItem)
 
 
-class RecognizedTextLinesResult:
+class RecognizedTextLinesResult(CapturedResultBase):
     """
     The RecognizedTextLinesResult class represents the result of a text recognition process.
     It provides access to information about the recognized text lines, the original image, and any errors that occurred during the recognition process.
 
     Methods:
-        get_original_image_hash_id(self) -> str: Gets the hash ID of the original image.
-        get_original_image_tag(self) -> ImageTag: Gets the tag of the original image.
-        get_rotation_transform_matrix(self) -> List[float]: Gets the 3x3 rotation transformation matrix of the original image relative to the rotated image.
         get_items(self) -> List[TextLineResultItem]: Gets all the text line result items.
-        get_error_code(self) -> int: Gets the error code of the recognition result, if an error occurred.
-        get_error_string(self) -> str: Gets the error message of the recognition result, if an error occurred.
     """
     _thisown = property(
         lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag"
@@ -289,41 +268,6 @@ class RecognizedTextLinesResult:
         raise AttributeError("No constructor defined - class is abstract")
 
     __destroy__ = _DynamsoftLabelRecognizer.CRecognizedTextLinesResult_Release
-
-    def get_original_image_hash_id(self) -> str:
-        """
-        Gets the hash ID of the original image.
-
-        Returns:
-            A string containing the hash ID of the original image.
-        """
-        return (
-            _DynamsoftLabelRecognizer.CRecognizedTextLinesResult_GetOriginalImageHashId(
-                self
-            )
-        )
-
-    def get_original_image_tag(self) -> ImageTag:
-        """
-        Gets the tag of the original image.
-
-        Returns:
-            An ImageTag object containing the tag of the original image.
-        """
-        return _DynamsoftLabelRecognizer.CRecognizedTextLinesResult_GetOriginalImageTag(
-            self
-        )
-
-    def get_rotation_transform_matrix(self) -> List[float]:
-        """
-        Gets the 3x3 rotation transformation matrix of the original image relative to the rotated image.
-
-        Returns:
-            A float list of length 9 which represents a 3x3 rotation matrix.
-        """
-        return _DynamsoftLabelRecognizer.CRecognizedTextLinesResult_GetRotationTransformMatrix(
-            self
-        )
 
     def get_items(self) -> List[TextLineResultItem]:
         """
@@ -339,25 +283,6 @@ class RecognizedTextLinesResult:
                 _DynamsoftLabelRecognizer.CRecognizedTextLinesResult_GetItem(self, i)
             )
         return list
-
-    def get_error_code(self) -> int:
-        """
-        Gets the error code of the recognition result, if an error occurred.
-
-        Returns:
-            The error code.
-        """
-        return _DynamsoftLabelRecognizer.CRecognizedTextLinesResult_GetErrorCode(self)
-
-    def get_error_string(self) -> str:
-        """
-        Gets the error message of the recognition result, if an error occurred.
-
-        Returns:
-            A string that represents the error message.
-        """
-        return _DynamsoftLabelRecognizer.CRecognizedTextLinesResult_GetErrorString(self)
-
 
 _DynamsoftLabelRecognizer.CRecognizedTextLinesResult_register(RecognizedTextLinesResult)
 
@@ -562,7 +487,9 @@ class LocalizedTextLineElement(RegionObjectElement):
 
     def get_row_number(self) -> int:
         return _DynamsoftLabelRecognizer.CLocalizedTextLineElement_GetRowNumber(self)
-
+    
+    def set_location(self, location: Quadrilateral) -> int:
+        return _DynamsoftLabelRecognizer.CLocalizedTextLineElement_SetLocation(self, location)
 # Register CLocalizedTextLineElement in _DynamsoftLabelRecognizer:
 _DynamsoftLabelRecognizer.CLocalizedTextLineElement_register(LocalizedTextLineElement)
 class RecognizedTextLineElement(RegionObjectElement):
@@ -598,6 +525,8 @@ class RecognizedTextLineElement(RegionObjectElement):
     def get_raw_text(self) -> str:
         return _DynamsoftLabelRecognizer.CRecognizedTextLineElement_GetRawText(self)
 
+    def set_location(self, location: Quadrilateral) -> int:
+        return _DynamsoftLabelRecognizer.CRecognizedTextLineElement_SetLocation(self, location)
 # Register CRecognizedTextLineElement in _DynamsoftLabelRecognizer:
 _DynamsoftLabelRecognizer.CRecognizedTextLineElement_register(RecognizedTextLineElement)
 class LocalizedTextLinesUnit(IntermediateResultUnit):
@@ -701,6 +630,9 @@ class RawTextLine:
 
     def set_specification_name(self, specification_name: str) -> int:
         return _DynamsoftLabelRecognizer.CRawTextLine_SetSpecificationName(self, specification_name)
+    
+    def set_character_results(self, char_array: List[CharacterResult]) -> int:
+        return _DynamsoftLabelRecognizer.CRawTextLine_SetCharacterResults(self, char_array)
 
 # Register CRawTextLine in _DynamsoftLabelRecognizer:
 _DynamsoftLabelRecognizer.CRawTextLine_register(RawTextLine)
